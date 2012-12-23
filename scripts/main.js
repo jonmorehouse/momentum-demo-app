@@ -1,6 +1,7 @@
 requirejs.config({
 
-	baseUrl: "scripts"
+	baseUrl: "scripts",//
+	urlArgs: "bust=" +  (new Date()).getTime()//used to keep the browser from caching the scripts as we move
 
 });
 
@@ -10,12 +11,12 @@ requirejs.config({
 
 	Then could have a pages element that loads in these elements?
 
-
 */
-requirejs(["resources/jquery"], 
+requirejs(["resources/jquery", "test"], 
 
-	function($) {
+	function($, test) {
 
+		test.test();
 
 
 });
