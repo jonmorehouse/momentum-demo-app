@@ -1,9 +1,21 @@
-require(["jquery", "test/base"], function($) {
-    //the jquery.alpha.js and jquery.beta.js plugins have been loaded.
-    $(function() {
+requirejs.config({
 
-    	// LOAD THE INITIAL FUNCTIONALITY HERE
+	baseUrl: "scripts"
+
+});
+
+/*
+
+	Could load in modules as a directory which requires everything in those directories?
+
+	Then could have a pages element that loads in these elements?
 
 
-    });
+*/
+requirejs(["resources/jquery"], 
+
+	function($) {
+
+
+
 });
