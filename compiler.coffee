@@ -12,6 +12,7 @@ outputFile = "index.html"
 fs.readFile "templates/header.jade", "utf8", (err, rawTemplate) ->
 		
 	data = require "./data/header.coffee"
+
 	options =
 
 		pretty: true
