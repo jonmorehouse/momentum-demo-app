@@ -16,6 +16,13 @@ body
 		color: orange
 		text-align: center
 
+		@include transition(color, 2s)
+
+		&:hover
+
+			cursor: pointer
+			color: brown
+
 /*BASIC CONTAINER SETUP */
 #container
 	@include center(90%)

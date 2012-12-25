@@ -20,8 +20,10 @@ requirejs.config({
 });
 
 // initialize the document with a doc ready!
-requirejs(["jquery"], function ($) {
+requirejs(["jquery", "controller"], function ($, controller) {
 
-	
+	// run the controller after jquery load?
+
+	controller()
 
 });
