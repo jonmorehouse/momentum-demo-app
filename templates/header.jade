@@ -9,6 +9,9 @@ head
 	each url in header.styleSheets
 		link(rel="stylesheet", type="text/css", href="#{url}")
 
+	each url in header.javascripts
+		script(type="text/javascript", src="#{url}")
+		
 	script(type="text/javascript", data-main="#{header.requireApp}", src="#{header.requireUrl}")
 
 body

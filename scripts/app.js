@@ -20,11 +20,8 @@ requirejs.config({
 });
 
 // initialize the document with a doc ready!
-requirejs(["modernizr"], function() {
+requirejs(["jquery"], function ($) {
 
-	requirejs(["jquery"], function ($) {
+	
 
-		
-
-	});
 });
