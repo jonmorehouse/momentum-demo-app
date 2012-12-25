@@ -88,6 +88,9 @@ body {
   border-bottom-left-radius: 1em;
   border-bottom-right-radius: 1em; }
 #container div > canvas {
-  height: 8em;
+  display: block;
   width: 100%;
+  position: relative;
+  margin: 0 auto;
+  height: 10em;
   background-color: white; }

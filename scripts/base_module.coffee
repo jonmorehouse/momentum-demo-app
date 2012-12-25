@@ -3,13 +3,13 @@
 # this module serves as the controller for this animation
 # need to resize the balls on mass change
 
-define ['paper', 'velocity_button'], (paper, velocity_button) ->
+define ['paper', 'velocity_button'], (paper, VelocityButton) ->
 
 
 	class BaseModule
 
-		triggerReset = undefined
-		triggerChange = undefined 
+		triggerReset = () -> return false #parent attached function which will allow us to work on parent
+		triggerChange = () -> return false #these are the parent attached nodes
 
 
 		globalConfig = 
@@ -34,12 +34,14 @@ define ['paper', 'velocity_button'], (paper, velocity_button) ->
 		constructor : (canvas) ->
 
 			# initialize paperjs window
+			@test = " hello world"
 			@canvas = canvas
 			@paper = new paper.PaperScope()
 			@paper.setup @canvas
 			@tool = new @paper.Tool()
 
 			_point = new @paper.Point 10, 10
+
 			# initialize data
 			@elements =
 
@@ -49,14 +51,20 @@ define ['paper', 'velocity_button'], (paper, velocity_button) ->
 
 			@elements.a.fillColor = globalConfig.a.color
 
-			velocity_button = new VelocityButton @paper
+			@velocityButton = new VelocityButton @paper, type: "a"
 
 			@paper.view.draw()
+			@eventDelegator()
+
+		eventDelegator : () =>
+
+			@tool.onMouseDown = (event) ->
+
+				alert @test
+				# @velocityButton.drag event
 
 
-
-
-		animation : () ->
+		animation : () =>
 
 
 			tL = new @paper.Point 40, 40
@@ -67,14 +75,14 @@ define ['paper', 'velocity_button'], (paper, velocity_button) ->
 			path.fillColor = "blue"
 
 
-
-
 			@paper.view.onFrame = (event) ->
 
 				path.rotate 3
 
 
 			@paper.view.draw()
+
+
 
 
 
