@@ -1,4 +1,4 @@
-module.exports = [
+module.exports = {
 
 	1 : 
 
@@ -12,4 +12,4 @@ module.exports = [
 		frame: "test"
 
 	
-]
+}

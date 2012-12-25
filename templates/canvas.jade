@@ -1,2 +1,10 @@
-div#container
+#container
+	each project in canvas
+		div
+			.header
+				h1 #{project.header}
+			canvas(data-main="#{project.header}")
+		
+
+
 
