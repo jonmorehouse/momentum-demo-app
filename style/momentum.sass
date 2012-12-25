@@ -16,9 +16,6 @@ body
 		color: orange
 		text-align: center
 
-
-
-
 /*BASIC CONTAINER SETUP */
 #container
 	@include center(90%)
@@ -28,11 +25,10 @@ body
 	$border-size: 1em
 
 	> div
-		@include background(255,255,255)
 		margin-top: 1em
 
 		&:first-child 
-			margin-top: 0em
+			margin-top: 1em
 			@include top-border($border-size)
 
 			> .header
@@ -42,25 +38,56 @@ body
 		&:last-child
 			margin-bottom: 1em
 
-		.header
+#container div 
+	
+	.header
+
+		position: relative
+		width: 100%
+		left: 0
+		@include background(0,0,0)
+		color: white
+
+		> h1
 			position: relative
-			width: 100%
-			left: 0
-			@include background(0,0,0)
-			color: white
+			padding: 0.1em
+			margin-left: 1em
+			max-width: 20%
+			cursor: pointer
+			display: inline
 
-			> h1
-				position: relative
-				padding: 0.1em
-				margin-left: 1em
-				max-width: 20%
-				cursor: pointer
-				display: block
+			@include transition(color, 1s)
 
-				@include transition(color, 1s)
+			&:hover	
+				color: orange
 
-				&:hover	
-					color: orange
+		> .exit
+			position: absolute
+			right: 0
+			top: 0
+			height: 100%
+			width: 2em
+			@include background
+			cursor: pointer
+
+	&:first-child > .header > .exit
+
+		border-top-right-radius: 1em
+
+#container div 
+	
+	&:last-child > canvas
+		@include bottom-border
+
+	> canvas
+	
+		height: 8em
+		width: 100%
+		background-color: white
+
+
+
+
 
 
 

@@ -6,7 +6,7 @@
 	margin: 0 auto
 
 
-@mixin background ($r, $g, $b, $a: 1)
+@mixin background ($r:255, $g:165, $b:0, $a: 1)
 	
 	background-color: rgba($r, $g, $b, $a)
 	
@@ -21,6 +21,10 @@
 @mixin top-border($size: 1em)
 	border-top-right-radius: $size
 	border-top-left-radius: $size
+
+@mixin bottom-border($size: 1em)
+	border-bottom-left-radius: $size
+	border-bottom-right-radius: $size
 
 @mixin transition($attr, $time)
 	

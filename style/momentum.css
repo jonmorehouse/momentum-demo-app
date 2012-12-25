@@ -32,13 +32,9 @@ body {
     background-color: black;
     opacity: 0.1; }
   #container > div {
-    background-color: white;
     margin-top: 1em; }
-    #container > div .no-rgba {
-      background-color: white;
-      opacity: 1; }
     #container > div:first-child {
-      margin-top: 0em;
+      margin-top: 1em;
       border-top-right-radius: 1em;
       border-top-left-radius: 1em; }
       #container > div:first-child > .header {
@@ -46,24 +42,46 @@ body {
         border-top-left-radius: 1em; }
     #container > div:last-child {
       margin-bottom: 1em; }
-    #container > div .header {
-      position: relative;
-      width: 100%;
-      left: 0;
-      background-color: black;
-      color: white; }
-      #container > div .header .no-rgba {
-        background-color: black;
-        opacity: 1; }
-      #container > div .header > h1 {
-        position: relative;
-        padding: 0.1em;
-        margin-left: 1em;
-        max-width: 20%;
-        cursor: pointer;
-        display: block;
-        transition: color 1s;
-        -webkit-transition: color 1s;
-        -mox-transition: color 1s; }
-        #container > div .header > h1:hover {
-          color: orange; }
+
+#container div .header {
+  position: relative;
+  width: 100%;
+  left: 0;
+  background-color: black;
+  color: white; }
+  #container div .header .no-rgba {
+    background-color: black;
+    opacity: 1; }
+  #container div .header > h1 {
+    position: relative;
+    padding: 0.1em;
+    margin-left: 1em;
+    max-width: 20%;
+    cursor: pointer;
+    display: inline;
+    transition: color 1s;
+    -webkit-transition: color 1s;
+    -mox-transition: color 1s; }
+    #container div .header > h1:hover {
+      color: orange; }
+  #container div .header > .exit {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 2em;
+    background-color: orange;
+    cursor: pointer; }
+    #container div .header > .exit .no-rgba {
+      background-color: orange;
+      opacity: 1; }
+#container div:first-child > .header > .exit {
+  border-top-right-radius: 1em; }
+
+#container div:last-child > canvas {
+  border-bottom-left-radius: 1em;
+  border-bottom-right-radius: 1em; }
+#container div > canvas {
+  height: 8em;
+  width: 100%;
+  background-color: white; }
