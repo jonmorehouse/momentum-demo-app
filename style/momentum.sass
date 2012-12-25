@@ -1,3 +1,67 @@
-body
+@import mixins
 
-	background-color: orange
+
+body
+	@include background(0,0,0,0.2)
+	font-family: helvetica, arial, sans-serif
+	
+	
+
+#header
+	@include center(45%)
+	@include background(0,0,0,0.8)
+	@include border(0.5em)
+
+	> h1
+		color: orange
+		text-align: center
+
+
+
+
+/*BASIC CONTAINER SETUP */
+#container
+	@include center(90%)
+	@include background (0,0,0,0.1)
+	@include border(2em)
+	padding: 0.01em 1em 0.5em 1em
+	$border-size: 1em
+
+	> div
+		@include background(255,255,255)
+		margin-top: 1em
+
+		&:first-child 
+			margin-top: 0em
+			@include top-border($border-size)
+
+			> .header
+				@include top-border($border-size)
+
+
+		&:last-child
+			margin-bottom: 1em
+
+		.header
+			position: relative
+			width: 100%
+			left: 0
+			@include background(0,0,0)
+			color: white
+
+			> h1
+				position: relative
+				padding: 0.1em
+				margin-left: 1em
+				max-width: 20%
+				cursor: pointer
+				display: block
+
+				@include transition(color, 1s)
+
+				&:hover	
+					color: orange
+
+
+
+

@@ -1,0 +1,29 @@
+@mixin center ($width)
+
+	display: block
+	width: $width
+	position: relative
+	margin: 0 auto
+
+
+@mixin background ($r, $g, $b, $a: 1)
+	
+	background-color: rgba($r, $g, $b, $a)
+	
+	.no-rgba
+		background-color: rgb($r, $g, $b)
+		opacity: $a
+
+@mixin border ($size: 2em)
+		
+	border-radius: $size
+
+@mixin top-border($size: 1em)
+	border-top-right-radius: $size
+	border-top-left-radius: $size
+
+@mixin transition($attr, $time)
+	
+	transition: $attr $time
+	-webkit-transition: $attr $time
+	-mox-transition: $attr $time

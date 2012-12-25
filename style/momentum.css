@@ -1,0 +1,69 @@
+body {
+  background-color: rgba(0, 0, 0, 0.2);
+  font-family: helvetica, arial, sans-serif; }
+  body .no-rgba {
+    background-color: black;
+    opacity: 0.2; }
+
+#header {
+  display: block;
+  width: 45%;
+  position: relative;
+  margin: 0 auto;
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 0.5em; }
+  #header .no-rgba {
+    background-color: black;
+    opacity: 0.8; }
+  #header > h1 {
+    color: orange;
+    text-align: center; }
+
+/*BASIC CONTAINER SETUP */
+#container {
+  display: block;
+  width: 90%;
+  position: relative;
+  margin: 0 auto;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 2em;
+  padding: 0.01em 1em 0.5em 1em; }
+  #container .no-rgba {
+    background-color: black;
+    opacity: 0.1; }
+  #container > div {
+    background-color: white;
+    margin-top: 1em; }
+    #container > div .no-rgba {
+      background-color: white;
+      opacity: 1; }
+    #container > div:first-child {
+      margin-top: 0em;
+      border-top-right-radius: 1em;
+      border-top-left-radius: 1em; }
+      #container > div:first-child > .header {
+        border-top-right-radius: 1em;
+        border-top-left-radius: 1em; }
+    #container > div:last-child {
+      margin-bottom: 1em; }
+    #container > div .header {
+      position: relative;
+      width: 100%;
+      left: 0;
+      background-color: black;
+      color: white; }
+      #container > div .header .no-rgba {
+        background-color: black;
+        opacity: 1; }
+      #container > div .header > h1 {
+        position: relative;
+        padding: 0.1em;
+        margin-left: 1em;
+        max-width: 20%;
+        cursor: pointer;
+        display: block;
+        transition: color 1s;
+        -webkit-transition: color 1s;
+        -mox-transition: color 1s; }
+        #container > div .header > h1:hover {
+          color: orange; }
