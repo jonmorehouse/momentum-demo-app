@@ -1,8 +1,15 @@
+# MODULES
 jade = require "jade"#external module
 fs = require "fs"
 
+# SHORTCUTS
+print = console.log
 
+# GLOBAL VARIABLES
 outputFile = "index.html"
+templateOptions =
+
+	pretty: true
 
 
 
@@ -17,31 +24,12 @@ compile = () ->
 			
 		data = require "./data/header.coffee"
 
-		options =
-
-			pretty: true
-
-		template = jade.compile rawTemplate, options
+		template = jade.compile rawTemplate, templateOptions
 
 		html = template data
 
 		fs.writeFile outputFile, html
 
-
-	# read each of the canvases and load in their proper data
-	fs.readFile "templates/canvas.jade", "utf8", (err, rawTemplate) ->
-
-		data = require "./data/canvas.coffee"
-
-
-		for i in data
-
-			console.log i
-
 # initialize program controllers below -- for watching etc
 compile()
-
-fs.watch "./templates", (test) ->
-
-	console.log "hello world"
 

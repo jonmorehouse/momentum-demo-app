@@ -1,17 +1,19 @@
 doctype 5
 html(lang = "en")
-	head
-		title= pageTitle
+head
+	title= pageTitle
 
-		meta(name="keywords", content="#{metaKeywords}")
-		meta(name="description", content="#{metaDescription}")
-		script(type="text/javascript", data-main="#{requireApp}", src="#{requireUrl}")
+	meta(name="keywords", content="#{metaKeywords}")
+	meta(name="description", content="#{metaDescription}")
+	script(type="text/javascript", data-main="#{requireApp}", src="#{requireUrl}")
 
-	body
+body
+	#header
 
-		#header
+		h1 Momentum demo
 
-			h1 Momentum demo
+	div#canvas_container
 
+		include "canvas.jade"
 
-
+	
