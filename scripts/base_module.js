@@ -43,7 +43,6 @@
         this.canvas = canvas;
         this.paper = new paper.PaperScope();
         this.paper.setup(this.canvas);
-        this.tool = new this.paper.Tool();
         _point = new this.paper.Point(10, 10);
         this.elements = {
           a: new this.paper.Path.Circle(_point, 20)
@@ -57,11 +56,15 @@
       }
 
       BaseModule.prototype.eventDelegator = function() {
-        var _this = this;
-        this.tool.fixedDistance = this.velocityButton.settings.dragLength;
-        return this.tool.onMouseDown = function(event) {
-          return _this.velocityButton.drag(event);
-        };
+        var triangle;
+        triangle = new this.paper.Path.RegularPolygon(new this.paper.Point(100, 100), 3, 4);
+        triangle.strokeColor = "blue";
+        triangle.attach("mouseenter", function() {
+          return alert(" hello world");
+        });
+        return this.velocityButton.tip.attach("mouseenter", function() {
+          return alert("hello");
+        });
       };
 
       BaseModule.prototype.animation = function() {
@@ -71,6 +74,12 @@
         path = new this.paper.Path.Rectangle(tL, size);
         path.strokeColor = "blue";
         path.fillColor = "blue";
+        path.attach("mouseenter", function(event) {
+          return console.log(event);
+        });
+        path.attach("mousedrag", function(event) {
+          return console.log("hello");
+        });
         this.paper.view.onFrame = function(event) {
           return path.rotate(3);
         };

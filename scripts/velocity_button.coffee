@@ -57,39 +57,14 @@ define [] , () ->
 			# initialize objects
 			@shapeInit()
 
-		tipCollision : (point) =>
-
-			delta_x = point.x - @settings.tip.center.x
-			delta_y = point.y - @settings.tip.center.y
-
-			delta_x = if delta_x < 0 then -1 * delta_x else delta_x
-			delta_y = if delta_y < 0 then -1 * delta_y else delta_y
-
-			# put in fudge factors for accuracy
-			delta_x = delta_x - 30
-			delta_y = delta_y - 50
-
-			return delta_x < settings.tipAccuracy && delta_y < settings.tipAccuracy
 
 		drag : (event) ->
 
 			# check if collision
 			# drag the element a certain number of elements
 
-			if not @tipCollision event.downPoint 
-				alert "no move"
-				return
-
-			@tip.position = new @paper.Point 20, 20
+			alert "hello world"				
 				
-				
-
-
-				
-
-
-
-
 
 
 		shapeInit : () ->

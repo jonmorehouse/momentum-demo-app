@@ -8,11 +8,9 @@ define ['paper', 'velocity_button'], (paper, VelocityButton) ->
 
 	class BaseModule
 
-
 		# static variables -- also equal to using @ or this
 		triggerReset = () -> return false #parent attached function which will allow us to work on parent
 		triggerChange = () -> return false #these are the parent attached nodes
-
 
 		globalConfig = 
 
@@ -40,7 +38,7 @@ define ['paper', 'velocity_button'], (paper, VelocityButton) ->
 			@canvas = canvas
 			@paper = new paper.PaperScope()
 			@paper.setup @canvas
-			@tool = new @paper.Tool()
+			# @tool = new @paper.Tool()
 
 			_point = new @paper.Point 10, 10
 
@@ -57,19 +55,23 @@ define ['paper', 'velocity_button'], (paper, VelocityButton) ->
 			# initialize velocity button
 			@velocityButton = new VelocityButton @paper, type: "a"
 
-			# 
+
 			@paper.view.draw()
 			@eventDelegator()
 
 		eventDelegator : () =>
 
+			# @tool.fixedDistance = @velocityButton.settings.dragLength
+			triangle = new @paper.Path.RegularPolygon new @paper.Point(100, 100), 3, 4
+			triangle.strokeColor = "blue"
 
-			@tool.fixedDistance = @velocityButton.settings.dragLength
+			triangle.attach "mouseenter", () ->
 
-			# want to execute mouseDown in the scope of the object it was instantiated in!
-			@tool.onMouseDown = (event) =>
+				alert " hello world"
 
-				@velocityButton.drag event
+			@velocityButton.tip.attach "mouseenter", () ->
+
+				alert "hello"
 
 
 		animation : () =>
@@ -82,6 +84,14 @@ define ['paper', 'velocity_button'], (paper, VelocityButton) ->
 			path.strokeColor = "blue"
 			path.fillColor = "blue"
 
+
+			path.attach "mouseenter", (event) ->
+
+				console.log event
+
+			path.attach "mousedrag", (event) -> 
+
+				console.log "hello"
 
 			@paper.view.onFrame = (event) ->
 
