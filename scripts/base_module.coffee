@@ -8,6 +8,8 @@ define ['paper', 'velocity_button'], (paper, VelocityButton) ->
 
 	class BaseModule
 
+
+		# static variables -- also equal to using @ or this
 		triggerReset = () -> return false #parent attached function which will allow us to work on parent
 		triggerChange = () -> return false #these are the parent attached nodes
 
@@ -51,17 +53,23 @@ define ['paper', 'velocity_button'], (paper, VelocityButton) ->
 
 			@elements.a.fillColor = globalConfig.a.color
 
+
+			# initialize velocity button
 			@velocityButton = new VelocityButton @paper, type: "a"
 
+			# 
 			@paper.view.draw()
 			@eventDelegator()
 
 		eventDelegator : () =>
 
-			@tool.onMouseDown = (event) ->
 
-				alert @test
-				# @velocityButton.drag event
+			@tool.fixedDistance = @velocityButton.settings.dragLength
+
+			# want to execute mouseDown in the scope of the object it was instantiated in!
+			@tool.onMouseDown = (event) =>
+
+				@velocityButton.drag event
 
 
 		animation : () =>

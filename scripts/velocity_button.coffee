@@ -19,6 +19,7 @@ define [] , () ->
 
 			tip :
 
+				accuracy: 20
 				radius : 8
 				position : 0
 
@@ -32,6 +33,7 @@ define [] , () ->
 
 		constructor : (paper, _settings) -> #where settings is a paper instance and settings is a variable
 
+			@test = "55"
 			@paper = paper
 
 			@tool = new @paper.Tool()
@@ -39,9 +41,14 @@ define [] , () ->
 			# object variables
 			@settings = 
 
+				dragLength : settings.tail.minLength
 				type : "a"
 				height : @paper.view.size.height
 				width : @paper.view.size.width
+
+				tip :
+
+					center : undefined
 
 				tail :
 
@@ -50,15 +57,40 @@ define [] , () ->
 			# initialize objects
 			@shapeInit()
 
+		tipCollision : (point) =>
+
+			delta_x = point.x - @settings.tip.center.x
+			delta_y = point.y - @settings.tip.center.y
+
+			delta_x = if delta_x < 0 then -1 * delta_x else delta_x
+			delta_y = if delta_y < 0 then -1 * delta_y else delta_y
+
+			# put in fudge factors for accuracy
+			delta_x = delta_x - 30
+			delta_y = delta_y - 50
+
+			return delta_x < settings.tipAccuracy && delta_y < settings.tipAccuracy
+
 		drag : (event) ->
 
-			alert "hello wr"
-			console.log "hello world from range!"
+			# check if collision
+			# drag the element a certain number of elements
+
+			if not @tipCollision event.downPoint 
+				alert "no move"
+				return
+
+			@tip.position = new @paper.Point 20, 20
+				
+				
+
+
+				
 
 
 
 
-		
+
 
 		shapeInit : () ->
 
@@ -79,7 +111,9 @@ define [] , () ->
 			# initialize triangle
 			_y = @settings.height - settings.general.bottomOffset - (settings.tip.radius * 0.5)
 			_x = @settings.width - settings.general.rightOffset - (settings.tail.segments * @settings.tail.length) 
-			@tip = new @paper.Path.RegularPolygon new @paper.Point(_x,_y), 3, settings.tip.radius
+			@settings.tip.center = new @paper.Point _x, _y
+
+			@tip = new @paper.Path.RegularPolygon @settings.tip.center, 3, settings.tip.radius
 
 			# initialize style and rotation
 			@tip.style = settings.style

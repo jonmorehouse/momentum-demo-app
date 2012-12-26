@@ -57,8 +57,10 @@
       }
 
       BaseModule.prototype.eventDelegator = function() {
+        var _this = this;
+        this.tool.fixedDistance = this.velocityButton.settings.dragLength;
         return this.tool.onMouseDown = function(event) {
-          return alert(this.test);
+          return _this.velocityButton.drag(event);
         };
       };
 
