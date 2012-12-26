@@ -16,7 +16,7 @@ define ["base_module", "animation"], (base_module, animation) ->
 
 	controller = () ->	#create a base module for each and then send it callback functions etc for changing ...
 
-		test = new base_module elements[0].children("canvas")[0]
+		first = new base_module elements[0].children("canvas")[0]
 
 			
 

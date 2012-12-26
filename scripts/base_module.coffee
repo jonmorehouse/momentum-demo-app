@@ -11,20 +11,7 @@ define ['paper', 'velocity_button'], (paper, VelocityButton) ->
 		# static variables -- also equal to using @ or this
 		triggerReset = () -> return false #parent attached function which will allow us to work on parent
 		triggerChange = () -> return false #these are the parent attached nodes
-
-		globalConfig = 
-
-			a :
-				radius: 10
-				color: "brown"
-				mass: 10
-				velocity: 10
-
-			b :
-				radius: 5
-				color: "blue"
-				mass: 8
-				velocity: 8
+		
 
 			frame :
 				velocity: 0
@@ -38,42 +25,65 @@ define ['paper', 'velocity_button'], (paper, VelocityButton) ->
 
 
 			# initialize paperjs window
-			@canvas = canvas
-			@paper = new paper.PaperScope()
-			@paper.setup @canvas
+			@canvas = canvas #make canvas global in this object
+			@paper = new paper.PaperScope() #create a new instance of the paperjs library
+			@tool = new @paper.Tool() #create a listener tool
+			@view = new @paper.View(@canvas) #new view for this current window!
+			@paper.setup @canvas #install paper js on the current canvas element
 
 			@settings = 
 
-				height: @paper.view.size.height
-				width: @paper.view.size.width
+				height: @view.size.height
+				width: @view.size.width
+
+			#initialize ball modules!
+			@init()
+			@reset()
+
+			# @view.draw()
+			@eventDelegator()#
 
 
-			# initialize data
-			@elements = {}
 
-			@paper.view.draw()
-			@eventDelegator()
-
-
-
-		reset : () =>
+		init : () =>
 
 			# 1.) initialize buttons / reset them if they already exist!
 			# 2.) reset the velocity buttons!
 			# 3.) velocity and mass will be controlled from the control modules, when we run the objects, we will return those!
-			
+							
+			@elements = {} #initialize the elements
+
 			# initialize helper x / y variables for this section
 			_y = @settings.height - globalConfig.general.bottomOffset
 			_x = globalConfig.general.horizontalOffset
 
-			# create the two circles needed
-			elements.a = new @paper.Path.Circle new @paper.Point(_x, _y), globalConfig.a.radius
-			elements.b = new @paper.Path.Circle new @paper.Point(@settings.width - _x, _y), globalConfig.b.radius
+			# initialize element data! 
+			@elements =
+					
+				a:
+					defaultPosition : new @paper.Point _x, _y
+					currentPosition : new @paper.Point _x, _y
+
+				b: 
+					defaultPosition : new @paper.Point @settings.width - _x, _y
+					defaultPosition : new @paper.Point @settings.width - _x, _y
+
+			@elements.a.element
+
+			element : new @paper.Path.Circle new @paper.Point(@settings.width - _x, _y), globalConfig.b.radius
 
 			# initialize base controllers after this!
+
+			# initialize base styling for these elements!
+			@elements.a.fillColor = globalConfig.a.color
+			@elements.b.fillColor = globalConfig.b.color
+
+		reset : (full = false) =>
+
+			# responsible for repositioning the elements
+			# responsible for calling reset on the velocity modules etc
+
 			
-
-
 
 		runAnimation : () =>
 
@@ -83,10 +93,20 @@ define ['paper', 'velocity_button'], (paper, VelocityButton) ->
 
 		eventDelegator : () =>
 
-			# @tool.fixedDistance = @velocityButton.settings.dragLength
-			triangle = new @paper.Path.RegularPolygon new @paper.Point(100, 100), 3, 4
-			triangle.strokeColor = "blue"
+			@view.onResize = (event) => #call reset on this object!
 
+				@reset()
+
+
+			@view.draw = (event) =>
+
+				
+
+
+			@tool.onMouseDown = (event) =>
+
+				console.log "hello world"
+								
 
 
 		

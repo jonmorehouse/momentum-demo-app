@@ -7,8 +7,8 @@
       0: $('#container > div:nth-child(1)')
     };
     return controller = function() {
-      var test;
-      return test = new base_module(elements[0].children("canvas")[0]);
+      var first;
+      return first = new base_module(elements[0].children("canvas")[0]);
     };
   });
 
