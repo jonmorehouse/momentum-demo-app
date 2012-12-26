@@ -4,7 +4,6 @@
 # will hold the ball and its attributes etc
 # when the animation is run, we will actually use it on the element in the base_module
 # after the animation is run, we reset completely!
-
 define ["paper"], (paper) ->
 
 	class Ball
