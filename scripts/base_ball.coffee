@@ -7,74 +7,83 @@
 
 define ["paper"], (paper) ->
 
-	config :
+	class Ball
 
-		radius: 10
-		color: "brown"
-		mass: 10
-		velocity: 10
-		verticalOffset: 20
-		horizontalOffset: 20
+		config :
 
-	constructor = (canvas, options) ->
+			radius: 10
+			color: "brown"
+			mass: 10
+			velocity: 10
+			verticalOffset: 20
+			horizontalOffset: 20
 
-		@canvas = canvas
-		@paper = new paper.PaperScope()
-		@tool = new @paper.Tool()
-		@view = new @paper.View(@canvas)
+		constructor = (canvas, options) ->
 
-		@settings =
+			@canvas = canvas
+			@paper = new paper.PaperScope()
+			@tool = new @paper.Tool()
+			@view = new @paper.View(@canvas)
 
-			height: @view.size.height
-			width: @view.size.width
+			# set the default settings in this class
+			@settings =
 
-		# set options here!
+				height: @view.size.height
+				width: @view.size.width
 
-	# initialize the element
-	init = () =>
+			# for each element, set the global config for this!
+			for i in options
 
-		# responsible for initializing the element
-		@position = {}
-		@position.original = new @paper.Point @settings.width - @config.horizontalOffset, @settings.height - @config.verticalOffset
-		@position.current = @position.original
+				@config[i] = options[i]
 
-		# now initialize the actual element!
-		@element = new @paper.Circle @position.original, @config.radius
-		@element.fillColor = new @config.color
-
-	# reset the position only, between runs only!
-	positionReset = () =>
-
-		# useful when we just are finished running the animation
-		@element.moveTo @position.original
-
-	# resets the entire elements's attributes and repositions it
-	fullReset = () =>
-
-		# reset velocity, mass etc
-		@element.moveTo @position.original
-		@attributes.velocity = @config.velocity
-		@attributes.mass = @config.mass
+			@init() #actually initialize the element	
 
 
-	# called from outside modules that need to access the module
-	setVelocity = (velocity) =>
+		# initialize the element
+		init = () =>
 
-		@config.velocity = velocity
+			# responsible for initializing the element
+			@position = {}
+			@position.original = new @paper.Point @settings.width - @config.horizontalOffset, @settings.height - @config.verticalOffset
+			@position.current = @position.original
 
-	# called from outside modules to change mass!
-	setMass = (mass) =>
+			# now initialize the actual element!
+			@element = new @paper.Circle @position.original, @config.radius
+			@element.fillColor = new @config.color
 
-		@config.mass = mass
+		# reset the position only, between runs only!
+		positionReset = () =>
 
-	# return the current velocity for animation run in the elements!
-	getVelocity = () =>
+			# useful when we just are finished running the animation
+			@element.moveTo @position.original
 
-		# returns current velocity
-		return @attributes.velocity
+		# resets the entire elements's attributes and repositions it
+		fullReset = () =>
 
-	# return the mass
-	getMass = () =>
+			# reset velocity, mass etc
+			@element.moveTo @position.original
+			@attributes.velocity = @config.velocity
+			@attributes.mass = @config.mass
 
-		return @attributes.mass
+
+		# called from outside modules that need to access the module
+		setVelocity = (velocity) =>
+
+			@config.velocity = velocity
+
+		# called from outside modules to change mass!
+		setMass = (mass) =>
+
+			@config.mass = mass
+
+		# return the current velocity for animation run in the elements!
+		getVelocity = () =>
+
+			# returns current velocity
+			return @attributes.velocity
+
+		# return the mass
+		getMass = () =>
+
+			return @attributes.mass
 
