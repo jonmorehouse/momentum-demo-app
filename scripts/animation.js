@@ -4,6 +4,17 @@
 
   define([], function() {
     var ToggleController, controllers;
+    $.easing.general = function(x, t, b, c, d) {
+      if ((t /= d) < (1 / 2.75)) {
+        return c * (7.5625 * t * t) + b;
+      } else if (t < (2 / 2.75)) {
+        return c * (7.5625 * (t -= 1.5 / 2.75) * t + .75) + b;
+      } else if (t < (2.5 / 2.75)) {
+        return c * (7.5625 * (t -= 2.25 / 2.75) * t + .9375) + b;
+      } else {
+        return c * (7.5625 * (t -= 2.625 / 2.75) * t + .984375) + b;
+      }
+    };
     ToggleController = (function() {
 
       ToggleController.prototype.config = {
@@ -27,28 +38,16 @@
         });
       }
 
-      ToggleController.prototype.easing = function(x, t, b, c, d) {
-        if ((t /= d) < (1 / 2.75)) {
-          return c * (7.5625 * t * t) + b;
-        } else if (t < (2 / 2.75)) {
-          return c * (7.5625 * (t -= 1.5 / 2.75) * t + .75) + b;
-        } else if (t < (2.5 / 2.75)) {
-          return c * (7.5625 * (t -= 2.25 / 2.75) * t + .9375) + b;
-        } else {
-          return c * (7.5625 * (t -= 2.625 / 2.75) * t + .984375) + b;
-        }
-      };
-
       ToggleController.prototype.show = function() {
         var _this = this;
-        return this.container.slideDown(this.config.animationTime, this.easing(), function() {
+        return this.container.slideDown(this.config.animationTime, "general", function() {
           return _this.config.visible = true;
         });
       };
 
       ToggleController.prototype.hide = function() {
         var _this = this;
-        return this.container.slideUp(this.config.animationTime, this.easing(), function() {
+        return this.container.slideUp(this.config.animationTime, "general", function() {
           return _this.config.visible = false;
         });
       };

@@ -27,82 +27,65 @@ define ['paper', 'velocity_button'], (paper, VelocityButton) ->
 				velocity: 8
 
 			frame :
-
 				velocity: 0
 
+			general :
+
+				bottomOffset : 20 #how far from the bottom the balls will be located
+				horizontalOffset : 20 #how far from the left and right borders the balls will be located!
 
 		constructor : (canvas) ->
 
+
 			# initialize paperjs window
-			@test = " hello world"
 			@canvas = canvas
 			@paper = new paper.PaperScope()
 			@paper.setup @canvas
-			# @tool = new @paper.Tool()
 
-			_point = new @paper.Point 10, 10
+			@settings = 
+
+				height: @paper.view.size.height
+				width: @paper.view.size.width
+
 
 			# initialize data
-			@elements =
+			@elements = {}
 
-				a : new @paper.Path.Circle _point, 20 #initialize base circles on the screen
-
-				# b : new @paper.Path.Circle globalConfig.b.radius, 20
-
-			@elements.a.fillColor = globalConfig.a.color
-
-
-			# initialize velocity button
-			@velocityButton = new VelocityButton @paper, type: "a"
-
-
-			
 			@paper.view.draw()
 			@eventDelegator()
+
+
+
+		reset : () =>
+
+			# 1.) initialize buttons / reset them if they already exist!
+			# 2.) reset the velocity buttons!
+			# 3.) velocity and mass will be controlled from the control modules, when we run the objects, we will return those!
+			
+			# initialize helper x / y variables for this section
+			_y = @settings.height - globalConfig.general.bottomOffset
+			_x = globalConfig.general.horizontalOffset
+
+			# create the two circles needed
+			elements.a = new @paper.Path.Circle new @paper.Point(_x, _y), globalConfig.a.radius
+			elements.b = new @paper.Path.Circle new @paper.Point(@settings.width - _x, _y), globalConfig.b.radius
+
+			# initialize base controllers after this!
+			
+
+
+
+		runAnimation : () =>
+
+
+			# this is the section that will responsible for running the animation for this module
+			# responsible for getting the data from the controllers for each element and then running the animations!
 
 		eventDelegator : () =>
 
 			# @tool.fixedDistance = @velocityButton.settings.dragLength
 			triangle = new @paper.Path.RegularPolygon new @paper.Point(100, 100), 3, 4
 			triangle.strokeColor = "blue"
-
-			triangle.attach "mouseenter", () ->
-
-				alert " hello world"
-
-			@velocityButton.tip.attach "mouseenter", () ->
-
-				alert "hello"
-
-
-		animation : () =>
-
-
-			tL = new @paper.Point 40, 40
-			size = new @paper.Size 30, 30
-			path = new @paper.Path.Rectangle tL, size
-
-			path.strokeColor = "blue"
-			path.fillColor = "blue"
-
-
-			path.attach "mouseenter", (event) ->
-
-				console.log event
-
-			path.attach "mousedrag", (event) -> 
-
-				console.log "hello"
-
-			@paper.view.onFrame = (event) ->
-
-				path.rotate 3
-
-
-			@paper.view.draw()
-
-
-
 
 
 

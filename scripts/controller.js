@@ -8,8 +8,7 @@
     };
     return controller = function() {
       var test;
-      test = new base_module(elements[0].children("canvas")[0]);
-      return test.animation();
+      return test = new base_module(elements[0].children("canvas")[0]);
     };
   });
 

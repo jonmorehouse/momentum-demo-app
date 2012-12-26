@@ -30,60 +30,45 @@
         },
         frame: {
           velocity: 0
+        },
+        general: {
+          bottomOffset: 20,
+          horizontalOffset: 20
         }
       };
 
       function BaseModule(canvas) {
-        this.animation = __bind(this.animation, this);
-
         this.eventDelegator = __bind(this.eventDelegator, this);
 
-        var _point;
-        this.test = " hello world";
+        this.runAnimation = __bind(this.runAnimation, this);
+
+        this.reset = __bind(this.reset, this);
         this.canvas = canvas;
         this.paper = new paper.PaperScope();
         this.paper.setup(this.canvas);
-        _point = new this.paper.Point(10, 10);
-        this.elements = {
-          a: new this.paper.Path.Circle(_point, 20)
+        this.settings = {
+          height: this.paper.view.size.height,
+          width: this.paper.view.size.width
         };
-        this.elements.a.fillColor = globalConfig.a.color;
-        this.velocityButton = new VelocityButton(this.paper, {
-          type: "a"
-        });
+        this.elements = {};
         this.paper.view.draw();
         this.eventDelegator();
       }
 
+      BaseModule.prototype.reset = function() {
+        var _x, _y;
+        _y = this.settings.height - globalConfig.general.bottomOffset;
+        _x = globalConfig.general.horizontalOffset;
+        elements.a = new this.paper.Path.Circle(new this.paper.Point(_x, _y), globalConfig.a.radius);
+        return elements.b = new this.paper.Path.Circle(new this.paper.Point(this.settings.width - _x, _y), globalConfig.b.radius);
+      };
+
+      BaseModule.prototype.runAnimation = function() {};
+
       BaseModule.prototype.eventDelegator = function() {
         var triangle;
         triangle = new this.paper.Path.RegularPolygon(new this.paper.Point(100, 100), 3, 4);
-        triangle.strokeColor = "blue";
-        triangle.attach("mouseenter", function() {
-          return alert(" hello world");
-        });
-        return this.velocityButton.tip.attach("mouseenter", function() {
-          return alert("hello");
-        });
-      };
-
-      BaseModule.prototype.animation = function() {
-        var path, size, tL;
-        tL = new this.paper.Point(40, 40);
-        size = new this.paper.Size(30, 30);
-        path = new this.paper.Path.Rectangle(tL, size);
-        path.strokeColor = "blue";
-        path.fillColor = "blue";
-        path.attach("mouseenter", function(event) {
-          return console.log(event);
-        });
-        path.attach("mousedrag", function(event) {
-          return console.log("hello");
-        });
-        this.paper.view.onFrame = function(event) {
-          return path.rotate(3);
-        };
-        return this.paper.view.draw();
+        return triangle.strokeColor = "blue";
       };
 
       return BaseModule;

@@ -18,8 +18,7 @@ define ["base_module", "animation"], (base_module, animation) ->
 
 		test = new base_module elements[0].children("canvas")[0]
 
-		test.animation()
-		
+			
 
 
 
