@@ -56,6 +56,7 @@ define ['paper', 'velocity_button'], (paper, VelocityButton) ->
 			@velocityButton = new VelocityButton @paper, type: "a"
 
 
+			
 			@paper.view.draw()
 			@eventDelegator()
 

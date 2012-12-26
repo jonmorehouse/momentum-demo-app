@@ -77,10 +77,18 @@ body {
     height: 100%;
     width: 2em;
     background-color: orange;
-    cursor: pointer; }
+    cursor: pointer;
+    transition: background-color 1s;
+    -webkit-transition: background-color 1s;
+    -mox-transition: background-color 1s; }
     #container div .header > .exit .no-rgba {
       background-color: orange;
       opacity: 1; }
+    #container div .header > .exit:hover {
+      background-color: #969696; }
+      #container div .header > .exit:hover .no-rgba {
+        background-color: #969696;
+        opacity: 1; }
 #container div:first-child > .header > .exit {
   border-top-right-radius: 1em; }
 
@@ -94,3 +102,6 @@ body {
   margin: 0 auto;
   height: 10em;
   background-color: white; }
+  #container div > canvas .no-rgba {
+    background-color: white;
+    opacity: 1; }

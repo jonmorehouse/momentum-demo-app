@@ -68,7 +68,7 @@
         this.settings.tip.center = new this.paper.Point(_x, _y);
         this.tip = new this.paper.Path.RegularPolygon(this.settings.tip.center, 3, settings.tip.radius);
         this.tip.style = settings.style;
-        return this.tip.rotate((this.settings.type === "a" ? -90 : 90));
+        return this.tip.rotate = (this.settings.type === "a" ? -90 : 90);
       };
 
       return VelocityButton;

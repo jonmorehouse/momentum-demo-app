@@ -92,14 +92,7 @@ define [] , () ->
 
 			# initialize style and rotation
 			@tip.style = settings.style
-			@tip.rotate (if @settings.type == "a" then -90 else 90)
+			@tip.rotate = (if @settings.type == "a" then -90 else 90)
 
 
-
-
-
-
-
-
-
-
+			
