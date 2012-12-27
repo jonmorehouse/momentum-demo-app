@@ -28,7 +28,7 @@ body {
 /*BASIC CONTAINER SETUP */
 #container {
   display: block;
-  width: 800px;
+  width: 90%;
   position: relative;
   margin: 0 auto;
   background-color: rgba(0, 0, 0, 0.1);
@@ -97,10 +97,9 @@ body {
   border-bottom-right-radius: 1em; }
 #container div > canvas {
   display: block;
-  width: 100%;
+  width: 400px;
   position: relative;
   margin: 0 auto;
-  height: 200px;
   background-color: white; }
   #container div > canvas .no-rgba {
     background-color: white;

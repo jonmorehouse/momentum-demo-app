@@ -18,20 +18,20 @@
       BaseModule.prototype.elementSettings = {
         a: {
           color: "red",
-          velocity: 5,
-          mass: 5,
+          velocity: 20,
+          mass: 8,
           radius: 30,
           left: true
         },
         b: {
           color: "blue",
-          velocity: -8,
-          mass: 5,
+          velocity: -20,
+          mass: 19,
           radius: 40,
           left: false
         },
         frame: {
-          velocity: 2
+          velocity: 5
         }
       };
 
@@ -70,7 +70,7 @@
         rightRunning = true;
         leftRunning = true;
         run = function() {
-          var bottom, fv, ml, mr, vl, vlf, vr, vrf;
+          var fv, ml, mr, vl, vlf, vr, vrf;
           vr = right.getVelocity();
           vl = left.getVelocity();
           fv = frame.getVelocity();
@@ -80,13 +80,12 @@
           if (rightRunning) {
             right.element.position.x += vr + fv;
           }
-          if (!collision && left.element.position.x + left.config.radius >= right.element.position.x - right.config.radius) {
+          if (!collision && left.element.position.x + left.radius >= right.element.position.x - right.radius) {
             collision = true;
             ml = left.getMass();
             mr = right.getMass();
-            bottom = 1 / (ml + mr);
-            vlf = vl * (ml - mr) + 2 * mr * vr * bottom;
-            vrf = vr * (mr - ml) + 2 * ml * vl * bottom;
+            vlf = ((vl * (ml - mr)) + (2 * mr * vr)) / (ml + mr);
+            vrf = ((vr * (mr - ml)) + (2 * ml * vl)) / (ml + mr);
             left.setVelocity(vlf);
             right.setVelocity(vrf);
           }

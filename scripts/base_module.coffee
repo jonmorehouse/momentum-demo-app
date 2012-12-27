@@ -15,20 +15,19 @@ define ['paper', 'ball', 'frame', 'velocity_button', ], (paper, ball, frame, Vel
 
 			a :
 				color : "red"
-				velocity : 5
-				mass: 5
+				velocity : 20
+				mass: 8
 				radius: 30
 				left: true
-
 			b : 
 				color : "blue"
-				velocity : -8
-				mass: 5
+				velocity : -20
+				mass: 19
 				radius: 40
 				left : false
 
 			frame: 
-				velocity: 2
+				velocity: 5
 
 		constructor : (canvas, options) -> #send in options -- ie: height / width!
 
@@ -79,7 +78,6 @@ define ['paper', 'ball', 'frame', 'velocity_button', ], (paper, ball, frame, Vel
 
 			run = () =>
 
-
 				# initialize velocitys for each
 				vr = right.getVelocity()
 				vl = left.getVelocity()
@@ -94,21 +92,17 @@ define ['paper', 'ball', 'frame', 'velocity_button', ], (paper, ball, frame, Vel
 
 					right.element.position.x += vr + fv
 
-
 				# if a collision checks, need to reverse the elements!
-				if not collision and left.element.position.x + left.config.radius >= right.element.position.x - right.config.radius 
+				if not collision and left.element.position.x + left.radius >= right.element.position.x - right.radius
 
 					collision = true
 					# cache both masses
 					ml = left.getMass()
 					mr = right.getMass()
 
-
-					# now recalculate the animations
-					bottom = 1 / (ml + mr)
-
-					vlf = vl * (ml - mr) + 2 * mr * vr * bottom #initialize final velocity with this function!
-					vrf = vr * (mr - ml) + 2 * ml * vl * bottom #initialize final velocity!
+					# calculate new velocities
+					vlf = ((vl * (ml - mr)) + (2 * mr * vr)) / (ml + mr)
+					vrf = ((vr * (mr - ml)) + (2*ml*vl)) / (ml + mr)
 
 					# now set the two final velocities
 					left.setVelocity vlf

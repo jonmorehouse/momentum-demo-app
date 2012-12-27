@@ -12,58 +12,47 @@ define ["paper"], (paper) ->
 
 		constructor : (paper, options) ->
 
+			@paper = paper
+
 			@config =
 
-				radius: 30
+				radiusFactor: 2.5
 				color: "brown"
-				mass: 10
-				velocity: 10
-				verticalOffset: 70
-				horizontalOffset: 50
+				verticalOffset: 20
+				horizontalOffset: 5
 				left : true
-
-			@paper = paper
-			
-			# set the default settings in this class
-			@settings =
-
-				height: @paper.view.size.height
-				width: @paper.view.size.width
+				maxHeight : @paper.view.size.height
+				maxWidth : @paper.view.size.width
 
 			# for each element, set the global config for this!
-			for key, value of options
-				@config[key] = value
+			@config.mass = options.mass
+			@config.velocity = options.velocity
 
-			@velocity = @config.velocity
-			@mass = @config.mass
+			@setVelocity @config.velocity
+			@setMass @config.mass
+			@config.left = options.left
+			@config.color = options.color
 
-			@init() #actually initialize the element	
-			@click()
+			@elementInit() #actually draw the element
+			# end constructor function
+
+		elementInit : () =>
+
+			# initialize x / y functions!
+			_x = if @config.left then @config.horizontalOffset + @radius else @config.maxWidth - @config.horizontalOffset - @radius
+			_y = @config.maxHeight - @config.verticalOffset - @radius
 
 
-		# initialize the element
-		init : () =>
-
-			# responsible for initializing the element
-			# initialize x position depending upon left or not
-			_x = if @config.left then @config.horizontalOffset else @settings.width - @config.horizontalOffset
-
-			# initialize
-			@original = new @paper.Point _x, @settings.height - @config.verticalOffset
-
-			# now initialize the actual element!
-			@element = new @paper.Path.Circle @original, @config.radius
+			@original = new @paper.Point _x, _y
+			# can make this a layer in the future! -- to incorporate animations in the objects for more excitement!
+			if not @element
+				@element = new @paper.Path.Circle @original, @radius
+			
+			else 
+				
 			@element.fillColor = @config.color
 
-		click : () =>
-
-			@element.attach "mouseclick", (event) =>
-
-				console.log "mouse enter area function"				
-
-				alert "hello world"
-
-
+			@paper.view.draw()
 
 		# reset the position only, between runs only!
 		positionReset : () =>
@@ -77,8 +66,9 @@ define ["paper"], (paper) ->
 
 			# reset velocity, mass etc
 			@positionReset()
-			@velocity = @config.velocity
-			@mass = @config.mass
+			@setVelocity @config.velocity
+			@setMass @config.mass #set the mass and radius!
+			@elementInit() #initialize the element
 
 
 		# called from outside modules that need to access the module
@@ -90,6 +80,8 @@ define ["paper"], (paper) ->
 		setMass : (mass) =>
 
 			@mass = mass
+			@radius = @mass * @config.radiusFactor
+			# @fullReset()
 
 		# return the current velocity for animation run in the elements!
 		getVelocity : () =>

@@ -19,49 +19,38 @@
 
         this.positionReset = __bind(this.positionReset, this);
 
-        this.click = __bind(this.click, this);
-
-        this.init = __bind(this.init, this);
-
-        var key, value;
-        this.config = {
-          radius: 30,
-          color: "brown",
-          mass: 10,
-          velocity: 10,
-          verticalOffset: 70,
-          horizontalOffset: 50,
-          left: true
-        };
+        this.elementInit = __bind(this.elementInit, this);
         this.paper = paper;
-        this.settings = {
-          height: this.paper.view.size.height,
-          width: this.paper.view.size.width
+        this.config = {
+          radiusFactor: 2.5,
+          color: "brown",
+          verticalOffset: 20,
+          horizontalOffset: 5,
+          left: true,
+          maxHeight: this.paper.view.size.height,
+          maxWidth: this.paper.view.size.width
         };
-        for (key in options) {
-          value = options[key];
-          this.config[key] = value;
-        }
-        this.velocity = this.config.velocity;
-        this.mass = this.config.mass;
-        this.init();
-        this.click();
+        this.config.mass = options.mass;
+        this.config.velocity = options.velocity;
+        this.setVelocity(this.config.velocity);
+        this.setMass(this.config.mass);
+        this.config.left = options.left;
+        this.config.color = options.color;
+        this.elementInit();
       }
 
-      Ball.prototype.init = function() {
-        var _x;
-        _x = this.config.left ? this.config.horizontalOffset : this.settings.width - this.config.horizontalOffset;
-        this.original = new this.paper.Point(_x, this.settings.height - this.config.verticalOffset);
-        this.element = new this.paper.Path.Circle(this.original, this.config.radius);
-        return this.element.fillColor = this.config.color;
-      };
+      Ball.prototype.elementInit = function() {
+        var _x, _y;
+        _x = this.config.left ? this.config.horizontalOffset + this.radius : this.config.maxWidth - this.config.horizontalOffset - this.radius;
+        _y = this.config.maxHeight - this.config.verticalOffset - this.radius;
+        this.original = new this.paper.Point(_x, _y);
+        if (!this.element) {
+          this.element = new this.paper.Path.Circle(this.original, this.radius);
+        } else {
 
-      Ball.prototype.click = function() {
-        var _this = this;
-        return this.element.attach("mouseclick", function(event) {
-          console.log("mouse enter area function");
-          return alert("hello world");
-        });
+        }
+        this.element.fillColor = this.config.color;
+        return this.paper.view.draw();
       };
 
       Ball.prototype.positionReset = function() {
@@ -71,8 +60,9 @@
 
       Ball.prototype.fullReset = function() {
         this.positionReset();
-        this.velocity = this.config.velocity;
-        return this.mass = this.config.mass;
+        this.setVelocity(this.config.velocity);
+        this.setMass(this.config.mass);
+        return this.elementInit();
       };
 
       Ball.prototype.setVelocity = function(velocity) {
@@ -80,7 +70,8 @@
       };
 
       Ball.prototype.setMass = function(mass) {
-        return this.mass = mass;
+        this.mass = mass;
+        return this.radius = this.mass * this.config.radiusFactor;
       };
 
       Ball.prototype.getVelocity = function() {
