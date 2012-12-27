@@ -90,14 +90,18 @@ define ["paper"], (paper) ->
 
 			@config.mass = mass
 
+		setPosition : (position) =>
+
+			@position.current = position
+
 		# return the current velocity for animation run in the elements!
 		getVelocity : () =>
 
 			# returns current velocity
-			return @attributes.velocity
+			return @config.velocity
 
 		# return the mass
 		getMass : () =>
 
-			return @attributes.mass
+			return @config.mass
 

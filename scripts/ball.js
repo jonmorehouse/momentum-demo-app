@@ -11,6 +11,8 @@
 
         this.getVelocity = __bind(this.getVelocity, this);
 
+        this.setPosition = __bind(this.setPosition, this);
+
         this.setMass = __bind(this.setMass, this);
 
         this.setVelocity = __bind(this.setVelocity, this);
@@ -82,12 +84,16 @@
         return this.config.mass = mass;
       };
 
+      Ball.prototype.setPosition = function(position) {
+        return this.position.current = position;
+      };
+
       Ball.prototype.getVelocity = function() {
-        return this.attributes.velocity;
+        return this.config.velocity;
       };
 
       Ball.prototype.getMass = function() {
-        return this.attributes.mass;
+        return this.config.mass;
       };
 
       return Ball;

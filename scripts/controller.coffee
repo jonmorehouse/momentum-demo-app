@@ -19,6 +19,6 @@ define ["base_module", "animation"], (baseModule, animation) ->
 		first = new baseModule elements[0].children("canvas")[0]
 
 			
-
+		
 
 

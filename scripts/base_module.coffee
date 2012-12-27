@@ -30,15 +30,16 @@ define ['paper', 'ball', 'frame', 'velocity_button', ], (paper, ball, frame, Vel
 			frame: 
 				velocity: 2
 
-		constructor : (canvas) ->
+		constructor : (canvas, options) -> #send in options -- ie: height / width!
 
 			# initialize paperjs library
 			@canvas = canvas
 			@paper = new paper.PaperScope()
 			@tool = new @paper.Tool()
 			@paper.setup @canvas
+			@view = new @paper.View(canvas)
 
-			# initialize elements!
+
 			@elements =
 
 				a : new ball @paper, @elementSettings.a
@@ -46,5 +47,68 @@ define ['paper', 'ball', 'frame', 'velocity_button', ], (paper, ball, frame, Vel
 				frame : new frame @paper, @elementSettings.frame
 
 			@paper.view.draw()
-			
+
+			@eventDelegator()
+
+		eventDelegator : () =>
+
+			@view.draw = () =>
+
+				# what goes in here? 
+				# without, keep getting an error function
+				# console.log "draw function"
+
+			@tool.onMouseDown = () =>
+
+				@animate()
+
+
+
+		animate : () ->
+
+
+			left = @elements.a
+			right = @elements.b
+			counter = 0
+
+
+			delta_x = right.position.current.x - left.position.current.x
+
+			# run animation -- map the refresh to 1 pixel per second!
+			# assume velocity is the delta_x
+			iterations = 0
+			ld = 1
+			rd = -1
+
+			run = () =>
+
+
+
+				if left.element.position.x > @view.size.width
+					ld *= -1
+				if left.element.position.x < 0
+					ld *= -1
+				if right.element.position.x < 0
+					rd *= -1
+
+				if right.element.position.x > @view.size.width
+					rd *= -1
+
+				left.element.position.x += ld * left.getVelocity()
+				right.element.position.x += rd * right.getVelocity()
+
+
+
+				@paper.view.draw()
+				if delta_x > 0
+
+					return setTimeout run, 10
+
+			run()
+
+
+
+
+
+
 
