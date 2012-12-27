@@ -50,9 +50,9 @@ module.exports = {
 			frameVelocity:
 				class: "frame_velocity"
 				type: "slider"
-				min: -10
+				min: 0
 				default: 0
-				max: -10
+				max: 20
 				name: "Frame Velocity"
 				label: "m/s"
 	3:
@@ -65,8 +65,8 @@ module.exports = {
 				class: "frame_velocity"
 				type: "slider"
 				default: 0
-				min: -10
-				max: -10
+				min: 0
+				max: 20
 				name: "Frame Velocity"
 				label: "m/s"
 

@@ -93,16 +93,21 @@ body {
 #container div:first-child > .header > .exit {
   border-top-right-radius: 1em; }
 
-#container div:last-child > canvas {
+#container > div:last-child > canvas {
   border-bottom-left-radius: 1em;
   border-bottom-right-radius: 1em; }
-#container div > canvas {
+#container > div > canvas {
   height: 200px;
   display: block;
   width: 400px;
   position: relative;
   margin: 0 auto;
   background-color: rgba(150, 150, 150, 0.2); }
-  #container div > canvas .no-rgba {
+  #container > div > canvas .no-rgba {
     background-color: #969696;
     opacity: 0.2; }
+
+#container > div > .controls {
+  background-color: orange;
+  height: 25;
+  width: 25; }

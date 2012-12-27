@@ -3,7 +3,7 @@
 # this module serves as the controller for this animation
 # need to resize the balls on mass change
 
-define ['paper', 'ball', 'frame', 'velocity_button', 'controls'], (paper, ball, frame, VelocityButton, controls) ->
+define ['paper', 'ball', 'frame', ], (paper, ball, frame) ->
 
 	class BaseModule
 
@@ -37,6 +37,9 @@ define ['paper', 'ball', 'frame', 'velocity_button', 'controls'], (paper, ball, 
 			@tool = new @paper.Tool()
 			@paper.setup @canvas
 			@view = new @paper.View(canvas)
+			@view.draw = () ->
+
+				console.log "what goes in the draw?"
 
 			# element data initializing 
 			@elements =
@@ -45,10 +48,8 @@ define ['paper', 'ball', 'frame', 'velocity_button', 'controls'], (paper, ball, 
 				b : new ball @paper, @elementSettings.b
 				frame : new frame @paper, @elementSettings.frame
 
-			@controls = new controls @paper, @play #initialize a new 
 			# paper view
 			@paper.view.draw()
-			@eventDelegator()
 
 		play : () ->
 

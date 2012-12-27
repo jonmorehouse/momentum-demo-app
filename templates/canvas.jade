@@ -16,11 +16,11 @@
 				//- loop through each project's controls
 				each control in project.controls
 					//- create the html for the element!
-					div(class="#{control.class}")
+					div(class= control.class)
 						.label
 							span= control.name
-							//- span= #{control.default}
-							//- span= #{control.label}
+							span= control.value
+							span= control.label
 					//- controller goes here
-						//- input(type='range', min='#{control.min}', max='#{control.max}', step='1', value='#{control.default}')		
+					input(type='range', min= control.min, max= control.max, step='1', value= control.default)		
 

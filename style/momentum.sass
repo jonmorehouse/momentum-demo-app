@@ -88,7 +88,7 @@ body
 
 		border-top-right-radius: 1em
 
-#container div 
+#container > div 
 	
 	&:last-child > canvas
 		@include bottom-border
@@ -100,7 +100,9 @@ body
 		@include background (150,150,150, 0.2)
 
 
+#container > div > .controls
 
+	@include test
 
 
 
