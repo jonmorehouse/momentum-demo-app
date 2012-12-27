@@ -22,9 +22,9 @@
         this.elementInit = __bind(this.elementInit, this);
         this.paper = paper;
         this.config = {
-          radiusFactor: 2.5,
+          radiusFactor: 5,
           color: "brown",
-          verticalOffset: 20,
+          verticalOffset: 30,
           horizontalOffset: 5,
           left: true,
           maxHeight: this.paper.view.size.height,
@@ -50,11 +50,17 @@
           this.original.y = _y;
         }
         if (!this.element) {
-          this.element = new this.paper.Path.Circle(this.original, this.radius);
+          this.circle = new this.paper.Path.Circle(this.original, this.radius);
+          this.text = new this.paper.PointText(new this.paper.Point(this.original.x, this.original.y + 4));
+          this.element = new this.paper.Layer([this.circle, this.text]);
         } else {
           this.element.position = this.original;
         }
-        this.element.fillColor = this.config.color;
+        this.circle.fillColor = this.config.color;
+        this.circle.smooth();
+        this.text.justification = "center";
+        this.text.fillColor = "white";
+        this.text.content = this.getMass() + "kg";
         return this.paper.view.draw();
       };
 

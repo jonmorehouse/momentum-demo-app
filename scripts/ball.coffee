@@ -16,9 +16,9 @@ define ["paper"], (paper) ->
 
 			@config =
 
-				radiusFactor: 2.5
+				radiusFactor: 5
 				color: "brown"
-				verticalOffset: 20
+				verticalOffset: 30
 				horizontalOffset: 5
 				left : true
 				maxHeight : @paper.view.size.height
@@ -53,14 +53,21 @@ define ["paper"], (paper) ->
 
 			# can make this a layer in the future! -- to incorporate animations in the objects for more excitement!
 			if not @element
-				@element = new @paper.Path.Circle @original, @radius
-			
+				@circle = new @paper.Path.Circle @original, @radius
+				@text = new @paper.PointText new @paper.Point @original.x, @original.y + 4
+				@element = new @paper.Layer([@circle, @text])
+
 			else 
 				@element.position = @original
 
 			# initialize the ball style!
-			@element.fillColor = @config.color
-			
+			@circle.fillColor = @config.color
+			@circle.smooth()
+
+			# initialize text
+			@text.justification = "center"
+			@text.fillColor = "white"
+			@text.content = @getMass() + "kg"
 
 			# draw the element
 			@paper.view.draw()

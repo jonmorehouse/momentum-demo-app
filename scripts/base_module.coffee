@@ -3,7 +3,7 @@
 # this module serves as the controller for this animation
 # need to resize the balls on mass change
 
-define ['paper', 'ball', 'frame', 'velocity_button', ], (paper, ball, frame, VelocityButton) ->
+define ['paper', 'ball', 'frame', 'velocity_button', 'controls'], (paper, ball, frame, VelocityButton, controls) ->
 
 	class BaseModule
 
@@ -38,8 +38,6 @@ define ['paper', 'ball', 'frame', 'velocity_button', ], (paper, ball, frame, Vel
 			@paper.setup @canvas
 			@view = new @paper.View(canvas)
 
-
-
 			# element data initializing 
 			@elements =
 
@@ -47,25 +45,12 @@ define ['paper', 'ball', 'frame', 'velocity_button', ], (paper, ball, frame, Vel
 				b : new ball @paper, @elementSettings.b
 				frame : new frame @paper, @elementSettings.frame
 
+			@controls = new controls @paper, @play #initialize a new 
 			# paper view
 			@paper.view.draw()
 			@eventDelegator()
 
-		eventDelegator : () =>
-
-			@view.draw = () =>
-
-				# what goes in here? 
-				# without, keep getting an error function
-				# console.log "draw function"
-
-			@tool.onMouseDown = () =>
-
-				@animate()
-
-
-
-		animate : () ->
+		play : () ->
 
 
 			left = @elements.a
@@ -140,6 +125,9 @@ define ['paper', 'ball', 'frame', 'velocity_button', ], (paper, ball, frame, Vel
 					return setTimeout run, 10
 
 			run()
+
+
+
 
 
 

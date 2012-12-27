@@ -102,7 +102,7 @@ body {
   width: 400px;
   position: relative;
   margin: 0 auto;
-  background-color: white; }
+  background-color: rgba(150, 150, 150, 0.2); }
   #container div > canvas .no-rgba {
-    background-color: white;
-    opacity: 1; }
+    background-color: #969696;
+    opacity: 0.2; }
