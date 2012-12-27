@@ -4,7 +4,7 @@ module.exports = {
 
 		header: "Laboratory Frame of Reference"
 		frame: "laboratory"
-		controls : [
+		controls : 
 
 			redVelocity: 
 				class: "velocity"
@@ -41,14 +41,11 @@ module.exports = {
 				max: 10
 				name: "Blue Mass"
 				label: "kg"
-		]
-
-
 	2 : 
 
 		header: "Red Ball Frame of Reference"
 		frame: "red_ball"
-		controls: [
+		controls:
 
 			frameVelocity:
 				class: "frame_velocity"
@@ -58,13 +55,11 @@ module.exports = {
 				max: -10
 				name: "Frame Velocity"
 				label: "m/s"
-		]
-
 	3:
 
 		header: "Blue Ball Frame of Reference"
 		frame : "blue_ball"
-		controls: [
+		controls: 
 
 			frameVelocity:
 				class: "frame_velocity"
@@ -74,15 +69,12 @@ module.exports = {
 				max: -10
 				name: "Frame Velocity"
 				label: "m/s"
-
-		]
-
 
 	4:
 
 		header : "Custom Ball Frame of Reference"
 		frame : "custom"
-		controls : [
+		controls :
 
 			redVelocity: 
 				class: "velocity"
@@ -123,5 +115,5 @@ module.exports = {
 				max: -10
 				name: "Frame Velocity"
 				label: "m/s"
-		]
+
 }
