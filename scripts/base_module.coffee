@@ -53,7 +53,6 @@ define ['paper', 'ball', 'frame', ], (paper, ball, frame) ->
 
 		play : () ->
 
-
 			left = @elements.a
 			right = @elements.b
 			frame = @elements.frame

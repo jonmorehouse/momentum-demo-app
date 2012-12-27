@@ -22,9 +22,9 @@
         this.elementInit = __bind(this.elementInit, this);
         this.paper = paper;
         this.config = {
-          radiusFactor: 5,
+          radiusFactor: 6,
           color: "brown",
-          verticalOffset: 30,
+          verticalOffset: 100,
           horizontalOffset: 5,
           left: true,
           maxHeight: this.paper.view.size.height,

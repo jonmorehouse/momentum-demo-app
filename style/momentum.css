@@ -93,21 +93,78 @@ body {
 #container div:first-child > .header > .exit {
   border-top-right-radius: 1em; }
 
-#container > div:last-child > canvas {
-  border-bottom-left-radius: 1em;
-  border-bottom-right-radius: 1em; }
-#container > div > canvas {
-  height: 200px;
+#container > div > .content {
   display: block;
-  width: 400px;
+  width: 100%;
   position: relative;
   margin: 0 auto;
-  background-color: rgba(150, 150, 150, 0.2); }
-  #container > div > canvas .no-rgba {
-    background-color: #969696;
-    opacity: 0.2; }
+  height: 17em; }
+  #container > div > .content:last-child {
+    border-bottom-left-radius: 1em;
+    border-bottom-right-radius: 1em; }
+  #container > div > .content > canvas {
+    background-color: rgba(255, 255, 255, 0.5);
+    position: absolute;
+    top: 0%;
+    bottom: 0%;
+    height: 100%;
+    width: 100%;
+    left: 0%;
+    right: 0%; }
+    #container > div > .content > canvas .no-rgba {
+      background-color: white;
+      opacity: 0.5; }
+  #container > div > .content .controller {
+    position: absolute;
+    top: 0%;
+    bottom: 0%;
+    height: 100%;
+    width: 100%;
+    left: 0%;
+    right: 0%; }
 
-#container > div > .controls {
-  background-color: orange;
-  height: 25;
-  width: 25; }
+#container > div > .content > .controller > .play {
+  position: absolute;
+  bottom: 2%;
+  height: 8%;
+  width: 10%;
+  left: 45%;
+  cursor: pointer;
+  background-color: orange; }
+  #container > div > .content > .controller > .play .no-rgba {
+    background-color: orange;
+    opacity: 1; }
+  #container > div > .content > .controller > .play span {
+    display: block;
+    text-align: center; }
+#container > div > .content > .controller > div {
+  clear: both;
+  position: absolute;
+  max-width: 30%;
+  clear: both; }
+  #container > div > .content > .controller > div span {
+    position: relative;
+    float: left;
+    margin-left: 0.2em;
+    display: block; }
+    #container > div > .content > .controller > div span:nth-child(2) {
+      color: blue;
+      font-weight: bold; }
+  #container > div > .content > .controller > div input[type="range"] {
+    cursor: pointer; }
+
+#container > div > .content > .controller > .blue_mass {
+  bottom: 0;
+  right: 0; }
+#container > div > .content > .controller > .blue_velocity {
+  bottom: 2em;
+  right: 0; }
+  #container > div > .content > .controller > .blue_velocity input {
+    position: relative;
+    left: 7.5%; }
+#container > div > .content > .controller > .red_mass {
+  bottom: 0;
+  left: 0; }
+#container > div > .content > .controller > .red_velocity {
+  bottom: 2em;
+  left: 0; }

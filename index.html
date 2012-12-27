@@ -20,25 +20,27 @@
         <h1>Laboratory Frame of Reference</h1>
         <div class="exit"></div>
       </div>
-      <canvas data-main="Laboratory Frame of Reference"></canvas>
-      <div class="controller">
-        <div class="play"> </div>
-        <div class="velocity">
-          <div class="label"><span>Blue Velocity</span><span></span><span>m/s</span></div>
+      <div class="content">
+        <canvas data-main="Laboratory Frame of Reference"></canvas>
+        <div class="controller">
+          <div class="play"><span>Play</span></div>
+          <div class="red_velocity">
+            <div class="label"><span>Red Velocity</span><span>10</span><span>m/s</span></div>
+            <input type="range" data-id="red_velocity" min="0" max="20" step="1" value="10">
+          </div>
+          <div class="blue_velocity">
+            <div class="label"><span>Blue Velocity</span><span>10</span><span>m/s</span></div>
+            <input type="range" data-id="blue_velocity" min="0" max="20" step="1" value="10">
+          </div>
+          <div class="red_mass">
+            <div class="label"><span>Red Mass</span><span>5</span><span>kg</span></div>
+            <input type="range" data-id="red_mass" min="0" max="10" step="1" value="5">
+          </div>
+          <div class="blue_mass">
+            <div class="label"><span>Blue Mass</span><span>5</span><span>kg</span></div>
+            <input type="range" data-id="blue_mass" min="0" max="10" step="1" value="5">
+          </div>
         </div>
-        <input type="range" min="0" max="20" step="1" value="10">
-        <div class="blue_velocity">
-          <div class="label"><span>Blue Velocity</span><span></span><span>m/s</span></div>
-        </div>
-        <input type="range" min="0" max="20" step="1" value="10">
-        <div class="red_mass">
-          <div class="label"><span>Red Mass</span><span></span><span>kg</span></div>
-        </div>
-        <input type="range" min="0" max="10" step="1" value="5">
-        <div class="blue_mass">
-          <div class="label"><span>Blue Mass</span><span></span><span>kg</span></div>
-        </div>
-        <input type="range" min="0" max="10" step="1" value="5">
       </div>
     </div>
     <div>
@@ -46,13 +48,15 @@
         <h1>Red Ball Frame of Reference</h1>
         <div class="exit"></div>
       </div>
-      <canvas data-main="Red Ball Frame of Reference"></canvas>
-      <div class="controller">
-        <div class="play"> </div>
-        <div class="frame_velocity">
-          <div class="label"><span>Frame Velocity</span><span></span><span>m/s</span></div>
+      <div class="content">
+        <canvas data-main="Red Ball Frame of Reference"></canvas>
+        <div class="controller">
+          <div class="play"><span>Play</span></div>
+          <div class="frame_velocity">
+            <div class="label"><span>Frame Velocity</span><span>0</span><span>m/s</span></div>
+            <input type="range" data-id="frame_velocity" min="0" max="20" step="1" value="0">
+          </div>
         </div>
-        <input type="range" min="0" max="20" step="1" value="0">
       </div>
     </div>
     <div>
@@ -60,13 +64,15 @@
         <h1>Blue Ball Frame of Reference</h1>
         <div class="exit"></div>
       </div>
-      <canvas data-main="Blue Ball Frame of Reference"></canvas>
-      <div class="controller">
-        <div class="play"> </div>
-        <div class="frame_velocity">
-          <div class="label"><span>Frame Velocity</span><span></span><span>m/s</span></div>
+      <div class="content">
+        <canvas data-main="Blue Ball Frame of Reference"></canvas>
+        <div class="controller">
+          <div class="play"><span>Play</span></div>
+          <div class="frame_velocity">
+            <div class="label"><span>Frame Velocity</span><span>10</span><span>m/s</span></div>
+            <input type="range" data-id="frame_velocity" min="0" max="20" step="1" value="10">
+          </div>
         </div>
-        <input type="range" min="0" max="20" step="1" value="0">
       </div>
     </div>
     <div>
@@ -74,29 +80,31 @@
         <h1>Custom Ball Frame of Reference</h1>
         <div class="exit"></div>
       </div>
-      <canvas data-main="Custom Ball Frame of Reference"></canvas>
-      <div class="controller">
-        <div class="play"> </div>
-        <div class="velocity">
-          <div class="label"><span>Blue Velocity</span><span></span><span>m/s</span></div>
+      <div class="content">
+        <canvas data-main="Custom Ball Frame of Reference"></canvas>
+        <div class="controller">
+          <div class="play"><span>Play</span></div>
+          <div class="red_velocity">
+            <div class="label"><span>Red Velocity</span><span>10</span><span>m/s</span></div>
+            <input type="range" data-id="red_velocity" min="0" max="20" step="1" value="10">
+          </div>
+          <div class="blue_velocity">
+            <div class="label"><span>Blue Velocity</span><span>10</span><span>m/s</span></div>
+            <input type="range" data-id="blue_velocity" min="0" max="20" step="1" value="10">
+          </div>
+          <div class="red_mass">
+            <div class="label"><span>Red Mass</span><span>5</span><span>kg</span></div>
+            <input type="range" data-id="red_mass" min="0" max="10" step="1" value="5">
+          </div>
+          <div class="blue_mass">
+            <div class="label"><span>Blue Mass</span><span>5</span><span>kg</span></div>
+            <input type="range" data-id="blue_mass" min="0" max="10" step="1" value="5">
+          </div>
+          <div class="frame_velocity">
+            <div class="label"><span>Frame Velocity</span><span>10</span><span>m/s</span></div>
+            <input type="range" data-id="frame_velocity" min="0" max="20" step="1" value="10">
+          </div>
         </div>
-        <input type="range" min="0" max="20" step="1">
-        <div class="blue_velocity">
-          <div class="label"><span>Blue Velocity</span><span></span><span>m/s</span></div>
-        </div>
-        <input type="range" min="0" max="20" step="1">
-        <div class="red_mass">
-          <div class="label"><span>Red Mass</span><span></span><span>kg</span></div>
-        </div>
-        <input type="range" min="0" max="10" step="1">
-        <div class="blue_mass">
-          <div class="label"><span>Blue Mass</span><span></span><span>kg</span></div>
-        </div>
-        <input type="range" min="0" max="10" step="1">
-        <div class="frame_velocity">
-          <div class="label"><span>Frame Velocity</span><span></span><span>m/s</span></div>
-        </div>
-        <input type="range" min="-10" max="-10" step="1">
       </div>
     </div>
   </div>

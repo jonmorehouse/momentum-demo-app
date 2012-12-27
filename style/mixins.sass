@@ -5,6 +5,16 @@
 	position: relative
 	margin: 0 auto
 
+@mixin absolute ($width: 100%, $height: 100%)
+
+	position: absolute
+	top: (100% - $height) / 2
+	bottom: (100% - $height) / 2
+	height: $height
+	width: $width
+	left: (100% - $width) / 2
+	right: (100% - $width) /2 
+
 @mixin test ($size: 25)
 
 	background-color: orange

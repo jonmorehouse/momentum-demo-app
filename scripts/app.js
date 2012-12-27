@@ -14,7 +14,7 @@ requirejs.config({
 	shim: {
 
         'paper' : {
-        	exports: 'paper'
+        	exports: 'paper'//export the paper global var! -- no need to work with 
         },
     },
 });
@@ -23,6 +23,6 @@ requirejs.config({
 requirejs(["jquery", "controller"], function ($, controller) {
 
 	// run the controller after jquery load?
-	controller()
+
 
 });

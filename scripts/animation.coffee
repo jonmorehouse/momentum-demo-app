@@ -59,7 +59,7 @@ define [], () -> #include our extension!
 		element = $(this)
 
 		trigger = element.find(".exit")
-		container = element.children("canvas")
+		container = element.children(".content")
 
 		controllers.push new ToggleController trigger, container
 

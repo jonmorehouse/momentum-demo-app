@@ -60,7 +60,7 @@
       var container, element, trigger;
       element = $(this);
       trigger = element.find(".exit");
-      container = element.children("canvas");
+      container = element.children(".content");
       return controllers.push(new ToggleController(trigger, container));
     });
   });

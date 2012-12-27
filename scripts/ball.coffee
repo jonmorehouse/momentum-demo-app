@@ -16,9 +16,9 @@ define ["paper"], (paper) ->
 
 			@config =
 
-				radiusFactor: 5
+				radiusFactor: 6
 				color: "brown"
-				verticalOffset: 30
+				verticalOffset: 100
 				horizontalOffset: 5
 				left : true
 				maxHeight : @paper.view.size.height

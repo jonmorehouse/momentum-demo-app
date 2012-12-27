@@ -2,12 +2,18 @@
 (function() {
 
   define(["base_module", "animation"], function(baseModule, animation) {
-    var elementData, elements, handlers, modules;
-    elements = {
-      "lab": $('#container > div:nth-child(1)'),
-      "red": $('#container > div:nth-child(2)'),
-      "blue": $('#container > div:nth-child(3)'),
-      "custom": $('#container > div:nth-child(4)')
+    var canvasElements, elementData, modules, parentElements, resize;
+    parentElements = {
+      "lab": $('#container > div:nth-child(1) > .content'),
+      "red": $('#container > div:nth-child(2) > .content'),
+      "blue": $('#container > div:nth-child(3) > .content'),
+      "custom": $('#container > div:nth-child(4) > .content')
+    };
+    canvasElements = {
+      "lab": parentElements.lab.children("canvas"),
+      "red": parentElements.red.children("canvas"),
+      "blue": parentElements.blue.children("canvas"),
+      "custom": parentElements.custom.children("canvas")
     };
     elementData = {
       lab: {
@@ -63,13 +69,13 @@
         }
       }
     };
-    modules = {
-      lab: new baseModule(elements.lab.children("canvas")[0], elementData.lab),
-      red: new baseModule(elements.red.children("canvas")[0], elementData.red),
-      blue: new baseModule(elements.blue.children("canvas")[0], elementData.blue),
-      custom: new baseModule(elements.custom.children("canvas")[0], elementData.custom)
+    (resize = function() {})();
+    return modules = {
+      lab: new baseModule(canvasElements.lab[0], elementData.lab),
+      red: new baseModule(canvasElements.red[0], elementData.red),
+      blue: new baseModule(canvasElements.blue[0], elementData.blue),
+      custom: new baseModule(canvasElements.custom[0], elementData.custom)
     };
-    return handlers = function() {};
   });
 
 }).call(this);

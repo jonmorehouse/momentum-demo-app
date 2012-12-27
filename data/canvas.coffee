@@ -6,13 +6,13 @@ module.exports = {
 		frame: "laboratory"
 		controls : 
 
-			redVelocity: 
-				class: "velocity"
+			redVelocity:
+				class: "red_velocity"
 				type: "slider"
 				min: 0
 				default: 10
 				max: 20
-				name: "Blue Velocity"
+				name: "Red Velocity"
 				label : "m/s"
 
 			blueVelocity: 
@@ -64,7 +64,7 @@ module.exports = {
 			frameVelocity:
 				class: "frame_velocity"
 				type: "slider"
-				default: 0
+				default: 10
 				min: 0
 				max: 20
 				name: "Frame Velocity"
@@ -77,17 +77,19 @@ module.exports = {
 		controls :
 
 			redVelocity: 
-				class: "velocity"
+				class: "red_velocity"
 				type: "slider"
 				min: 0
+				default: 10
 				max: 20
-				name: "Blue Velocity"
+				name: "Red Velocity"
 				label : "m/s"
 
 			blueVelocity: 
 				class: "blue_velocity"
 				type: "slider"
 				min: 0
+				default: 10
 				max: 20
 				name: "Blue Velocity"
 				label : "m/s"
@@ -96,6 +98,7 @@ module.exports = {
 				class: "red_mass"
 				type: "slider"
 				min: 0
+				default: 5
 				max: 10
 				name: "Red Mass"
 				label: "kg"
@@ -104,6 +107,7 @@ module.exports = {
 				class: "blue_mass"
 				type: "slider"
 				min: 0
+				default: 5
 				max: 10
 				name: "Blue Mass"
 				label: "kg"
@@ -111,8 +115,9 @@ module.exports = {
 			frameVelocity:
 				class: "frame_velocity"
 				type: "slider"
-				min: -10
-				max: -10
+				min: 0
+				default: 10
+				max: 20
 				name: "Frame Velocity"
 				label: "m/s"
 
