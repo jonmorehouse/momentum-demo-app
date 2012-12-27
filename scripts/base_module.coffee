@@ -15,14 +15,14 @@ define ['paper', 'ball', 'frame', 'velocity_button', ], (paper, ball, frame, Vel
 
 			a :
 				color : "red"
-				velocity : 20
-				mass: 8
+				velocity : 3
+				mass: 3
 				radius: 30
 				left: true
 			b : 
 				color : "blue"
-				velocity : -20
-				mass: 19
+				velocity : -5
+				mass: 5
 				radius: 40
 				left : false
 
@@ -38,14 +38,17 @@ define ['paper', 'ball', 'frame', 'velocity_button', ], (paper, ball, frame, Vel
 			@paper.setup @canvas
 			@view = new @paper.View(canvas)
 
+
+
+			# element data initializing 
 			@elements =
 
 				a : new ball @paper, @elementSettings.a
 				b : new ball @paper, @elementSettings.b
 				frame : new frame @paper, @elementSettings.frame
 
+			# paper view
 			@paper.view.draw()
-
 			@eventDelegator()
 
 		eventDelegator : () =>
@@ -84,7 +87,7 @@ define ['paper', 'ball', 'frame', 'velocity_button', ], (paper, ball, frame, Vel
 				fv = frame.getVelocity()
 
 				# move each initial element! if they are running!
-				if leftRunning	
+				if leftRunning 
 					
 					left.element.position.x += vl + fv
 

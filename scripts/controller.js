@@ -2,14 +2,74 @@
 (function() {
 
   define(["base_module", "animation"], function(baseModule, animation) {
-    var controller, elements;
+    var elementData, elements, handlers, modules;
     elements = {
-      0: $('#container > div:nth-child(1)')
+      "lab": $('#container > div:nth-child(1)'),
+      "red": $('#container > div:nth-child(2)'),
+      "blue": $('#container > div:nth-child(3)'),
+      "custom": $('#container > div:nth-child(4)')
     };
-    return controller = function() {
-      var first;
-      return first = new baseModule(elements[0].children("canvas")[0]);
+    elementData = {
+      lab: {
+        a: {
+          velocity: 5,
+          mass: 3
+        },
+        b: {
+          velocity: -1,
+          mass: 5
+        },
+        frame: {
+          velocity: 0
+        }
+      },
+      red: {
+        a: {
+          mass: 3,
+          velocity: 0
+        },
+        b: {
+          mass: 5,
+          velocity: -6
+        },
+        frame: {
+          velocity: 0
+        }
+      },
+      blue: {
+        a: {
+          mass: 3,
+          velocity: 6
+        },
+        b: {
+          mass: 5,
+          velocity: 0
+        },
+        frame: {
+          velocity: -1
+        }
+      },
+      custom: {
+        a: {
+          mass: 3,
+          velocity: 3
+        },
+        b: {
+          mass: 5,
+          velocity: -3
+        },
+        frame: {
+          velocity: 2
+        }
+      }
     };
+    modules = {
+      lab: new baseModule(elements.lab.children("canvas")[0], elementData.lab),
+      red: new baseModule(elements.red.children("canvas")[0], elementData.red),
+      blue: new baseModule(elements.blue.children("canvas")[0], elementData.blue),
+      custom: new baseModule(elements.custom.children("canvas")[0], elementData.custom)
+    };
+    return handlers = function() {};
   });
 
 }).call(this);

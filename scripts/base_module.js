@@ -18,15 +18,15 @@
       BaseModule.prototype.elementSettings = {
         a: {
           color: "red",
-          velocity: 20,
-          mass: 8,
+          velocity: 3,
+          mass: 3,
           radius: 30,
           left: true
         },
         b: {
           color: "blue",
-          velocity: -20,
-          mass: 19,
+          velocity: -5,
+          mass: 5,
           radius: 40,
           left: false
         },

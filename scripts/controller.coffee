@@ -7,18 +7,75 @@
 
 define ["base_module", "animation"], (baseModule, animation) ->
 
-	elements =
+	# html elements!
+	elements = #base elemnets!
 
-		0 : $('#container > div:nth-child(1)') 
+		"lab" : $('#container > div:nth-child(1)') 
+		"red" : $('#container > div:nth-child(2)') 
+		"blue" : $('#container > div:nth-child(3)')
+		"custom" : $('#container > div:nth-child(4)')
 
-	# modules
+	elementData = #this is custom data that will over-write the modules!
+
+		lab : #frame of reference from the laboratory
+			a : 
+				velocity: 5
+				mass: 3
+
+			b :
+
+				velocity: -1
+				mass: 5
+
+			frame: 
+				velocity: 0
+
+		red: #frame of reference of the red ball
+			a :
+				mass: 3
+				velocity: 0
+			b:
+				mass: 5
+				velocity: -6
+			frame:
+				velocity: 0
+
+		blue:#frame of reference from the blue ball
+			a:
+				mass: 3
+				velocity: 6
+			b:
+				mass: 5
+				velocity: 0
+
+			frame:
+
+				velocity: -1
+
+		custom: #custom frame of reference
+
+			a:
+				mass: 3
+				velocity: 3
 
 
-	controller = () ->	#create a base module for each and then send it callback functions etc for changing ...
+			b:
+				mass: 5
+				velocity: -3
 
-		first = new baseModule elements[0].children("canvas")[0]
+			frame:
+				velocity: 2
 
-			
-		
+	modules = 	#create a base module for each and then send it callback functions etc for changing ...
+
+		lab : new baseModule elements.lab.children("canvas")[0], elementData.lab
+		red : new baseModule elements.red.children("canvas")[0], elementData.red
+		blue : new baseModule elements.blue.children("canvas")[0], elementData.blue
+		custom : new baseModule elements.custom.children("canvas")[0], elementData.custom
+
+	handlers = () ->
+
+		# will attach a handler for each element to map the proper sliders etc
+
 
 
