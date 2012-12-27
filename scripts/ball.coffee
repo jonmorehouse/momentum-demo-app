@@ -4,60 +4,74 @@
 # will hold the ball and its attributes etc
 # when the animation is run, we will actually use it on the element in the base_module
 # after the animation is run, we reset completely!
+# on click we need to change the value of the velocity -- this can be later functionality
+
 define ["paper"], (paper) ->
 
 	class Ball
 
-		config :
+		constructor : (paper, options) ->
 
-			radius: 10
-			color: "brown"
-			mass: 10
-			velocity: 10
-			verticalOffset: 20
-			horizontalOffset: 20
+			@config =
 
-		constructor = (canvas, options) ->
+				radius: 30
+				color: "brown"
+				mass: 10
+				velocity: 10
+				verticalOffset: 70
+				horizontalOffset: 50
+				left : true
 
-			@canvas = canvas
-			@paper = new paper.PaperScope()
-			@tool = new @paper.Tool()
-			@view = new @paper.View(@canvas)
-
+			@paper = paper
+			
 			# set the default settings in this class
 			@settings =
 
-				height: @view.size.height
-				width: @view.size.width
+				height: @paper.view.size.height
+				width: @paper.view.size.width
 
 			# for each element, set the global config for this!
-			for i in options
-
-				@config[i] = options[i]
+			for key, value of options
+				@config[key] = value
 
 			@init() #actually initialize the element	
+			@click()
 
 
 		# initialize the element
-		init = () =>
+		init : () =>
 
 			# responsible for initializing the element
 			@position = {}
-			@position.original = new @paper.Point @settings.width - @config.horizontalOffset, @settings.height - @config.verticalOffset
+
+			# initialize x position depending upon left or not
+			_x = if @config.left then @config.horizontalOffset else @settings.width - @config.horizontalOffset
+
+			# initialize
+			@position.original = new @paper.Point _x, @settings.height - @config.verticalOffset
 			@position.current = @position.original
 
 			# now initialize the actual element!
-			@element = new @paper.Circle @position.original, @config.radius
-			@element.fillColor = new @config.color
+			@element = new @paper.Path.Circle @position.original, @config.radius
+			@element.fillColor = @config.color
+
+		click : () =>
+
+			@element.attach "mouseenter", (event) =>
+
+				console.log "mouse enter area function"				
+
+
+
 
 		# reset the position only, between runs only!
-		positionReset = () =>
+		positionReset : () =>
 
 			# useful when we just are finished running the animation
 			@element.moveTo @position.original
 
 		# resets the entire elements's attributes and repositions it
-		fullReset = () =>
+		fullReset : () =>
 
 			# reset velocity, mass etc
 			@element.moveTo @position.original
@@ -66,23 +80,23 @@ define ["paper"], (paper) ->
 
 
 		# called from outside modules that need to access the module
-		setVelocity = (velocity) =>
+		setVelocity : (velocity) =>
 
 			@config.velocity = velocity
 
 		# called from outside modules to change mass!
-		setMass = (mass) =>
+		setMass : (mass) =>
 
 			@config.mass = mass
 
 		# return the current velocity for animation run in the elements!
-		getVelocity = () =>
+		getVelocity : () =>
 
 			# returns current velocity
 			return @attributes.velocity
 
 		# return the mass
-		getMass = () =>
+		getMass : () =>
 
 			return @attributes.mass
 

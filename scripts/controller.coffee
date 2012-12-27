@@ -5,7 +5,7 @@
 # 	3.) change frame, a and b elements here. An element that can be called from any class and then from the jquery elements
 #	4.) loads in the animations automatically for the elements with animation module!
 
-define ["base_module", "animation"], (base_module, animation) ->
+define ["base_module", "animation"], (baseModule, animation) ->
 
 	elements =
 
@@ -16,7 +16,7 @@ define ["base_module", "animation"], (base_module, animation) ->
 
 	controller = () ->	#create a base module for each and then send it callback functions etc for changing ...
 
-		first = new base_module elements[0].children("canvas")[0]
+		first = new baseModule elements[0].children("canvas")[0]
 
 			
 
