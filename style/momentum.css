@@ -125,18 +125,16 @@ body {
 
 #container > div > .content > .controller > .play {
   position: absolute;
-  bottom: 2%;
+  bottom: 8%;
   height: 8%;
   width: 10%;
   left: 45%;
-  cursor: pointer;
-  background-color: orange; }
-  #container > div > .content > .controller > .play .no-rgba {
-    background-color: orange;
-    opacity: 1; }
-  #container > div > .content > .controller > .play span {
+  cursor: pointer; }
+  #container > div > .content > .controller > .play img {
     display: block;
-    text-align: center; }
+    position: relative;
+    width: 50%;
+    margin: 0 auto; }
 #container > div > .content > .controller > div {
   clear: both;
   position: absolute;

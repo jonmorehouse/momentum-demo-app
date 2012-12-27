@@ -75,7 +75,8 @@ define ["base_module", "animation"], (baseModule, animation) ->
 
 	do resize = () ->
 
-		# console.log "resize canvas elements here"
+		# not necessary for now. Possibly implement later.
+		
 
 
 	modules = 	#create a base module for each and then send it callback functions etc for changing ...
@@ -85,9 +86,6 @@ define ["base_module", "animation"], (baseModule, animation) ->
 		blue : new baseModule canvasElements.blue[0], elementData.blue
 		custom : new baseModule canvasElements.custom[0], elementData.custom
 
-		# individual elements to map
-
-		# will attach a handler for each element to map the proper sliders etc
 
 
 
