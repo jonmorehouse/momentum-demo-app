@@ -1,7 +1,5 @@
-Base_ball
-	
-	-	basic ball, will be responsible for setting up the different types of elements
-	-	setters / getters for position, weight and velocity
+-	Controls Div that Overlays the Actual Canvas
+-	Will resize the canvas dynamically
+-	Will map certain elements to each canvas element
+-	Slider element that changes the height / mass etc
 
-	-	animate method -- can be called from parent
-	-	when you signal the parent
