@@ -4,8 +4,22 @@
 			.header
 				h1 #{project.header}
 				.exit
-			canvas(data-main="#{project.header}", height="200", width="1800")
-		
+			//- canvas is paper-js driven!				
+			canvas(data-main="#{project.header}")
 
+			//- controller overlays the canvas and is responsible for controls!
+			.controller
+				//- main controls for playing the animation
+				//- just a small element with a background-color etc!
+				.play 
 
-
+				//- loop through each project's controls
+				each control in project.controls
+					//- create the html for the element!
+					div(class="#{control.class}")
+						.label
+							span #{control.name}
+							span #{control.default}
+							span #{control.label}
+					//- controller goes here
+						input(type='range', min='#{control.min}', max='#{control.max}', step='1', value='#{control.default}')
