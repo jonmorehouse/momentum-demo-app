@@ -57,10 +57,11 @@ define ["paper"], (paper) ->
 
 		click : () =>
 
-			@element.attach "mouseenter", (event) =>
+			@element.attach "mouseclick", (event) =>
 
 				console.log "mouse enter area function"				
 
+				alert "hello world"
 
 
 
