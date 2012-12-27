@@ -148,6 +148,8 @@ body {
     #container > div > .content > .controller > div span:nth-child(2) {
       color: blue;
       font-weight: bold; }
+  #container > div > .content > .controller > div span.static {
+    color: red; }
   #container > div > .content > .controller > div input[type="range"] {
     cursor: pointer; }
 

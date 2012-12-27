@@ -2,11 +2,11 @@
 	each project in canvas
 		div
 			.header
-				h1 #{project.header}
+				h1= project.header
 				.exit
 			//- canvas is paper-js driven!
 			.content
-				canvas(data-main="#{project.header}")
+				canvas(data-main= project.header)
 
 				//- controller overlays the canvas and is responsible for controls!
 				.controller
@@ -21,9 +21,13 @@
 						div(class= control.class)
 							.label
 								span= control.name
-								span= control.default
+								if control.editable
+									span= control.value
+								else
+									span(class='static')=control.value
 								span= control.label
 							//- need to have the controller inside of the actual class so we know whats up!
 							//- controller goes here
-							input(type= 'range', data-id= control.class, min= control.min, max= control.max, step='1', value= control.default)		
+							if control.editable
+								input(type= 'range', data-id= control.class, min= control.min, max= control.max, step='1', value= control.value)		
 
