@@ -16,15 +16,15 @@ define ['paper', 'ball', 'frame', 'velocity_button', ], (paper, ball, frame, Vel
 			a :
 				color : "red"
 				velocity : 5
-				mass: 3
-				radius: 20
+				mass: 5
+				radius: 30
 				left: true
 
 			b : 
 				color : "blue"
-				velocity : -5
+				velocity : -8
 				mass: 5
-				radius: 30
+				radius: 40
 				left : false
 
 			frame: 
@@ -73,18 +73,27 @@ define ['paper', 'ball', 'frame', 'velocity_button', ], (paper, ball, frame, Vel
 
 			# run animation -- map the refresh to 1 pixel per second!
 			# assume velocity is the delta_x
+			collision = false
+			rightRunning = true
+			leftRunning = true
 
 			run = () =>
 
-				running = true
+
 				# initialize velocitys for each
 				vr = right.getVelocity()
 				vl = left.getVelocity()
 				fv = frame.getVelocity()
 
-				# move each initial element!
-				left.element.position.x += vl + fv
-				right.element.position.x += vr + fv
+				# move each initial element! if they are running!
+				if leftRunning	
+					
+					left.element.position.x += vl + fv
+
+				if rightRunning
+
+					right.element.position.x += vr + fv
+
 
 				# if a collision checks, need to reverse the elements!
 				if not collision and left.element.position.x + left.config.radius >= right.element.position.x - right.config.radius 
@@ -94,31 +103,46 @@ define ['paper', 'ball', 'frame', 'velocity_button', ], (paper, ball, frame, Vel
 					ml = left.getMass()
 					mr = right.getMass()
 
+
 					# now recalculate the animations
-					vlf = vl * (ml - mr) + 2 * mr * vr * 1 / (ml + mr) #initialize final velocity with this function!
-					vrf = vr * (mr - ml) + 2 * ml * vl * 1 / (ml + mr) #initialize final velocity!
+					bottom = 1 / (ml + mr)
+
+					vlf = vl * (ml - mr) + 2 * mr * vr * bottom #initialize final velocity with this function!
+					vrf = vr * (mr - ml) + 2 * ml * vl * bottom #initialize final velocity!
 
 					# now set the two final velocities
 					left.setVelocity vlf
 					right.setVelocity vrf
 
-				# the animation is complete!
-				if collision and left.element.position.x < left.position.original.x or collision and right.element.position.x > right.position.original.x
-					
-					running = false #the animation is complete!
-					left.fullReset() #reset both position
+				# validate left and right animation of objects
+				if collision and left.element.position.x <= left.original.x 
+
+					leftRunning = false
+					left.fullReset()
+
+				if collision and right.element.position.x <= left.original.x
+
+					leftRunning = false
 					right.fullReset()
-					
 
+				if collision and right.element.position.x >= right.original.x 
 
+					rightRunning = false
+					right.fullReset()
+
+				if collision and left.element.position.x >= right.original.x
+
+					rightRunning = false
+					right.fullReset()
+
+				# draw out element
 				@paper.view.draw()
 
-				if running
+				if rightRunning or leftRunning
 
 					return setTimeout run, 10
 
 			run()
-
 
 
 

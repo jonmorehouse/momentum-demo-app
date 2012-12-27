@@ -19,15 +19,15 @@
         a: {
           color: "red",
           velocity: 5,
-          mass: 3,
-          radius: 20,
+          mass: 5,
+          radius: 30,
           left: true
         },
         b: {
           color: "blue",
-          velocity: -5,
+          velocity: -8,
           mass: 5,
-          radius: 30,
+          radius: 40,
           left: false
         },
         frame: {
@@ -60,36 +60,54 @@
       };
 
       BaseModule.prototype.animate = function() {
-        var counter, left, right, run,
+        var collision, counter, left, leftRunning, right, rightRunning, run,
           _this = this;
         left = this.elements.a;
         right = this.elements.b;
         frame = this.elements.frame;
         counter = 0;
+        collision = false;
+        rightRunning = true;
+        leftRunning = true;
         run = function() {
-          var collision, fv, ml, mr, running, vl, vlf, vr, vrf;
-          running = true;
+          var bottom, fv, ml, mr, vl, vlf, vr, vrf;
           vr = right.getVelocity();
           vl = left.getVelocity();
           fv = frame.getVelocity();
-          left.element.position.x += vl + fv;
-          right.element.position.x += vr + fv;
+          if (leftRunning) {
+            left.element.position.x += vl + fv;
+          }
+          if (rightRunning) {
+            right.element.position.x += vr + fv;
+          }
           if (!collision && left.element.position.x + left.config.radius >= right.element.position.x - right.config.radius) {
             collision = true;
             ml = left.getMass();
             mr = right.getMass();
-            vlf = vl * (ml - mr) + 2 * mr * vr * 1 / (ml + mr);
-            vrf = vr * (mr - ml) + 2 * ml * vl * 1 / (ml + mr);
+            bottom = 1 / (ml + mr);
+            vlf = vl * (ml - mr) + 2 * mr * vr * bottom;
+            vrf = vr * (mr - ml) + 2 * ml * vl * bottom;
             left.setVelocity(vlf);
             right.setVelocity(vrf);
           }
-          if (collision && left.element.position.x < left.position.original.x || collision && right.element.position.x > right.position.original.x) {
-            running = false;
+          if (collision && left.element.position.x <= left.original.x) {
+            leftRunning = false;
             left.fullReset();
+          }
+          if (collision && right.element.position.x <= left.original.x) {
+            leftRunning = false;
+            right.fullReset();
+          }
+          if (collision && right.element.position.x >= right.original.x) {
+            rightRunning = false;
+            right.fullReset();
+          }
+          if (collision && left.element.position.x >= right.original.x) {
+            rightRunning = false;
             right.fullReset();
           }
           _this.paper.view.draw();
-          if (running) {
+          if (rightRunning || leftRunning) {
             return setTimeout(run, 10);
           }
         };

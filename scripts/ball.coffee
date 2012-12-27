@@ -34,6 +34,9 @@ define ["paper"], (paper) ->
 			for key, value of options
 				@config[key] = value
 
+			@velocity = @config.velocity
+			@mass = @config.mass
+
 			@init() #actually initialize the element	
 			@click()
 
@@ -42,17 +45,14 @@ define ["paper"], (paper) ->
 		init : () =>
 
 			# responsible for initializing the element
-			@position = {}
-
 			# initialize x position depending upon left or not
 			_x = if @config.left then @config.horizontalOffset else @settings.width - @config.horizontalOffset
 
 			# initialize
-			@position.original = new @paper.Point _x, @settings.height - @config.verticalOffset
-			@position.current = @position.original
+			@original = new @paper.Point _x, @settings.height - @config.verticalOffset
 
 			# now initialize the actual element!
-			@element = new @paper.Path.Circle @position.original, @config.radius
+			@element = new @paper.Path.Circle @original, @config.radius
 			@element.fillColor = @config.color
 
 		click : () =>
@@ -69,40 +69,36 @@ define ["paper"], (paper) ->
 		positionReset : () =>
 
 			# useful when we just are finished running the animation
-			@element.position.x = @position.original.x
-			@element.position.y = @position.original.y
+			@element.position.x = @original.x
+			@element.position.y = @original.y
 
 		# resets the entire elements's attributes and repositions it
 		fullReset : () =>
 
 			# reset velocity, mass etc
-			@position.positionReset()
-			@attributes.velocity = @config.velocity
-			@attributes.mass = @config.mass
+			@positionReset()
+			@velocity = @config.velocity
+			@mass = @config.mass
 
 
 		# called from outside modules that need to access the module
 		setVelocity : (velocity) =>
 
-			@config.velocity = velocity
+			@velocity = velocity
 
 		# called from outside modules to change mass!
 		setMass : (mass) =>
 
-			@config.mass = mass
-
-		setPosition : (position) =>
-
-			@position.current = position
+			@mass = mass
 
 		# return the current velocity for animation run in the elements!
 		getVelocity : () =>
 
 			# returns current velocity
-			return @config.velocity
+			return @velocity
 
 		# return the mass
 		getMass : () =>
 
-			return @config.mass
+			return @mass
 

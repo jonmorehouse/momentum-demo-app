@@ -11,8 +11,6 @@
 
         this.getVelocity = __bind(this.getVelocity, this);
 
-        this.setPosition = __bind(this.setPosition, this);
-
         this.setMass = __bind(this.setMass, this);
 
         this.setVelocity = __bind(this.setVelocity, this);
@@ -44,17 +42,17 @@
           value = options[key];
           this.config[key] = value;
         }
+        this.velocity = this.config.velocity;
+        this.mass = this.config.mass;
         this.init();
         this.click();
       }
 
       Ball.prototype.init = function() {
         var _x;
-        this.position = {};
         _x = this.config.left ? this.config.horizontalOffset : this.settings.width - this.config.horizontalOffset;
-        this.position.original = new this.paper.Point(_x, this.settings.height - this.config.verticalOffset);
-        this.position.current = this.position.original;
-        this.element = new this.paper.Path.Circle(this.position.original, this.config.radius);
+        this.original = new this.paper.Point(_x, this.settings.height - this.config.verticalOffset);
+        this.element = new this.paper.Path.Circle(this.original, this.config.radius);
         return this.element.fillColor = this.config.color;
       };
 
@@ -67,34 +65,30 @@
       };
 
       Ball.prototype.positionReset = function() {
-        this.element.position.x = this.position.original.x;
-        return this.element.position.y = this.position.original.y;
+        this.element.position.x = this.original.x;
+        return this.element.position.y = this.original.y;
       };
 
       Ball.prototype.fullReset = function() {
-        this.position.positionReset();
-        this.attributes.velocity = this.config.velocity;
-        return this.attributes.mass = this.config.mass;
+        this.positionReset();
+        this.velocity = this.config.velocity;
+        return this.mass = this.config.mass;
       };
 
       Ball.prototype.setVelocity = function(velocity) {
-        return this.config.velocity = velocity;
+        return this.velocity = velocity;
       };
 
       Ball.prototype.setMass = function(mass) {
-        return this.config.mass = mass;
-      };
-
-      Ball.prototype.setPosition = function(position) {
-        return this.position.current = position;
+        return this.mass = mass;
       };
 
       Ball.prototype.getVelocity = function() {
-        return this.config.velocity;
+        return this.velocity;
       };
 
       Ball.prototype.getMass = function() {
-        return this.config.mass;
+        return this.mass;
       };
 
       return Ball;
