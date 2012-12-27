@@ -42,16 +42,27 @@ define ["paper"], (paper) ->
 			_x = if @config.left then @config.horizontalOffset + @radius else @config.maxWidth - @config.horizontalOffset - @radius
 			_y = @config.maxHeight - @config.verticalOffset - @radius
 
+			# initialize the original element
+			if not @original
+				@original = new @paper.Point _x, _y
 
-			@original = new @paper.Point _x, _y
+			else
+				@original.x = _x
+				@original.y = _y
+
+
 			# can make this a layer in the future! -- to incorporate animations in the objects for more excitement!
 			if not @element
 				@element = new @paper.Path.Circle @original, @radius
 			
 			else 
-				
-			@element.fillColor = @config.color
+				@element.position = @original
 
+			# initialize the ball style!
+			@element.fillColor = @config.color
+			
+
+			# draw the element
 			@paper.view.draw()
 
 		# reset the position only, between runs only!

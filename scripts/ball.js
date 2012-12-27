@@ -43,11 +43,16 @@
         var _x, _y;
         _x = this.config.left ? this.config.horizontalOffset + this.radius : this.config.maxWidth - this.config.horizontalOffset - this.radius;
         _y = this.config.maxHeight - this.config.verticalOffset - this.radius;
-        this.original = new this.paper.Point(_x, _y);
+        if (!this.original) {
+          this.original = new this.paper.Point(_x, _y);
+        } else {
+          this.original.x = _x;
+          this.original.y = _y;
+        }
         if (!this.element) {
           this.element = new this.paper.Path.Circle(this.original, this.radius);
         } else {
-
+          this.element.position = this.original;
         }
         this.element.fillColor = this.config.color;
         return this.paper.view.draw();
