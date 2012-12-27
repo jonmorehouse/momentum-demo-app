@@ -3,37 +3,28 @@ define ["paper"], (paper) ->
 
 	class Frame
 
-		config :
+		constructor : (canvas, options) ->
 
-			editable : false
-			verticalOffset: 20
-			horizontalOffset: 20
+			@config =
 
-
-		constructor = (canvas, options) ->
-
+				editable : false
+				verticalOffset: 20
+				horizontalOffset: 20
 
 			@canvas = canvas #initialize canvas for this object!
 			@paper = new paper.PaperScope() #initialize a new paperscope on this element
-			@tool = new @paper.Tool() #used to listen on click for when we can edit the element!
-			@view = new @paper.View(@canvas)
 
-			for i in options #should only be editable and default value!
+			for key, value of options
 
-				@config[i] = options[i]
+				@config[key] = value
+ 
+		getVelocity : () =>
 
-			@init()
+			return @config.velocity
 
+		setVelocity : (velocity) =>
 
-		init = () =>
-
-			@origin = new @paper.Point @config.verticalOffset, @config.horizontalOffset
-
-			@element = new @paper.Circle @origin, 20
-			@element.fillColor = "orange"
-
-
-
+			@config.velocity = velocity
 
 
 

@@ -69,13 +69,14 @@ define ["paper"], (paper) ->
 		positionReset : () =>
 
 			# useful when we just are finished running the animation
-			@element.moveTo @position.original
+			@element.position.x = @position.original.x
+			@element.position.y = @position.original.y
 
 		# resets the entire elements's attributes and repositions it
 		fullReset : () =>
 
 			# reset velocity, mass etc
-			@element.moveTo @position.original
+			@position.positionReset()
 			@attributes.velocity = @config.velocity
 			@attributes.mass = @config.mass
 

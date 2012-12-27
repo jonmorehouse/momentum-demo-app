@@ -67,11 +67,12 @@
       };
 
       Ball.prototype.positionReset = function() {
-        return this.element.moveTo(this.position.original);
+        this.element.position.x = this.position.original.x;
+        return this.element.position.y = this.position.original.y;
       };
 
       Ball.prototype.fullReset = function() {
-        this.element.moveTo(this.position.original);
+        this.position.positionReset();
         this.attributes.velocity = this.config.velocity;
         return this.attributes.mass = this.config.mass;
       };

@@ -15,14 +15,14 @@ define ['paper', 'ball', 'frame', 'velocity_button', ], (paper, ball, frame, Vel
 
 			a :
 				color : "red"
-				velocity : 10
+				velocity : 5
 				mass: 3
 				radius: 20
 				left: true
 
 			b : 
 				color : "blue"
-				velocity : 10
+				velocity : -5
 				mass: 5
 				radius: 30
 				left : false
@@ -38,7 +38,6 @@ define ['paper', 'ball', 'frame', 'velocity_button', ], (paper, ball, frame, Vel
 			@tool = new @paper.Tool()
 			@paper.setup @canvas
 			@view = new @paper.View(canvas)
-
 
 			@elements =
 
@@ -69,38 +68,52 @@ define ['paper', 'ball', 'frame', 'velocity_button', ], (paper, ball, frame, Vel
 
 			left = @elements.a
 			right = @elements.b
+			frame = @elements.frame
 			counter = 0
-
-
-			delta_x = right.position.current.x - left.position.current.x
 
 			# run animation -- map the refresh to 1 pixel per second!
 			# assume velocity is the delta_x
-			iterations = 0
-			ld = 1
-			rd = -1
 
 			run = () =>
 
+				running = true
+				# initialize velocitys for each
+				vr = right.getVelocity()
+				vl = left.getVelocity()
+				fv = frame.getVelocity()
 
+				# move each initial element!
+				left.element.position.x += vl + fv
+				right.element.position.x += vr + fv
 
-				if left.element.position.x > @view.size.width
-					ld *= -1
-				if left.element.position.x < 0
-					ld *= -1
-				if right.element.position.x < 0
-					rd *= -1
+				# if a collision checks, need to reverse the elements!
+				if not collision and left.element.position.x + left.config.radius >= right.element.position.x - right.config.radius 
 
-				if right.element.position.x > @view.size.width
-					rd *= -1
+					collision = true
+					# cache both masses
+					ml = left.getMass()
+					mr = right.getMass()
 
-				left.element.position.x += ld * left.getVelocity()
-				right.element.position.x += rd * right.getVelocity()
+					# now recalculate the animations
+					vlf = vl * (ml - mr) + 2 * mr * vr * 1 / (ml + mr) #initialize final velocity with this function!
+					vrf = vr * (mr - ml) + 2 * ml * vl * 1 / (ml + mr) #initialize final velocity!
 
+					# now set the two final velocities
+					left.setVelocity vlf
+					right.setVelocity vrf
+
+				# the animation is complete!
+				if collision and left.element.position.x < left.position.original.x or collision and right.element.position.x > right.position.original.x
+					
+					running = false #the animation is complete!
+					left.fullReset() #reset both position
+					right.fullReset()
+					
 
 
 				@paper.view.draw()
-				if delta_x > 0
+
+				if running
 
 					return setTimeout run, 10
 

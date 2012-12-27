@@ -18,14 +18,14 @@
       BaseModule.prototype.elementSettings = {
         a: {
           color: "red",
-          velocity: 10,
+          velocity: 5,
           mass: 3,
           radius: 20,
           left: true
         },
         b: {
           color: "blue",
-          velocity: 10,
+          velocity: -5,
           mass: 5,
           radius: 30,
           left: false
@@ -60,32 +60,36 @@
       };
 
       BaseModule.prototype.animate = function() {
-        var counter, delta_x, iterations, ld, left, rd, right, run,
+        var counter, left, right, run,
           _this = this;
         left = this.elements.a;
         right = this.elements.b;
+        frame = this.elements.frame;
         counter = 0;
-        delta_x = right.position.current.x - left.position.current.x;
-        iterations = 0;
-        ld = 1;
-        rd = -1;
         run = function() {
-          if (left.element.position.x > _this.view.size.width) {
-            ld *= -1;
+          var collision, fv, ml, mr, running, vl, vlf, vr, vrf;
+          running = true;
+          vr = right.getVelocity();
+          vl = left.getVelocity();
+          fv = frame.getVelocity();
+          left.element.position.x += vl + fv;
+          right.element.position.x += vr + fv;
+          if (!collision && left.element.position.x + left.config.radius >= right.element.position.x - right.config.radius) {
+            collision = true;
+            ml = left.getMass();
+            mr = right.getMass();
+            vlf = vl * (ml - mr) + 2 * mr * vr * 1 / (ml + mr);
+            vrf = vr * (mr - ml) + 2 * ml * vl * 1 / (ml + mr);
+            left.setVelocity(vlf);
+            right.setVelocity(vrf);
           }
-          if (left.element.position.x < 0) {
-            ld *= -1;
+          if (collision && left.element.position.x < left.position.original.x || collision && right.element.position.x > right.position.original.x) {
+            running = false;
+            left.fullReset();
+            right.fullReset();
           }
-          if (right.element.position.x < 0) {
-            rd *= -1;
-          }
-          if (right.element.position.x > _this.view.size.width) {
-            rd *= -1;
-          }
-          left.element.position.x += ld * left.getVelocity();
-          right.element.position.x += rd * right.getVelocity();
           _this.paper.view.draw();
-          if (delta_x > 0) {
+          if (running) {
             return setTimeout(run, 10);
           }
         };
