@@ -32,6 +32,7 @@ define ['paper', 'ball', 'frame'], (paper, ball, frame) ->
 			@playing = false
 			@paper.view.draw()
 
+
 		play : () =>
 
 			# initialize references to the proper objects
@@ -44,9 +45,11 @@ define ['paper', 'ball', 'frame'], (paper, ball, frame) ->
 			rightRunning = true
 			leftRunning = true
 
-			do run = () =>
+			run = () =>
 
-				# initialize the relevant values
+				console.log collision
+
+				# cache velocities etc for quick local access
 				lv = left.getVelocity()
 				lm = left.getMass()
 
@@ -55,118 +58,105 @@ define ['paper', 'ball', 'frame'], (paper, ball, frame) ->
 
 				fv = frame.getVelocity()
 
-				# make sure that our elements are valid and have a movement!
-				if lv == 0 or lm == 0
-					leftRunning = false
-					left.positionReset()
-
-				if rv == 0 or rm == 0
-
-					rightRunning = false
-					right.positionReset()
-
-				# now determine the direction of the element
-
-				# make sure that both elements are in bounds and on the screen after the initial collision
-				if collision 
-
-					if left.position.x <= left.original.x or left.position.x >= right.original.x
-						leftRunning = false
-
-					if right.position.x >= right.original.x or right.position.x <= left.position.x
-						rightRunning = false
-
-
-
-
-
-
-		oldPlay : () =>
-
-			
-			left = @elements.a
-			right = @elements.b
-			frame = @elements.frame
-			counter = 0
-
-			# run animation -- map the refresh to 1 pixel per second!
-			# assume velocity is the delta_x
-			collision = false
-			rightRunning = true
-			leftRunning = true
-
-
-			run = () =>
-
-				# initialize the playing element
-				playing = true
-				# initialize velocitys for each
-				vr = right.getVelocity()
-				vl = left.getVelocity()
-				fv = frame.getVelocity()
-
-				# move each initial element! if they are running!
-				if leftRunning and vl != 0
+				# validate both red and blue balls
+				do leftStatus = () =>
 					
-					left.element.position.x += vl + fv
+					reset = () ->
 
-				if rightRunning and vr != 0
+						leftRunning = false
+						left.positionReset()
 
-					right.element.position.x += vr + fv
+					if leftRunning 
 
-				# if a collision checks, need to reverse the elements!
-				if not collision and left.element.position.x + left.radius >= right.element.position.x - right.radius
+						if lv == 0 or lm == 0 or (lv + fv) == 0 
+							reset();
+						
+						else if parseInt(left.element.position.x) < parseInt(left.original.x)
+							reset();
 
-					collision = true
-					# cache both masses
-					ml = left.getMass()
-					mr = right.getMass()
+						else if parseInt(left.element.position.x) > @paper.view.size.width
+							do reset
 
-					# calculate new velocities
-					vlf = ((vl * (ml - mr)) + (2 * mr * vr)) / (ml + mr)
-					vrf = ((vr * (mr - ml)) + (2*ml*vl)) / (ml + mr)
+						else
+							left.element.position.x += lv + fv
 
-					# now set the two final velocities
-					left.setVelocity vlf
-					right.setVelocity vrf
+						
+						@paper.view.draw()
 
-				# validate left and right animation of objects
-				if collision and left.element.position.x <= left.original.x 
+				do rightStatus = () =>
 
-					leftRunning = false
-					left.fullReset()
+					reset = () ->
 
-				if collision and right.element.position.x <= left.original.x
+						rightRunning = false
+						right.positionReset()
 
-					leftRunning = false
-					right.fullReset()
+					if rightRunning
+					
+						if rv == 0 or rm == 0 or rv + fv == 0
+							reset()
 
-				if collision and right.element.position.x >= right.original.x 
+						else if parseInt(right.element.position.x) > parseInt(right.original.x)	
+							reset()
 
-					rightRunning = false
-					right.fullReset()
+						else if right.element.position.x < 0
+							reset()
 
-				if collision and left.element.position.x >= right.original.x
+						else
+							right.element.position.x += rv + fv
 
-					rightRunning = false
-					right.fullReset()
+						# refresh the scene if still running
+						@paper.view.draw()
 
-				# draw out element
-				@paper.view.draw()
 
-				if rightRunning or leftRunning
+				collisionResponse = () =>
+
+					lm = do left.getMass
+					rm = do right.getMass
+
+					lfv = ((lv * (lm - rm)) + (2 * rm * rv)) / (lm + rm)
+					rfv = ((rv * (rm - lm)) + (2*lm*lv)) / (lm + rm)
+
+					left.setVelocity lfv
+					right.setVelocity rfv
+
+
+				# check collision status and respond if necessary
+				do collisionStatus = () =>
+
+					# check if collision even exists
+					if collision 
+						return
+
+					# collision hasn't happened ... check values etc
+					leftRight = left.element.position.x + left.radius
+					rightLeft = right.element.position.x - right.radius
+
+					if rightLeft <= leftRight
+
+						# reset the positions etc of the elements
+						right.element.position.x = leftRight + right.radius
+						@paper.view.draw()
+
+						# handle the collision
+						do collisionResponse #responsible for controlling the reset values etc after the collision
+						collision = true
+
+				# re-evaluate the animation status. Restart if necessary
+				if leftRunning or rightRunning
 
 					return setTimeout run, 10
 
-				else # animation is done playing
+				else 	
+
+					@paper.view.draw()
 					@playing = false
+			# END RUN METHOD
 
-
-
-			if not @playing #play the elemnet
-				run()
-
-
+			# handle the play call!
+			if not @playing
+				@playing = true
+				do run #run the element
+		# END PLAY METHOD
 
 
 

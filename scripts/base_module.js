@@ -7,8 +7,6 @@
     return BaseModule = (function() {
 
       function BaseModule(canvas, options) {
-        this.oldPlay = __bind(this.oldPlay, this);
-
         this.play = __bind(this.play, this);
         this.canvas = canvas;
         this.paper = new paper.PaperScope();
@@ -37,87 +35,84 @@
         collision = false;
         rightRunning = true;
         leftRunning = true;
-        return (run = function() {
-          var fv, lm, lv, rm, rv;
+        run = function() {
+          var collisionResponse, collisionStatus, fv, leftStatus, lm, lv, rightStatus, rm, rv;
+          console.log(collision);
           lv = left.getVelocity();
           lm = left.getMass();
           rv = right.getVelocity();
           rm = right.getMass();
           fv = frame.getVelocity();
-          if (lv === 0 || lm === 0) {
-            leftRunning = false;
-            left.positionReset();
-          }
-          if (rv === 0 || rm === 0) {
-            rightRunning = false;
-            right.positionReset();
-          }
-          if (collision) {
-            if (left.position.x <= left.original.x || left.position.x >= right.original.x) {
+          (leftStatus = function() {
+            var reset;
+            reset = function() {
               leftRunning = false;
+              return left.positionReset();
+            };
+            if (leftRunning) {
+              if (lv === 0 || lm === 0 || (lv + fv) === 0) {
+                reset();
+              } else if (parseInt(left.element.position.x) < parseInt(left.original.x)) {
+                reset();
+              } else if (parseInt(left.element.position.x) > _this.paper.view.size.width) {
+                reset();
+              } else {
+                left.element.position.x += lv + fv;
+              }
+              return _this.paper.view.draw();
             }
-            if (right.position.x >= right.original.x || right.position.x <= left.position.x) {
-              return rightRunning = false;
+          })();
+          (rightStatus = function() {
+            var reset;
+            reset = function() {
+              rightRunning = false;
+              return right.positionReset();
+            };
+            if (rightRunning) {
+              if (rv === 0 || rm === 0 || rv + fv === 0) {
+                reset();
+              } else if (parseInt(right.element.position.x) > parseInt(right.original.x)) {
+                reset();
+              } else if (right.element.position.x < 0) {
+                reset();
+              } else {
+                right.element.position.x += rv + fv;
+              }
+              return _this.paper.view.draw();
             }
-          }
-        })();
-      };
-
-      BaseModule.prototype.oldPlay = function() {
-        var collision, counter, left, leftRunning, right, rightRunning, run,
-          _this = this;
-        left = this.elements.a;
-        right = this.elements.b;
-        frame = this.elements.frame;
-        counter = 0;
-        collision = false;
-        rightRunning = true;
-        leftRunning = true;
-        run = function() {
-          var fv, ml, mr, playing, vl, vlf, vr, vrf;
-          playing = true;
-          vr = right.getVelocity();
-          vl = left.getVelocity();
-          fv = frame.getVelocity();
-          if (leftRunning && vl !== 0) {
-            left.element.position.x += vl + fv;
-          }
-          if (rightRunning && vr !== 0) {
-            right.element.position.x += vr + fv;
-          }
-          if (!collision && left.element.position.x + left.radius >= right.element.position.x - right.radius) {
-            collision = true;
-            ml = left.getMass();
-            mr = right.getMass();
-            vlf = ((vl * (ml - mr)) + (2 * mr * vr)) / (ml + mr);
-            vrf = ((vr * (mr - ml)) + (2 * ml * vl)) / (ml + mr);
-            left.setVelocity(vlf);
-            right.setVelocity(vrf);
-          }
-          if (collision && left.element.position.x <= left.original.x) {
-            leftRunning = false;
-            left.fullReset();
-          }
-          if (collision && right.element.position.x <= left.original.x) {
-            leftRunning = false;
-            right.fullReset();
-          }
-          if (collision && right.element.position.x >= right.original.x) {
-            rightRunning = false;
-            right.fullReset();
-          }
-          if (collision && left.element.position.x >= right.original.x) {
-            rightRunning = false;
-            right.fullReset();
-          }
-          _this.paper.view.draw();
-          if (rightRunning || leftRunning) {
+          })();
+          collisionResponse = function() {
+            var lfv, rfv;
+            lm = left.getMass();
+            rm = right.getMass();
+            lfv = ((lv * (lm - rm)) + (2 * rm * rv)) / (lm + rm);
+            rfv = ((rv * (rm - lm)) + (2 * lm * lv)) / (lm + rm);
+            left.setVelocity(lfv);
+            return right.setVelocity(rfv);
+          };
+          (collisionStatus = function() {
+            var leftRight, rightLeft;
+            if (collision) {
+              return;
+            }
+            leftRight = left.element.position.x + left.radius;
+            rightLeft = right.element.position.x - right.radius;
+            if (rightLeft <= leftRight) {
+              right.element.position.x = leftRight + right.radius;
+              _this.paper.view.draw();
+              collisionResponse();
+              return collision = true;
+            }
+          })();
+          if (leftRunning || rightRunning) {
             return setTimeout(run, 10);
           } else {
+            _this.paper.view.draw();
             return _this.playing = false;
           }
         };
         if (!this.playing) {
+          this.playing = true;
           return run();
         }
       };

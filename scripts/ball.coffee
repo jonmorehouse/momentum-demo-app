@@ -85,7 +85,6 @@ define ["paper"], (paper) ->
 			# update the view
 			@paper.view.draw()
 
-
 		# reset the position only, between runs only!
 		positionReset : () =>
 
