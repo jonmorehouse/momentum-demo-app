@@ -70,7 +70,8 @@
 
       Ball.prototype.positionReset = function() {
         this.element.position.x = this.original.x;
-        return this.element.position.y = this.original.y;
+        this.element.position.y = this.original.y;
+        return this.paper.view.draw();
       };
 
       Ball.prototype.fullReset = function() {

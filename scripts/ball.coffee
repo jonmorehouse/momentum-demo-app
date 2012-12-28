@@ -86,13 +86,14 @@ define ["paper"], (paper) ->
 			@paper.view.draw()
 
 
-
 		# reset the position only, between runs only!
 		positionReset : () =>
 
 			# useful when we just are finished running the animation
 			@element.position.x = @original.x
 			@element.position.y = @original.y
+
+			@paper.view.draw()
 
 		# resets the entire elements's attributes and repositions it
 		fullReset : () =>

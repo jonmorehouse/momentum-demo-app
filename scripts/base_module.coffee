@@ -46,7 +46,36 @@ define ['paper', 'ball', 'frame'], (paper, ball, frame) ->
 
 			do run = () =>
 
-				
+				# initialize the relevant values
+				lv = left.getVelocity()
+				lm = left.getMass()
+
+				rv = right.getVelocity()
+				rm = right.getMass()
+
+				fv = frame.getVelocity()
+
+				# make sure that our elements are valid and have a movement!
+				if lv == 0 or lm == 0
+					leftRunning = false
+					left.positionReset()
+
+				if rv == 0 or rm == 0
+
+					rightRunning = false
+					right.positionReset()
+
+				# now determine the direction of the element
+
+				# make sure that both elements are in bounds and on the screen after the initial collision
+				if collision 
+
+					if left.position.x <= left.original.x or left.position.x >= right.original.x
+						leftRunning = false
+
+					if right.position.x >= right.original.x or right.position.x <= left.position.x
+						rightRunning = false
+
 
 
 

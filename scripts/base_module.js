@@ -37,7 +37,30 @@
         collision = false;
         rightRunning = true;
         leftRunning = true;
-        return (run = function() {})();
+        return (run = function() {
+          var fv, lm, lv, rm, rv;
+          lv = left.getVelocity();
+          lm = left.getMass();
+          rv = right.getVelocity();
+          rm = right.getMass();
+          fv = frame.getVelocity();
+          if (lv === 0 || lm === 0) {
+            leftRunning = false;
+            left.positionReset();
+          }
+          if (rv === 0 || rm === 0) {
+            rightRunning = false;
+            right.positionReset();
+          }
+          if (collision) {
+            if (left.position.x <= left.original.x || left.position.x >= right.original.x) {
+              leftRunning = false;
+            }
+            if (right.position.x >= right.original.x || right.position.x <= left.position.x) {
+              return rightRunning = false;
+            }
+          }
+        })();
       };
 
       BaseModule.prototype.oldPlay = function() {
