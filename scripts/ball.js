@@ -19,7 +19,9 @@
 
         this.positionReset = __bind(this.positionReset, this);
 
-        this.elementInit = __bind(this.elementInit, this);
+        this.attrReset = __bind(this.attrReset, this);
+
+        this.init = __bind(this.init, this);
         this.paper = paper;
         this.config = {
           radiusFactor: 6,
@@ -33,18 +35,18 @@
         this.config.velocity = options.velocity;
         this.config.left = options.left;
         this.config.color = options.color;
-        this.setVelocity(this.config.velocity);
-        this.setMass(this.config.mass);
+        this.velocity = options.velocity;
+        this.config.mass = options.mass;
+        this.mass = options.mass;
+        this.radius = this.mass * this.config.radiusFactor;
+        this.init();
       }
 
-      Ball.prototype.elementInit = function() {
+      Ball.prototype.init = function() {
         var _x, _y;
         _x = this.config.left ? this.config.horizontalOffset + this.radius : this.config.maxWidth - this.config.horizontalOffset - this.radius;
         _y = this.config.maxHeight - this.config.verticalOffset - this.radius;
         this.original = new this.paper.Point(_x, _y);
-        if (this.element) {
-          this.element.remove();
-        }
         this.circle = new this.paper.Path.Circle(this.original, this.radius);
         this.text = new this.paper.PointText(new this.paper.Point(this.original.x, this.original.y + 4));
         this.element = new this.paper.Layer([this.circle, this.text]);
@@ -56,16 +58,24 @@
         return this.paper.view.draw();
       };
 
+      Ball.prototype.attrReset = function(oldRadius) {
+        this.text.content = this.getMass() + "kg";
+        this.circle.scale(this.radius / oldRadius);
+        this.original.x = this.config.left ? this.config.horizontalOffset + this.radius : this.config.maxWidth - this.config.horizontalOffset - this.radius;
+        this.original.y = this.config.maxHeight - this.config.verticalOffset - this.radius;
+        this.element.position.x = this.original.x;
+        this.element.position.y = this.original.y;
+        return this.paper.view.draw();
+      };
+
       Ball.prototype.positionReset = function() {
         this.element.position.x = this.original.x;
         return this.element.position.y = this.original.y;
       };
 
       Ball.prototype.fullReset = function() {
-        this.positionReset();
         this.setVelocity(this.config.velocity);
-        this.setMass(this.config.mass);
-        return this.elementInit();
+        return this.setMass(this.config.mass);
       };
 
       Ball.prototype.setVelocity = function(velocity) {
@@ -73,11 +83,12 @@
       };
 
       Ball.prototype.setMass = function(mass) {
-        console.log('set mass');
+        var oldRadius;
         this.config.mass = mass;
         this.mass = mass;
+        oldRadius = this.radius;
         this.radius = this.mass * this.config.radiusFactor;
-        return this.elementInit();
+        return this.attrReset(oldRadius);
       };
 
       Ball.prototype.getVelocity = function() {

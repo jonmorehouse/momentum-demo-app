@@ -29,12 +29,16 @@ define ["paper"], (paper) ->
 
 			@config.left = options.left
 			@config.color = options.color
-			@setVelocity @config.velocity
-			@setMass @config.mass
+			@velocity = options.velocity
+			@config.mass = options.mass
+			@mass = options.mass
+			@radius = @mass * @config.radiusFactor
 
+			# initialze the element
+			@init()
 			# end constructor function
 
-		elementInit : () =>
+		init : () =>
 
 			# initialize x / y functions!
 			_x = if @config.left then @config.horizontalOffset + @radius else @config.maxWidth - @config.horizontalOffset - @radius
@@ -42,9 +46,6 @@ define ["paper"], (paper) ->
 
 			# initialize the original element
 			@original = new @paper.Point _x, _y
-
-			if @element
-				@element.remove()
 
 			# can make this a layer in the future! -- to incorporate animations in the objects for more excitement!
 			@circle = new @paper.Path.Circle @original, @radius
@@ -63,6 +64,29 @@ define ["paper"], (paper) ->
 			# draw the element
 			@paper.view.draw()
 
+
+		attrReset : (oldRadius) =>
+
+			# initialize the radius
+			# update the text element etc
+			@text.content = @getMass() + "kg"
+
+			# reset the radius of the circle
+			@circle.scale @radius / oldRadius
+
+			# recreate the coordinates for this item
+			@original.x = if @config.left then @config.horizontalOffset + @radius else @config.maxWidth - @config.horizontalOffset - @radius
+			@original.y = @config.maxHeight - @config.verticalOffset - @radius
+
+			# actually move the elmeent
+			@element.position.x = @original.x
+			@element.position.y = @original.y
+
+			# update the view
+			@paper.view.draw()
+
+
+
 		# reset the position only, between runs only!
 		positionReset : () =>
 
@@ -74,10 +98,8 @@ define ["paper"], (paper) ->
 		fullReset : () =>
 
 			# reset velocity, mass etc
-			@positionReset()
 			@setVelocity @config.velocity
 			@setMass @config.mass #set the mass and radius!
-			@elementInit() #initialize the element
 
 
 		# called from outside modules that need to access the module
@@ -88,13 +110,13 @@ define ["paper"], (paper) ->
 		# called from outside modules to change mass!
 		setMass : (mass) =>
 
-
-			console.log 'set mass'
 			@config.mass = mass
 			@mass = mass
+			oldRadius = @radius
 			@radius = @mass * @config.radiusFactor
-			@elementInit()
 
+			# initialize the 
+			@attrReset(oldRadius)
 
 		# return the current velocity for animation run in the elements!
 		getVelocity : () =>

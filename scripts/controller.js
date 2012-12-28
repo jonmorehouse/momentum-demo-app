@@ -2,7 +2,7 @@
 (function() {
 
   define(["base_module", "animation"], function(baseModule, animation) {
-    var blueMass, canvasElements, elementData, modules, parent, parentElements, playListener;
+    var canvasElements, elementData, massListener, modules, parent, parentElements, playListener;
     parent = $('#container');
     parentElements = {
       "lab": $('#container > div:nth-child(1) > .content'),
@@ -110,14 +110,34 @@
         return modules.custom.play();
       });
     })();
-    return (blueMass = function() {
-      var element;
-      element = parent.find(".blue_mass");
-      return element.children("input").change(function() {
-        var value;
-        value = $(this).attr("value");
-        return console.log(value);
-      });
+    return (massListener = function() {
+      var colorClass, listen, _i, _len, _ref, _results,
+        _this = this;
+      listen = function(colorClass) {
+        var element;
+        element = parent.find(colorClass).find("input");
+        return element.change(function() {
+          var key, module, setMass, value, _element;
+          value = $(this).attr("value");
+          return setMass = (function() {
+            var _results;
+            _results = [];
+            for (key in modules) {
+              module = modules[key];
+              _element = colorClass === ".blue_mass" ? module.elements.b : module.elements.a;
+              _results.push(_element.setMass(value));
+            }
+            return _results;
+          })();
+        });
+      };
+      _ref = [".blue_mass", ".red_mass"];
+      _results = [];
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        colorClass = _ref[_i];
+        _results.push(listen(colorClass));
+      }
+      return _results;
     })();
   });
 

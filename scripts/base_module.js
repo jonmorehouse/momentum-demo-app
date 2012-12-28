@@ -59,15 +59,19 @@
           }
           if (collision && left.element.position.x <= left.original.x) {
             leftRunning = false;
+            left.fullReset();
           }
           if (collision && right.element.position.x <= left.original.x) {
             leftRunning = false;
+            right.fullReset();
           }
           if (collision && right.element.position.x >= right.original.x) {
             rightRunning = false;
+            right.fullReset();
           }
           if (collision && left.element.position.x >= right.original.x) {
             rightRunning = false;
+            right.fullReset();
           }
           _this.paper.view.draw();
           if (rightRunning || leftRunning) {

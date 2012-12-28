@@ -121,20 +121,38 @@ define ["base_module", "animation"], (baseModule, animation) ->
 			modules.custom.play()
 
 
-	do blueMass = () ->
+	do massListener = () ->
 
-		element = parent.find ".blue_mass"
+		# when we update mass it should update accordingly in each element!
+		listen = (colorClass) =>
 
-		element.children("input").change () ->
+			element = parent.find(colorClass).find("input")
 
-			value = $(this).attr "value"
+			# listen for changes on the sliders
+			element.change () ->
 
-			console.log value
+				value = $(this).attr "value"
+				# for each module, need to call the change mass element!
+					
+				# set the ball mass / size
+				setMass = for key, module of modules
 
-	do play = () ->
+					# get the proper element
+					_element = if colorClass == ".blue_mass" then module.elements.b else module.elements.a
+					_element.setMass value
+					
+				
+					
 
-		for key, value of modules
+
+
+
+		listen colorClass for colorClass in [".blue_mass", ".red_mass"]
+				
+
 			
+
+						
 
 
 
