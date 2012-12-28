@@ -18,6 +18,7 @@ define ["base_module", "animation"], (baseModule, animation) ->
 		"blue" : $('#container > div:nth-child(3) > .content')
 		"custom" : $('#container > div:nth-child(4) > .content')
 
+	# initialize an object with all canvases pre-selected
 	canvasElements = 
 
 		"lab" : parentElements.lab.children "canvas"
@@ -25,71 +26,35 @@ define ["base_module", "animation"], (baseModule, animation) ->
 		"blue" : parentElements.blue.children "canvas"
 		"custom" : parentElements.custom.children "canvas"
 
+	# element data is responsible for each module's initial data. 
 	elementData = #this is custom data that will over-write the modules!
-
 
 		lab : #frame of reference from the laboratory
 
 			name: "lab"
 			a : 
-				velocity: 8
+				velocity: 5
 				mass: 3
 				color: "red"
 				left: true
 
 			b :
 
-				velocity: -5
+				velocity: -3
 				mass: 5
 				color: "blue"
 				left: false
 
 			frame: 
-				velocity: 0
+				velocity: 1
 
 		red: #frame of reference of the red ball
 			name : "red"
 			a :
 				mass: 3
-				velocity: 5
-				left: true
-				color: "red"
-
-			b:
-				mass: 5
-				velocity: -6
-				color: "blue"
-				left: false
-
-			frame:
 				velocity: 0
-
-		blue:#frame of reference from the blue ball
-			name: "blue"
-			a:
-				mass: 3
-				velocity: 6
-				color: "red"
 				left: true
-
-			b:
-				mass: 5
-				velocity: 0
-				color: "blue"
-				left: false
-
-			frame:
-
-				velocity: -1
-
-		custom: #custom frame of reference
-
-			name: "custom"
-			a:
-				mass: 3
-				velocity: 3
 				color: "red"
-				left: true
 
 			b:
 				mass: 5
@@ -98,7 +63,43 @@ define ["base_module", "animation"], (baseModule, animation) ->
 				left: false
 
 			frame:
-				velocity: 2
+				velocity: 1
+
+		blue:#frame of reference from the blue ball
+			name: "blue"
+			a:
+				mass: 3
+				velocity: 5
+				color: "red"
+				left: true
+
+			b:
+				mass: 5
+				velocity: 0
+				color: "blue"
+				left: false
+
+			frame:
+
+				velocity: 1
+
+		custom: #custom frame of reference
+
+			name: "custom"
+			a:
+				mass: 3
+				velocity: 5
+				color: "red"
+				left: true
+
+			b:
+				mass: 5
+				velocity: -1
+				color: "blue"
+				left: false
+
+			frame:
+				velocity: 1
 
 	modules = #create a base module for each and then send it callback functions etc for changing ...
 		lab : new baseModule canvasElements.lab[0], elementData.lab
@@ -151,8 +152,8 @@ define ["base_module", "animation"], (baseModule, animation) ->
 
 		# initialize the listener closures for each type of mass element
 		listen colorClass for colorClass in [".blue_mass", ".red_mass"]
-					
 
+	# initialize all the velocity elements for each frame that can be edited
 	do velocityListener = () ->
 
 		listen = (velocityClass) =>
@@ -166,30 +167,34 @@ define ["base_module", "animation"], (baseModule, animation) ->
 
 				# get the new velocity
 				value = $(this).attr "value"
-				console.log value
 
 				# set the velocity for the frames that are allowed to change! -- as determined above!
 				
-				setVelocity = () ->
+				do setVelocity = () ->
 
-					for module in moduleChanges #go through each module and then update the backend properly!
+					for _module in moduleChanges #go through each module and then update the backend properly!
 
-						element = if element == ".red_velocity" then module.elements.a else if element == ".blue_velocity" then module.elements.b else module.elements.frame
+						do (_module) ->
 
-						# set the velocity
-						element.setVelocity value
+							module = modules[_module]
+							element = if element == ".red_velocity" then module.elements.a else if element == ".blue_velocity" then module.elements.b else module.elements.frame
 
-				setVisible = () ->
+							element.setVelocity value
+
+				do setVisible = () ->
 
 					# update the visible changes!
 					elements.each () ->
 
-						$(this).attr "value" value
-						span = $(this).parent().children(".label > span:nth-child(2)")
-						console.log span.text()
-
+						$(this).attr "value", value
+						span = $(this).parent().children(".label").children("span:nth-child(2)")
+						span.text value
 					
 
 
 
 		listen velocityClass for velocityClass in [".blue_velocity", ".red_velocity", ".frame_velocity"]
+
+
+
+

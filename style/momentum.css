@@ -149,7 +149,8 @@ body {
       color: blue;
       font-weight: bold; }
   #container > div > .content > .controller > div span.static {
-    color: red; }
+    color: red;
+    margin-bottom: 1em; }
   #container > div > .content > .controller > div input[type="range"] {
     cursor: pointer; }
 

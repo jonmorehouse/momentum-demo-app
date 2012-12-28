@@ -20,44 +20,44 @@
       lab: {
         name: "lab",
         a: {
-          velocity: 8,
+          velocity: 5,
           mass: 3,
           color: "red",
           left: true
         },
         b: {
-          velocity: -5,
+          velocity: -3,
           mass: 5,
           color: "blue",
           left: false
         },
         frame: {
-          velocity: 0
+          velocity: 1
         }
       },
       red: {
         name: "red",
         a: {
           mass: 3,
-          velocity: 5,
+          velocity: 0,
           left: true,
           color: "red"
         },
         b: {
           mass: 5,
-          velocity: -6,
+          velocity: -3,
           color: "blue",
           left: false
         },
         frame: {
-          velocity: 0
+          velocity: 1
         }
       },
       blue: {
         name: "blue",
         a: {
           mass: 3,
-          velocity: 6,
+          velocity: 5,
           color: "red",
           left: true
         },
@@ -68,25 +68,25 @@
           left: false
         },
         frame: {
-          velocity: -1
+          velocity: 1
         }
       },
       custom: {
         name: "custom",
         a: {
           mass: 3,
-          velocity: 3,
+          velocity: 5,
           color: "red",
           left: true
         },
         b: {
           mass: 5,
-          velocity: -3,
+          velocity: -1,
           color: "blue",
           left: false
         },
         frame: {
-          velocity: 2
+          velocity: 1
         }
       }
     };
@@ -155,19 +155,28 @@
         return elements.change(function() {
           var setVelocity, setVisible, value;
           value = $(this).attr("value");
-          setVelocity = function() {
-            var element, module, _i, _len, _results;
+          (setVelocity = function() {
+            var _i, _len, _module, _results;
             _results = [];
             for (_i = 0, _len = moduleChanges.length; _i < _len; _i++) {
-              module = moduleChanges[_i];
-              element = element === ".red_velocity" ? module.elements.a : element === ".blue_velocity" ? module.elements.b : module.elements.frame;
-              _results.push(element.setVelocity(value));
+              _module = moduleChanges[_i];
+              _results.push((function(_module) {
+                var element, module;
+                module = modules[_module];
+                element = element === ".red_velocity" ? module.elements.a : element === ".blue_velocity" ? module.elements.b : module.elements.frame;
+                return element.setVelocity(value);
+              })(_module));
             }
             return _results;
-          };
-          return setVisible = function() {
-            return elements.each(function() {});
-          };
+          })();
+          return (setVisible = function() {
+            return elements.each(function() {
+              var span;
+              $(this).attr("value", value);
+              span = $(this).parent().children(".label").children("span:nth-child(2)");
+              return span.text(value);
+            });
+          })();
         });
       };
       _ref = [".blue_velocity", ".red_velocity", ".frame_velocity"];
