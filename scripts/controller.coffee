@@ -126,10 +126,10 @@ define ["base_module", "animation"], (baseModule, animation) ->
 		# when we update mass it should update accordingly in each element!
 		listen = (colorClass) =>
 
-			element = parent.find(colorClass).find("input")
+			elements = parent.find(colorClass).find("input")
 
 			# listen for changes on the sliders
-			element.change () ->
+			elements.change () ->
 
 				value = $(this).attr "value"
 				# for each module, need to call the change mass element!
@@ -140,8 +140,17 @@ define ["base_module", "animation"], (baseModule, animation) ->
 					# get the proper element
 					_element = if colorClass == ".blue_mass" then module.elements.b else module.elements.a
 					_element.setMass value
-					
-				
+		
+				# set the slider positions!
+				elements.each () ->
+
+					$(this).attr "value", value
+					label = $(this).parent().children(".label").children("span:nth-child(2)")
+					label.text value
+
+
+
+
 					
 
 

@@ -114,12 +114,12 @@
       var colorClass, listen, _i, _len, _ref, _results,
         _this = this;
       listen = function(colorClass) {
-        var element;
-        element = parent.find(colorClass).find("input");
-        return element.change(function() {
+        var elements;
+        elements = parent.find(colorClass).find("input");
+        return elements.change(function() {
           var key, module, setMass, value, _element;
           value = $(this).attr("value");
-          return setMass = (function() {
+          setMass = (function() {
             var _results;
             _results = [];
             for (key in modules) {
@@ -129,6 +129,12 @@
             }
             return _results;
           })();
+          return elements.each(function() {
+            var label;
+            $(this).attr("value", value);
+            label = $(this).parent().children(".label").children("span:nth-child(2)");
+            return label.text(value);
+          });
         });
       };
       _ref = [".blue_mass", ".red_mass"];
