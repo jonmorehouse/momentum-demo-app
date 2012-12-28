@@ -30,16 +30,14 @@ Javascript Resources
 -	modernizr.js is loaded as a script tag to make intialization of page quicker. Loads before jquery, require etc
 -	require.js uses the script/app.js page to initialize all front-end javascript
 -	all dependencies are managed through require, including paper.js which is the main framework being used here
+-	Jquery is used and extended throughout. Didn't want to include external jquery libraries so I wrote my own easing functions. Made sure to require jquery where needed instead of depending upon calling function. (Saw an error on deployment with out this backup).
 
 Javascript Logic
 
--	We want a signal slot mechanism .. want to send a global update function for each element to set the velocity etc of each
--	Each function will have a setter / getter to set the value of the change etc
+-	Application is built based on a jade template. I built a compiler tool to build the webpage dynamically. The data/canvas.coffee data corresponds to the master html data. I matched this up to the objects in the scripts/controller.coffee file.
+-	There are listeners on the proper "class" elements to map to the paper.js modules for live updating.
 
 
-Individual PaperJS Modules:
 
--	setters = set velocity a,b and frame. These need to be modularized internally to allow for ones where we can't change them
-	-	also need to resize the velocity arrows!
--	run function
+
 
