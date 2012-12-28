@@ -1,0 +1,184 @@
+@import mixins
+
+
+body
+	@include background(0,0,0,0.2)
+	font-family: helvetica, arial, sans-serif
+	
+	
+
+#header
+	@include center(45%)
+	@include background(0,0,0,0.8)
+	@include border(0.5em)
+
+	> h1
+		color: orange
+		text-align: center
+
+		@include transition(color, 2s)
+
+		&:hover
+
+			cursor: pointer
+			color: brown
+
+/*BASIC CONTAINER SETUP */
+#container
+	@include center(90%)
+	@include background (0,0,0,0.1)
+	@include border(2em)
+	padding: 0.01em 1em 0.5em 1em
+	$border-size: 1em
+
+	> div
+		margin-top: 1em
+
+		&:first-child 
+			margin-top: 1em
+			@include top-border($border-size)
+
+			> .header
+				@include top-border($border-size)
+
+
+		&:last-child
+			margin-bottom: 1em
+
+#container div 
+	
+	.header
+
+		position: relative
+		width: 100%
+		left: 0
+		@include background(0,0,0)
+		color: white
+
+		> h1
+			position: relative
+			padding: 0.1em
+			margin-left: 1em
+			max-width: 20%
+			cursor: pointer
+			display: inline
+			font-size: 1.25em
+
+			@include transition(color, 1s)
+
+			&:hover	
+				color: orange
+
+		> .exit
+			position: absolute
+			right: 0
+			top: 0
+			height: 100%
+			width: 2em
+			@include background
+			cursor: pointer
+			@include transition(background-color, 1s)
+
+			&:hover
+
+				@include background (150, 150, 150)
+
+
+	&:first-child > .header > .exit
+
+		border-top-right-radius: 1em
+
+// basic container content styling!
+#container > div > .content
+
+	@include center (100%)
+	height: 17em
+	
+	&:last-child
+		@include bottom-border
+
+	> canvas
+		
+		@include background (255,255,255, 0.5)
+		@include absolute
+
+	.controller
+		@include absolute
+
+// basic controller css / styling
+#container > div > .content > .controller
+
+
+	> .play
+
+		position: absolute
+		bottom: 8%
+		height: 8%
+		width: 10%
+		left: 45%
+		cursor: pointer
+
+		img
+			display: block
+			position: relative
+			width: 50%
+			margin: 0 auto
+
+
+	> div //these are the individual controllers -- will position them with other elements later!
+		clear: both
+		position: absolute
+		max-width: 30%
+
+		span	
+			position: relative
+			float: left
+			margin-left: 0.2em
+			display: block
+
+			&:nth-child(2)
+
+				color: blue
+				font-weight: bold
+	
+		clear: both	
+
+		span.static
+
+			color: red
+			margin-bottom: 1em
+			
+		input[type="range"]
+
+			cursor: pointer
+
+//seperate css for individual position of the slider elements
+#container > div > .content > .controller
+	
+	$verticalOffset : 2em
+	
+	> .blue_mass
+
+		bottom: 0
+		right: 0
+
+	> .blue_velocity
+
+		bottom: $verticalOffset
+		right: 0
+
+		input
+			position: relative
+
+	> .red_mass
+
+		bottom: 0
+		left: 0
+
+	> .red_velocity
+
+		bottom: $verticalOffset
+		left: 0
+
+	
+

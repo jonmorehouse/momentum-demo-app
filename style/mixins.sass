@@ -1,0 +1,49 @@
+@mixin center ($width)
+
+	display: block
+	width: $width
+	position: relative
+	margin: 0 auto
+
+@mixin absolute ($width: 100%, $height: 100%)
+
+	position: absolute
+	top: (100% - $height) / 2
+	bottom: (100% - $height) / 2
+	height: $height
+	width: $width
+	left: (100% - $width) / 2
+	right: (100% - $width) /2 
+
+@mixin test ($size: 25)
+
+	background-color: orange
+	height: $size
+	width: $size
+
+
+@mixin background ($r:255, $g:165, $b:0, $a: 1)
+	
+	background-color: rgba($r, $g, $b, $a)
+	
+	.no-rgba
+		background-color: rgb($r, $g, $b)
+		opacity: $a
+
+@mixin border ($size: 2em)
+		
+	border-radius: $size
+
+@mixin top-border($size: 1em)
+	border-top-right-radius: $size
+	border-top-left-radius: $size
+
+@mixin bottom-border($size: 1em)
+	border-bottom-left-radius: $size
+	border-bottom-right-radius: $size
+
+@mixin transition($attr, $time)
+	
+	transition: $attr $time
+	-webkit-transition: $attr $time
+	-mox-transition: $attr $time
