@@ -42,10 +42,10 @@
           vr = right.getVelocity();
           vl = left.getVelocity();
           fv = frame.getVelocity();
-          if (leftRunning) {
+          if (leftRunning && vl !== 0) {
             left.element.position.x += vl + fv;
           }
-          if (rightRunning) {
+          if (rightRunning && vr !== 0) {
             right.element.position.x += vr + fv;
           }
           if (!collision && left.element.position.x + left.radius >= right.element.position.x - right.radius) {

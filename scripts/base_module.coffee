@@ -57,11 +57,11 @@ define ['paper', 'ball', 'frame'], (paper, ball, frame) ->
 				fv = frame.getVelocity()
 
 				# move each initial element! if they are running!
-				if leftRunning 
+				if leftRunning and vl != 0
 					
 					left.element.position.x += vl + fv
 
-				if rightRunning
+				if rightRunning and vr != 0
 
 					right.element.position.x += vr + fv
 

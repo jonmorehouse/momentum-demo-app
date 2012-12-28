@@ -2,7 +2,7 @@
 (function() {
   var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
-  define([], function() {
+  define(["jquery"], function($) {
     var ToggleController, controllers;
     $.easing.general = function(x, t, b, c, d) {
       if ((t /= d) < (1 / 2.75)) {

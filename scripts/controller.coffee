@@ -141,7 +141,7 @@ define ["base_module", "animation"], (baseModule, animation) ->
 
 					# get the proper element
 					_element = if colorClass == ".blue_mass" then module.elements.b else module.elements.a
-					_element.setMass value
+					_element.setMass parseInt value
 		
 				# set the slider positions!
 				elements.each () ->
@@ -177,8 +177,13 @@ define ["base_module", "animation"], (baseModule, animation) ->
 						do (_module) ->
 
 							module = modules[_module]
+
+							direction = if element == ".blue_velocity" then -1 else 1
+
 							element = if element == ".red_velocity" then module.elements.a else if element == ".blue_velocity" then module.elements.b else module.elements.frame
 
+							value = parseInt value
+							value *= direction
 							element.setVelocity value
 
 				do setVisible = () ->

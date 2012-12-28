@@ -125,7 +125,7 @@
             for (key in modules) {
               module = modules[key];
               _element = colorClass === ".blue_mass" ? module.elements.b : module.elements.a;
-              _results.push(_element.setMass(value));
+              _results.push(_element.setMass(parseInt(value)));
             }
             return _results;
           })();
@@ -161,9 +161,12 @@
             for (_i = 0, _len = moduleChanges.length; _i < _len; _i++) {
               _module = moduleChanges[_i];
               _results.push((function(_module) {
-                var element, module;
+                var direction, element, module;
                 module = modules[_module];
+                direction = element === ".blue_velocity" ? -1 : 1;
                 element = element === ".red_velocity" ? module.elements.a : element === ".blue_velocity" ? module.elements.b : module.elements.frame;
+                value = parseInt(value);
+                value *= direction;
                 return element.setVelocity(value);
               })(_module));
             }

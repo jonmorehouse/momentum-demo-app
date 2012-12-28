@@ -1,4 +1,4 @@
-define [], () -> #include our extension!
+define ["jquery"], ($) -> #include our extension!
 	
 	# basic easing function instead of including library!
 
