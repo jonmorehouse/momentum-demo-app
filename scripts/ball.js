@@ -15,7 +15,9 @@
 
         this.setVelocity = __bind(this.setVelocity, this);
 
-        this.fullReset = __bind(this.fullReset, this);
+        this.setTempVelocity = __bind(this.setTempVelocity, this);
+
+        this.velocityReset = __bind(this.velocityReset, this);
 
         this.positionReset = __bind(this.positionReset, this);
 
@@ -74,12 +76,16 @@
         return this.paper.view.draw();
       };
 
-      Ball.prototype.fullReset = function() {
-        this.setVelocity(this.config.velocity);
-        return this.setMass(this.config.mass);
+      Ball.prototype.velocityReset = function() {
+        return this.velocity = this.config.velocity;
+      };
+
+      Ball.prototype.setTempVelocity = function(velocity) {
+        return this.velocity = velocity;
       };
 
       Ball.prototype.setVelocity = function(velocity) {
+        this.config.velocity = velocity;
         return this.velocity = velocity;
       };
 

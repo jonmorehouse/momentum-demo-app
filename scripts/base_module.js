@@ -37,7 +37,6 @@
         leftRunning = true;
         run = function() {
           var collisionResponse, collisionStatus, fv, leftStatus, lm, lv, rightStatus, rm, rv;
-          console.log(collision);
           lv = left.getVelocity();
           lm = left.getMass();
           rv = right.getVelocity();
@@ -47,7 +46,8 @@
             var reset;
             reset = function() {
               leftRunning = false;
-              return left.positionReset();
+              left.positionReset();
+              return left.velocityReset();
             };
             if (leftRunning) {
               if (lv === 0 || lm === 0 || (lv + fv) === 0) {
@@ -66,7 +66,8 @@
             var reset;
             reset = function() {
               rightRunning = false;
-              return right.positionReset();
+              right.positionReset();
+              return right.velocityReset();
             };
             if (rightRunning) {
               if (rv === 0 || rm === 0 || rv + fv === 0) {
@@ -87,8 +88,8 @@
             rm = right.getMass();
             lfv = ((lv * (lm - rm)) + (2 * rm * rv)) / (lm + rm);
             rfv = ((rv * (rm - lm)) + (2 * lm * lv)) / (lm + rm);
-            left.setVelocity(lfv);
-            return right.setVelocity(rfv);
+            left.setTempVelocity(lfv);
+            return right.setTempVelocity(rfv);
           };
           (collisionStatus = function() {
             var leftRight, rightLeft;
@@ -98,7 +99,6 @@
             leftRight = left.element.position.x + left.radius;
             rightLeft = right.element.position.x - right.radius;
             if (rightLeft <= leftRight) {
-              right.element.position.x = leftRight + right.radius;
               _this.paper.view.draw();
               collisionResponse();
               return collision = true;

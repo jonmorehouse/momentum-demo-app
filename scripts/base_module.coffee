@@ -47,8 +47,6 @@ define ['paper', 'ball', 'frame'], (paper, ball, frame) ->
 
 			run = () =>
 
-				console.log collision
-
 				# cache velocities etc for quick local access
 				lv = left.getVelocity()
 				lm = left.getMass()
@@ -65,13 +63,16 @@ define ['paper', 'ball', 'frame'], (paper, ball, frame) ->
 
 						leftRunning = false
 						left.positionReset()
+						left.velocityReset()
 
 					if leftRunning 
 
 						if lv == 0 or lm == 0 or (lv + fv) == 0 
+
 							reset();
 						
 						else if parseInt(left.element.position.x) < parseInt(left.original.x)
+
 							reset();
 
 						else if parseInt(left.element.position.x) > @paper.view.size.width
@@ -89,6 +90,7 @@ define ['paper', 'ball', 'frame'], (paper, ball, frame) ->
 
 						rightRunning = false
 						right.positionReset()
+						right.velocityReset()
 
 					if rightRunning
 					
@@ -116,8 +118,8 @@ define ['paper', 'ball', 'frame'], (paper, ball, frame) ->
 					lfv = ((lv * (lm - rm)) + (2 * rm * rv)) / (lm + rm)
 					rfv = ((rv * (rm - lm)) + (2*lm*lv)) / (lm + rm)
 
-					left.setVelocity lfv
-					right.setVelocity rfv
+					left.setTempVelocity lfv
+					right.setTempVelocity rfv
 
 
 				# check collision status and respond if necessary
@@ -134,7 +136,7 @@ define ['paper', 'ball', 'frame'], (paper, ball, frame) ->
 					if rightLeft <= leftRight
 
 						# reset the positions etc of the elements
-						right.element.position.x = leftRight + right.radius
+						# right.element.position.x = leftRight + right.radius
 						@paper.view.draw()
 
 						# handle the collision

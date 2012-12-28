@@ -123,7 +123,7 @@ module.exports = {
 				type: "slider"
 				min: 0
 				value: 5
-				max: 20
+				max: 10
 				name: "Red Velocity"
 				label : "m/s"
 
@@ -142,7 +142,7 @@ module.exports = {
 				editable: true
 				type: "slider"
 				min: 1
-				value: 0
+				value: 3
 				max: 10
 				name: "Red Mass"
 				label: "kg"

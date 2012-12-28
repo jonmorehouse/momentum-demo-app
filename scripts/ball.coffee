@@ -95,16 +95,17 @@ define ["paper"], (paper) ->
 			@paper.view.draw()
 
 		# resets the entire elements's attributes and repositions it
-		fullReset : () =>
+		velocityReset : () =>
 
-			# reset velocity, mass etc
-			@setVelocity @config.velocity
-			@setMass @config.mass #set the mass and radius!
+			@velocity = @config.velocity 
 
+		setTempVelocity : (velocity) => #used for the temp momentum velocity
 
-		# called from outside modules that need to access the module
+			@velocity = velocity
+
 		setVelocity : (velocity) =>
 
+			@config.velocity = velocity
 			@velocity = velocity
 
 		# called from outside modules to change mass!
