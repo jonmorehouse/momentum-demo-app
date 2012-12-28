@@ -163,11 +163,10 @@
               _results.push((function(_module) {
                 var direction, element, module;
                 module = modules[_module];
-                direction = element === ".blue_velocity" ? -1 : 1;
-                element = element === ".red_velocity" ? module.elements.a : element === ".blue_velocity" ? module.elements.b : module.elements.frame;
+                direction = velocityClass === ".blue_velocity" ? -1 : 1;
+                element = velocityClass === ".red_velocity" ? module.elements.a : velocityClass === ".blue_velocity" ? module.elements.b : module.elements.frame;
                 value = parseInt(value);
-                value *= direction;
-                return element.setVelocity(value);
+                return element.setVelocity(value * direction);
               })(_module));
             }
             return _results;

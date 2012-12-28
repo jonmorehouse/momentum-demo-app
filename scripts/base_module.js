@@ -7,6 +7,8 @@
     return BaseModule = (function() {
 
       function BaseModule(canvas, options) {
+        this.oldPlay = __bind(this.oldPlay, this);
+
         this.play = __bind(this.play, this);
         this.canvas = canvas;
         this.paper = new paper.PaperScope();
@@ -27,6 +29,18 @@
       }
 
       BaseModule.prototype.play = function() {
+        var collision, left, leftRunning, right, rightRunning, run,
+          _this = this;
+        left = this.elements.a;
+        right = this.elements.b;
+        frame = this.elements.frame;
+        collision = false;
+        rightRunning = true;
+        leftRunning = true;
+        return (run = function() {})();
+      };
+
+      BaseModule.prototype.oldPlay = function() {
         var collision, counter, left, leftRunning, right, rightRunning, run,
           _this = this;
         left = this.elements.a;

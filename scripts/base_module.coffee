@@ -34,6 +34,26 @@ define ['paper', 'ball', 'frame'], (paper, ball, frame) ->
 
 		play : () =>
 
+			# initialize references to the proper objects
+			left = @elements.a
+			right = @elements.b
+			frame = @elements.frame
+
+			# initialize our running variables
+			collision = false #whether or not a collision has occurred
+			rightRunning = true
+			leftRunning = true
+
+			do run = () =>
+
+				
+
+
+
+
+
+		oldPlay : () =>
+
 			
 			left = @elements.a
 			right = @elements.b

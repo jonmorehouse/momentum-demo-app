@@ -176,15 +176,19 @@ define ["base_module", "animation"], (baseModule, animation) ->
 
 						do (_module) ->
 
+							# grab the correct module object
 							module = modules[_module]
 
-							direction = if element == ".blue_velocity" then -1 else 1
+							# compare the velocityClass so that we know which type of element we are working with!
+							direction = if velocityClass == ".blue_velocity" then -1 else 1
 
-							element = if element == ".red_velocity" then module.elements.a else if element == ".blue_velocity" then module.elements.b else module.elements.frame
+							# grab the correct element based on the class of elements being changed
+							element = if velocityClass == ".red_velocity" then module.elements.a else if velocityClass == ".blue_velocity" then module.elements.b else module.elements.frame
 
+							# end test
 							value = parseInt value
-							value *= direction
-							element.setVelocity value
+
+							element.setVelocity value * direction
 
 				do setVisible = () ->
 
