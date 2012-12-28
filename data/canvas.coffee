@@ -29,7 +29,7 @@ module.exports = {
 				class: "red_mass"
 				editable: true
 				type: "slider"
-				min: 0
+				min: 1
 				value: 3
 				max: 10
 				name: "Red Mass"
@@ -39,7 +39,7 @@ module.exports = {
 				class: "blue_mass"
 				editable: true
 				type: "slider"
-				min: 0
+				min: 1
 				value: 5
 				max: 10
 				name: "Blue Mass"
@@ -63,10 +63,10 @@ module.exports = {
 
 			redVelocity:
 				class: "red_velocity"
-				editable: true
+				editable: false
 				type: "slider"
 				min: 0
-				value: 5
+				value: 0
 				max: 20
 				name: "Red Velocity"
 				label : "m/s"
@@ -85,7 +85,7 @@ module.exports = {
 				class: "red_mass"
 				editable: true
 				type: "slider"
-				min: 0
+				min: 1
 				value: 3
 				max: 10
 				name: "Red Mass"
@@ -95,7 +95,7 @@ module.exports = {
 				class: "blue_mass"
 				editable: true
 				type: "slider"
-				min: 0
+				min: 1
 				value: 5
 				max: 10
 				name: "Blue Mass"
@@ -103,7 +103,7 @@ module.exports = {
 
 			frameVelocity:
 				class: "frame_velocity"
-				editable: false
+				editable: true
 				type: "slider"
 				min: 0
 				value: 0
@@ -129,10 +129,10 @@ module.exports = {
 
 			blueVelocity: 
 				class: "blue_velocity"
-				editable: true
+				editable: false
 				type: "slider"
 				min: 0
-				value: 1
+				value: 0
 				max: 10
 				name: "Blue Velocity"
 				label : "m/s"
@@ -141,7 +141,7 @@ module.exports = {
 				class: "red_mass"
 				editable: true
 				type: "slider"
-				min: 0
+				min: 1
 				value: 3
 				max: 10
 				name: "Red Mass"
@@ -151,7 +151,7 @@ module.exports = {
 				class: "blue_mass"
 				editable: true
 				type: "slider"
-				min: 0
+				min: 1
 				value: 5
 				max: 10
 				name: "Blue Mass"
@@ -197,7 +197,7 @@ module.exports = {
 				class: "red_mass"
 				editable: true
 				type: "slider"
-				min: 0
+				min: 1
 				value: 3
 				max: 10
 				name: "Red Mass"
@@ -207,7 +207,7 @@ module.exports = {
 				class: "blue_mass"
 				editable: true
 				type: "slider"
-				min: 0
+				min: 1
 				value: 5
 				max: 10
 				name: "Blue Mass"
@@ -218,7 +218,7 @@ module.exports = {
 				editable: true
 				type: "slider"
 				min: 0
-				value: 0
+				value: 2
 				max: 10
 				name: "Frame Velocity"
 				label: "m/s"

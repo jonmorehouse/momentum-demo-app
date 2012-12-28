@@ -12,6 +12,7 @@ define ["base_module", "animation"], (baseModule, animation) ->
 
 	parentElements = #base elemnets!
 
+
 		"lab" : $('#container > div:nth-child(1) > .content') 
 		"red" : $('#container > div:nth-child(2) > .content') 
 		"blue" : $('#container > div:nth-child(3) > .content')
@@ -120,7 +121,7 @@ define ["base_module", "animation"], (baseModule, animation) ->
 		parentElements.custom.find(".play").click () ->
 			modules.custom.play()
 
-
+	# initialize the elements
 	do massListener = () ->
 
 		# when we update mass it should update accordingly in each element!
@@ -148,33 +149,47 @@ define ["base_module", "animation"], (baseModule, animation) ->
 					label = $(this).parent().children(".label").children("span:nth-child(2)")
 					label.text value
 
+		# initialize the listener closures for each type of mass element
+		listen colorClass for colorClass in [".blue_mass", ".red_mass"]
+					
 
+	do velocityListener = () ->
 
+		listen = (velocityClass) =>
+
+			# all elements!
+			elements = parent.find(velocityClass).find("input")
+
+			moduleChanges = if velocityClass == ".red_velocity" then ["lab", "blue", "custom"] else if velocityClass == ".blue_velocity" then ["lab", "red", "custom"] else ["red", "blue","custom"] 
+
+			elements.change () ->
+
+				# get the new velocity
+				value = $(this).attr "value"
+				console.log value
+
+				# set the velocity for the frames that are allowed to change! -- as determined above!
+				
+				setVelocity = () ->
+
+					for module in moduleChanges #go through each module and then update the backend properly!
+
+						element = if element == ".red_velocity" then module.elements.a else if element == ".blue_velocity" then module.elements.b else module.elements.frame
+
+						# set the velocity
+						element.setVelocity value
+
+				setVisible = () ->
+
+					# update the visible changes!
+					elements.each () ->
+
+						$(this).attr "value" value
+						span = $(this).parent().children(".label > span:nth-child(2)")
+						console.log span.text()
 
 					
 
 
 
-
-		listen colorClass for colorClass in [".blue_mass", ".red_mass"]
-				
-
-			
-
-						
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+		listen velocityClass for velocityClass in [".blue_velocity", ".red_velocity", ".frame_velocity"]

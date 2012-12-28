@@ -2,7 +2,7 @@
 (function() {
 
   define(["base_module", "animation"], function(baseModule, animation) {
-    var canvasElements, elementData, massListener, modules, parent, parentElements, playListener;
+    var canvasElements, elementData, massListener, modules, parent, parentElements, playListener, velocityListener;
     parent = $('#container');
     parentElements = {
       "lab": $('#container > div:nth-child(1) > .content'),
@@ -110,7 +110,7 @@
         return modules.custom.play();
       });
     })();
-    return (massListener = function() {
+    (massListener = function() {
       var colorClass, listen, _i, _len, _ref, _results,
         _this = this;
       listen = function(colorClass) {
@@ -142,6 +142,39 @@
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         colorClass = _ref[_i];
         _results.push(listen(colorClass));
+      }
+      return _results;
+    })();
+    return (velocityListener = function() {
+      var listen, velocityClass, _i, _len, _ref, _results,
+        _this = this;
+      listen = function(velocityClass) {
+        var elements, moduleChanges;
+        elements = parent.find(velocityClass).find("input");
+        moduleChanges = velocityClass === ".red_velocity" ? ["lab", "blue", "custom"] : velocityClass === ".blue_velocity" ? ["lab", "red", "custom"] : ["red", "blue", "custom"];
+        return elements.change(function() {
+          var setVelocity, setVisible, value;
+          value = $(this).attr("value");
+          setVelocity = function() {
+            var element, module, _i, _len, _results;
+            _results = [];
+            for (_i = 0, _len = moduleChanges.length; _i < _len; _i++) {
+              module = moduleChanges[_i];
+              element = element === ".red_velocity" ? module.elements.a : element === ".blue_velocity" ? module.elements.b : module.elements.frame;
+              _results.push(element.setVelocity(value));
+            }
+            return _results;
+          };
+          return setVisible = function() {
+            return elements.each(function() {});
+          };
+        });
+      };
+      _ref = [".blue_velocity", ".red_velocity", ".frame_velocity"];
+      _results = [];
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        velocityClass = _ref[_i];
+        _results.push(listen(velocityClass));
       }
       return _results;
     })();
