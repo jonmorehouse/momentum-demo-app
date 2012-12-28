@@ -48,6 +48,7 @@
           b: new ball(this.paper, this.elementSettings.b),
           frame: new frame(this.paper, this.elementSettings.frame)
         };
+        this.playing = false;
         this.paper.view.draw();
       }
 
@@ -63,6 +64,7 @@
         leftRunning = true;
         run = function() {
           var fv, ml, mr, vl, vlf, vr, vrf;
+          _this.playing = true;
           vr = right.getVelocity();
           vl = left.getVelocity();
           fv = frame.getVelocity();
@@ -100,9 +102,13 @@
           _this.paper.view.draw();
           if (rightRunning || leftRunning) {
             return setTimeout(run, 10);
+          } else {
+            return _this.playing = false;
           }
         };
-        return run();
+        if (!this.playing) {
+          return run();
+        }
       };
 
       return BaseModule;

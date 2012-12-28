@@ -160,8 +160,7 @@ body {
   bottom: 2em;
   right: 0; }
   #container > div > .content > .controller > .blue_velocity input {
-    position: relative;
-    left: 7.5%; }
+    position: relative; }
 #container > div > .content > .controller > .red_mass {
   bottom: 0;
   left: 0; }

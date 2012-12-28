@@ -2,7 +2,8 @@
 (function() {
 
   define(["base_module", "animation"], function(baseModule, animation) {
-    var canvasElements, elementData, modules, parentElements, resize;
+    var blueMass, canvasElements, elementData, modules, parent, parentElements, playListener;
+    parent = $('#container');
     parentElements = {
       "lab": $('#container > div:nth-child(1) > .content'),
       "red": $('#container > div:nth-child(2) > .content'),
@@ -69,13 +70,46 @@
         }
       }
     };
-    (resize = function() {})();
-    return modules = {
+    modules = {
       lab: new baseModule(canvasElements.lab[0], elementData.lab),
       red: new baseModule(canvasElements.red[0], elementData.red),
       blue: new baseModule(canvasElements.blue[0], elementData.blue),
       custom: new baseModule(canvasElements.custom[0], elementData.custom)
     };
+    (playListener = function() {
+      parentElements.lab.find(".play").click(function() {
+        return modules.lab.play();
+      });
+      parentElements.red.find(".play").click(function() {
+        return modules.red.play();
+      });
+      parentElements.blue.find(".play").click(function() {
+        return modules.blue.play();
+      });
+      return parentElements.custom.find(".play").click(function() {
+        return modules.custom.play();
+      });
+    })();
+    return (blueMass = function() {
+      var element;
+      element = parent.find(".blue_mass");
+      return element.children("input").change(function() {
+        var current, slider, value, _i, _len, _results;
+        current = $(this);
+        value = $(this).attr("value");
+        _results = [];
+        for (_i = 0, _len = element.length; _i < _len; _i++) {
+          slider = element[_i];
+          $(slider).children("input").attr("value", value);
+          $(slider).find("div.label").children("span:nth-child(2)").text(value);
+          modules.lab.elements.b.setMass(parseInt(value));
+          modules.red.elements.b.setMass(parseInt(value));
+          modules.blue.elements.b.setMass(parseInt(value));
+          _results.push(modules.custom.elements.b.setMass(parseInt(value)));
+        }
+        return _results;
+      });
+    })();
   });
 
 }).call(this);

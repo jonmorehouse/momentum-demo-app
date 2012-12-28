@@ -37,6 +37,7 @@ define ['paper', 'ball', 'frame', ], (paper, ball, frame) ->
 			@tool = new @paper.Tool()
 			@paper.setup @canvas
 			@view = new @paper.View(canvas)
+
 			@view.draw = () ->
 
 				console.log "what goes in the draw?"
@@ -49,6 +50,7 @@ define ['paper', 'ball', 'frame', ], (paper, ball, frame) ->
 				frame : new frame @paper, @elementSettings.frame
 
 			# paper view
+			@playing = false
 			@paper.view.draw()
 
 		play : () ->
@@ -66,6 +68,8 @@ define ['paper', 'ball', 'frame', ], (paper, ball, frame) ->
 
 			run = () =>
 
+				# initialize the playing element
+				@playing = true
 				# initialize velocitys for each
 				vr = right.getVelocity()
 				vl = left.getVelocity()
@@ -124,7 +128,13 @@ define ['paper', 'ball', 'frame', ], (paper, ball, frame) ->
 
 					return setTimeout run, 10
 
-			run()
+				else # animation is done playing
+					@playing = false
+
+
+
+			if not @playing #play the elemnet
+				run()
 
 
 

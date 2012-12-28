@@ -49,13 +49,12 @@
           this.original.x = _x;
           this.original.y = _y;
         }
-        if (!this.element) {
-          this.circle = new this.paper.Path.Circle(this.original, this.radius);
-          this.text = new this.paper.PointText(new this.paper.Point(this.original.x, this.original.y + 4));
-          this.element = new this.paper.Layer([this.circle, this.text]);
-        } else {
-          this.element.position = this.original;
+        if (this.element) {
+          this.element.remove();
         }
+        this.circle = new this.paper.Path.Circle(this.original, this.radius);
+        this.text = new this.paper.PointText(new this.paper.Point(this.original.x, this.original.y + 4));
+        this.element = new this.paper.Layer([this.circle, this.text]);
         this.circle.fillColor = this.config.color;
         this.circle.smooth();
         this.text.justification = "center";
@@ -82,7 +81,8 @@
 
       Ball.prototype.setMass = function(mass) {
         this.mass = mass;
-        return this.radius = this.mass * this.config.radiusFactor;
+        this.radius = this.mass * this.config.radiusFactor;
+        return this.elementInit();
       };
 
       Ball.prototype.getVelocity = function() {

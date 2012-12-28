@@ -52,13 +52,12 @@ define ["paper"], (paper) ->
 
 
 			# can make this a layer in the future! -- to incorporate animations in the objects for more excitement!
-			if not @element
-				@circle = new @paper.Path.Circle @original, @radius
-				@text = new @paper.PointText new @paper.Point @original.x, @original.y + 4
-				@element = new @paper.Layer([@circle, @text])
+			if @element
+				@element.remove()
 
-			else 
-				@element.position = @original
+			@circle = new @paper.Path.Circle @original, @radius
+			@text = new @paper.PointText new @paper.Point @original.x, @original.y + 4
+			@element = new @paper.Layer([@circle, @text])
 
 			# initialize the ball style!
 			@circle.fillColor = @config.color
@@ -99,7 +98,8 @@ define ["paper"], (paper) ->
 
 			@mass = mass
 			@radius = @mass * @config.radiusFactor
-			# @fullReset()
+			@elementInit()
+
 
 		# return the current velocity for animation run in the elements!
 		getVelocity : () =>

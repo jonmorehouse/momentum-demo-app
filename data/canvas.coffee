@@ -1,7 +1,6 @@
 module.exports = {
 
 	1 : 
-
 		header: "Laboratory Frame of Reference"
 		frame: "laboratory"
 		controls : 
