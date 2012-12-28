@@ -59,56 +59,78 @@ define ['paper', 'ball', 'frame'], (paper, ball, frame) ->
 				# validate both red and blue balls
 				do leftStatus = () =>
 					
-					reset = () ->
+					reset = () =>
 
 						leftRunning = false
 						left.positionReset()
 						left.velocityReset()
 
+					move = () =>
+						
+						delta = lv + fv #maximum amount of change for this element
+						current = left.element.position.x 
+						collisionBound = right.element.position.x - right.radius #right ball's collision element
+
+						if not collision and current + delta + left.radius > collisionBound
+							left.element.position.x = collisionBound - left.radius
+
+						else
+							left.element.position.x += delta
+
+
 					if leftRunning 
 
 						if lv == 0 or lm == 0 or (lv + fv) == 0 
-
-							reset();
-						
+							do reset
+								
 						else if parseInt(left.element.position.x) < parseInt(left.original.x)
-
-							reset();
+							do reset
 
 						else if parseInt(left.element.position.x) > @paper.view.size.width
 							do reset
 
 						else
-							left.element.position.x += lv + fv
-
+							do move
 						
 						@paper.view.draw()
 
 				do rightStatus = () =>
 
-					reset = () ->
+					reset = () =>
 
 						rightRunning = false
 						right.positionReset()
 						right.velocityReset()
 
+					move = () =>
+
+						maxDelta = right.getVelocity() + frame.getVelocity()
+						current = right.element.position.x - right.radius
+						collisionBound = left.element.position.x + left.radius
+
+
+						if not collision and current + maxDelta < collisionBound
+							right.element.position.x = collisionBound + right.radius
+
+						else 
+							right.element.position.x += maxDelta							
+
 					if rightRunning
 					
 						if rv == 0 or rm == 0 or rv + fv == 0
-							reset()
+							do reset
 
 						else if parseInt(right.element.position.x) > parseInt(right.original.x)	
-							reset()
+							do reset
 
 						else if right.element.position.x < 0
-							reset()
+							do reset
 
 						else
-							right.element.position.x += rv + fv
+							do move
 
 						# refresh the scene if still running
 						@paper.view.draw()
-
 
 				collisionResponse = () =>
 
@@ -120,7 +142,6 @@ define ['paper', 'ball', 'frame'], (paper, ball, frame) ->
 
 					left.setTempVelocity lfv
 					right.setTempVelocity rfv
-
 
 				# check collision status and respond if necessary
 				do collisionStatus = () =>

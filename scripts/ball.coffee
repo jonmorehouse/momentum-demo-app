@@ -17,7 +17,7 @@ define ["paper"], (paper) ->
 			@config =
 
 				radiusFactor: 6
-				verticalOffset: 100
+				verticalOffset: 150
 				horizontalOffset: 10
 				left : true
 				maxHeight : @paper.view.size.height
@@ -42,7 +42,7 @@ define ["paper"], (paper) ->
 
 			# initialize x / y functions!
 			_x = if @config.left then @config.horizontalOffset + @radius else @config.maxWidth - @config.horizontalOffset - @radius
-			_y = @config.maxHeight - @config.verticalOffset - @radius
+			_y = @config.maxHeight - @config.verticalOffset
 
 			# initialize the original element
 			@original = new @paper.Point _x, _y
@@ -76,7 +76,7 @@ define ["paper"], (paper) ->
 
 			# recreate the coordinates for this item
 			@original.x = if @config.left then @config.horizontalOffset + @radius else @config.maxWidth - @config.horizontalOffset - @radius
-			@original.y = @config.maxHeight - @config.verticalOffset - @radius
+			@original.y = @config.maxHeight - @config.verticalOffset
 
 			# actually move the elmeent
 			@element.position.x = @original.x

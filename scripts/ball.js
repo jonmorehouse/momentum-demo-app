@@ -27,7 +27,7 @@
         this.paper = paper;
         this.config = {
           radiusFactor: 6,
-          verticalOffset: 100,
+          verticalOffset: 150,
           horizontalOffset: 10,
           left: true,
           maxHeight: this.paper.view.size.height,
@@ -47,7 +47,7 @@
       Ball.prototype.init = function() {
         var _x, _y;
         _x = this.config.left ? this.config.horizontalOffset + this.radius : this.config.maxWidth - this.config.horizontalOffset - this.radius;
-        _y = this.config.maxHeight - this.config.verticalOffset - this.radius;
+        _y = this.config.maxHeight - this.config.verticalOffset;
         this.original = new this.paper.Point(_x, _y);
         this.circle = new this.paper.Path.Circle(this.original, this.radius);
         this.text = new this.paper.PointText(new this.paper.Point(this.original.x, this.original.y + 4));
@@ -64,7 +64,7 @@
         this.text.content = this.getMass() + "kg";
         this.circle.scale(this.radius / oldRadius);
         this.original.x = this.config.left ? this.config.horizontalOffset + this.radius : this.config.maxWidth - this.config.horizontalOffset - this.radius;
-        this.original.y = this.config.maxHeight - this.config.verticalOffset - this.radius;
+        this.original.y = this.config.maxHeight - this.config.verticalOffset;
         this.element.position.x = this.original.x;
         this.element.position.y = this.original.y;
         return this.paper.view.draw();

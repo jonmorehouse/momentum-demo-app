@@ -43,11 +43,22 @@
           rm = right.getMass();
           fv = frame.getVelocity();
           (leftStatus = function() {
-            var reset;
+            var move, reset;
             reset = function() {
               leftRunning = false;
               left.positionReset();
               return left.velocityReset();
+            };
+            move = function() {
+              var collisionBound, current, delta;
+              delta = lv + fv;
+              current = left.element.position.x;
+              collisionBound = right.element.position.x - right.radius;
+              if (!collision && current + delta + left.radius > collisionBound) {
+                return left.element.position.x = collisionBound - left.radius;
+              } else {
+                return left.element.position.x += delta;
+              }
             };
             if (leftRunning) {
               if (lv === 0 || lm === 0 || (lv + fv) === 0) {
@@ -57,17 +68,28 @@
               } else if (parseInt(left.element.position.x) > _this.paper.view.size.width) {
                 reset();
               } else {
-                left.element.position.x += lv + fv;
+                move();
               }
               return _this.paper.view.draw();
             }
           })();
           (rightStatus = function() {
-            var reset;
+            var move, reset;
             reset = function() {
               rightRunning = false;
               right.positionReset();
               return right.velocityReset();
+            };
+            move = function() {
+              var collisionBound, current, maxDelta;
+              maxDelta = right.getVelocity() + frame.getVelocity();
+              current = right.element.position.x - right.radius;
+              collisionBound = left.element.position.x + left.radius;
+              if (!collision && current + maxDelta < collisionBound) {
+                return right.element.position.x = collisionBound + right.radius;
+              } else {
+                return right.element.position.x += maxDelta;
+              }
             };
             if (rightRunning) {
               if (rv === 0 || rm === 0 || rv + fv === 0) {
@@ -77,7 +99,7 @@
               } else if (right.element.position.x < 0) {
                 reset();
               } else {
-                right.element.position.x += rv + fv;
+                move();
               }
               return _this.paper.view.draw();
             }
