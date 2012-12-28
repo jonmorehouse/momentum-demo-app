@@ -2,7 +2,7 @@
 (function() {
 
   define(["base_module", "animation"], function(baseModule, animation) {
-    var blueMass, canvasElements, elementData, modules, parent, parentElements, playListener;
+    var blueMass, callback, canvasElements, elementData, modules, parent, parentElements, playListener, test;
     parent = $('#container');
     parentElements = {
       "lab": $('#container > div:nth-child(1) > .content'),
@@ -18,52 +18,72 @@
     };
     elementData = {
       lab: {
+        name: "lab",
         a: {
           velocity: 5,
-          mass: 3
+          mass: 3,
+          color: "red",
+          left: true
         },
         b: {
           velocity: -1,
-          mass: 5
+          mass: 5,
+          color: "blue",
+          left: false
         },
         frame: {
           velocity: 0
         }
       },
       red: {
+        name: "red",
         a: {
           mass: 3,
-          velocity: 0
+          velocity: 5,
+          left: true,
+          color: "red"
         },
         b: {
           mass: 5,
-          velocity: -6
+          velocity: -6,
+          color: "blue",
+          left: false
         },
         frame: {
           velocity: 0
         }
       },
       blue: {
+        name: "blue",
         a: {
           mass: 3,
-          velocity: 6
+          velocity: 6,
+          color: "red",
+          left: true
         },
         b: {
           mass: 5,
-          velocity: 0
+          velocity: 0,
+          color: "blue",
+          left: false
         },
         frame: {
           velocity: -1
         }
       },
       custom: {
+        name: "custom",
         a: {
           mass: 3,
-          velocity: 3
+          velocity: 3,
+          color: "red",
+          left: true
         },
         b: {
           mass: 5,
-          velocity: -3
+          velocity: -3,
+          color: "blue",
+          left: false
         },
         frame: {
           velocity: 2
@@ -90,26 +110,29 @@
         return modules.custom.play();
       });
     })();
-    return (blueMass = function() {
+    test = function() {};
+    callback = function() {};
+    setTimeout(callback(2000));
+    return blueMass = function() {
       var element;
       element = parent.find(".blue_mass");
       return element.children("input").change(function() {
         var current, slider, value, _i, _len, _results;
         current = $(this);
         value = $(this).attr("value");
+        modules.lab.elements.b.setMass(parseInt(value));
+        modules.red.elements.b.setMass(parseInt(value));
+        modules.blue.elements.b.setMass(parseInt(value));
+        modules.custom.elements.b.setMass(parseInt(value));
         _results = [];
         for (_i = 0, _len = element.length; _i < _len; _i++) {
           slider = element[_i];
           $(slider).children("input").attr("value", value);
-          $(slider).find("div.label").children("span:nth-child(2)").text(value);
-          modules.lab.elements.b.setMass(parseInt(value));
-          modules.red.elements.b.setMass(parseInt(value));
-          modules.blue.elements.b.setMass(parseInt(value));
-          _results.push(modules.custom.elements.b.setMass(parseInt(value)));
+          _results.push($(slider).find("div.label").children("span:nth-child(2)").text(value));
         }
         return _results;
       });
-    })();
+    };
   });
 
 }).call(this);

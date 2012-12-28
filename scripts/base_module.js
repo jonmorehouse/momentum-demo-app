@@ -4,35 +4,6 @@
   define(['paper', 'ball', 'frame'], function(paper, ball, frame) {
     var BaseModule;
     return BaseModule = (function() {
-      var triggerChange, triggerReset;
-
-      triggerReset = function() {
-        return false;
-      };
-
-      triggerChange = function() {
-        return false;
-      };
-
-      BaseModule.prototype.elementSettings = {
-        a: {
-          color: "red",
-          velocity: 3,
-          mass: 3,
-          radius: 30,
-          left: true
-        },
-        b: {
-          color: "blue",
-          velocity: -5,
-          mass: 5,
-          radius: 40,
-          left: false
-        },
-        frame: {
-          velocity: 5
-        }
-      };
 
       function BaseModule(canvas, options) {
         this.canvas = canvas;
@@ -40,13 +11,14 @@
         this.tool = new this.paper.Tool();
         this.paper.setup(this.canvas);
         this.view = new this.paper.View(canvas);
+        this.options = options;
         this.view.draw = function() {
           return console.log("what goes in the draw?");
         };
         this.elements = {
-          a: new ball(this.paper, this.elementSettings.a),
-          b: new ball(this.paper, this.elementSettings.b),
-          frame: new frame(this.paper, this.elementSettings.frame)
+          a: new ball(this.paper, this.options.a),
+          b: new ball(this.paper, this.options.b),
+          frame: new frame(this.paper, this.options.frame)
         };
         this.playing = false;
         this.paper.view.draw();

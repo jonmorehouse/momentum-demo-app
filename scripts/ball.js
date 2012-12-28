@@ -23,9 +23,8 @@
         this.paper = paper;
         this.config = {
           radiusFactor: 6,
-          color: "brown",
           verticalOffset: 100,
-          horizontalOffset: 5,
+          horizontalOffset: 10,
           left: true,
           maxHeight: this.paper.view.size.height,
           maxWidth: this.paper.view.size.width
@@ -37,18 +36,14 @@
         this.config.left = options.left;
         this.config.color = options.color;
         this.elementInit();
+        this.setMass(5);
       }
 
       Ball.prototype.elementInit = function() {
         var _x, _y;
         _x = this.config.left ? this.config.horizontalOffset + this.radius : this.config.maxWidth - this.config.horizontalOffset - this.radius;
         _y = this.config.maxHeight - this.config.verticalOffset - this.radius;
-        if (!this.original) {
-          this.original = new this.paper.Point(_x, _y);
-        } else {
-          this.original.x = _x;
-          this.original.y = _y;
-        }
+        this.original = new this.paper.Point(_x, _y);
         if (this.element) {
           this.element.remove();
         }
@@ -80,6 +75,7 @@
       };
 
       Ball.prototype.setMass = function(mass) {
+        this.config.mass = mass;
         this.mass = mass;
         this.radius = this.mass * this.config.radiusFactor;
         return this.elementInit();

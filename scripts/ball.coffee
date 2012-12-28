@@ -17,9 +17,8 @@ define ["paper"], (paper) ->
 			@config =
 
 				radiusFactor: 6
-				color: "brown"
 				verticalOffset: 100
-				horizontalOffset: 5
+				horizontalOffset: 10
 				left : true
 				maxHeight : @paper.view.size.height
 				maxWidth : @paper.view.size.width
@@ -33,7 +32,10 @@ define ["paper"], (paper) ->
 			@config.left = options.left
 			@config.color = options.color
 
+
 			@elementInit() #actually draw the element
+
+			@setMass 5
 			# end constructor function
 
 		elementInit : () =>
@@ -43,18 +45,12 @@ define ["paper"], (paper) ->
 			_y = @config.maxHeight - @config.verticalOffset - @radius
 
 			# initialize the original element
-			if not @original
-				@original = new @paper.Point _x, _y
+			@original = new @paper.Point _x, _y
 
-			else
-				@original.x = _x
-				@original.y = _y
-
-
-			# can make this a layer in the future! -- to incorporate animations in the objects for more excitement!
 			if @element
 				@element.remove()
 
+			# can make this a layer in the future! -- to incorporate animations in the objects for more excitement!
 			@circle = new @paper.Path.Circle @original, @radius
 			@text = new @paper.PointText new @paper.Point @original.x, @original.y + 4
 			@element = new @paper.Layer([@circle, @text])
@@ -96,6 +92,7 @@ define ["paper"], (paper) ->
 		# called from outside modules to change mass!
 		setMass : (mass) =>
 
+			@config.mass = mass
 			@mass = mass
 			@radius = @mass * @config.radiusFactor
 			@elementInit()

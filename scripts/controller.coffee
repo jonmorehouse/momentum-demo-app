@@ -26,36 +26,56 @@ define ["base_module", "animation"], (baseModule, animation) ->
 
 	elementData = #this is custom data that will over-write the modules!
 
+
 		lab : #frame of reference from the laboratory
+
+			name: "lab"
 			a : 
 				velocity: 5
 				mass: 3
+				color: "red"
+				left: true
 
 			b :
 
 				velocity: -1
 				mass: 5
+				color: "blue"
+				left: false
 
 			frame: 
 				velocity: 0
 
 		red: #frame of reference of the red ball
+			name : "red"
 			a :
 				mass: 3
-				velocity: 0
+				velocity: 5
+				left: true
+				color: "red"
+
 			b:
 				mass: 5
 				velocity: -6
+				color: "blue"
+				left: false
+
 			frame:
 				velocity: 0
 
 		blue:#frame of reference from the blue ball
+			name: "blue"
 			a:
 				mass: 3
 				velocity: 6
+				color: "red"
+				left: true
+
 			b:
 				mass: 5
 				velocity: 0
+				color: "blue"
+				left: false
 
 			frame:
 
@@ -63,20 +83,23 @@ define ["base_module", "animation"], (baseModule, animation) ->
 
 		custom: #custom frame of reference
 
+			name: "custom"
 			a:
 				mass: 3
 				velocity: 3
-
+				color: "red"
+				left: true
 
 			b:
 				mass: 5
 				velocity: -3
+				color: "blue"
+				left: false
 
 			frame:
 				velocity: 2
 
 	modules = 	#create a base module for each and then send it callback functions etc for changing ...
-
 		lab : new baseModule canvasElements.lab[0], elementData.lab
 		red : new baseModule canvasElements.red[0], elementData.red
 		blue : new baseModule canvasElements.blue[0], elementData.blue
@@ -98,8 +121,21 @@ define ["base_module", "animation"], (baseModule, animation) ->
 		parentElements.custom.find(".play").click () ->
 			modules.custom.play()
 
+	test = () ->
 
-	do blueMass = () ->
+		# modules.lab.elements.b.setMass 10
+		# modules.red.elements.b.setMass parseInt value
+		# modules.blue.elements.b.setMass parseInt value
+		# modules.custom.elements.b.setMass parseInt value
+
+
+	callback = () ->
+
+		# modules.lab.elements.b.setMass 10
+
+	setTimeout callback 2000
+
+	blueMass = () ->
 
 		element = parent.find ".blue_mass"
 
@@ -108,17 +144,19 @@ define ["base_module", "animation"], (baseModule, animation) ->
 			current = $(this)
 			value = $(this).attr "value"
 
+			modules.lab.elements.b.setMass parseInt value
+			modules.red.elements.b.setMass parseInt value
+			modules.blue.elements.b.setMass parseInt value
+			modules.custom.elements.b.setMass parseInt value
+
+
 			# now loop through and change all other elements!
 			for slider in element
 
 				$(slider).children("input").attr "value", value
 				$(slider).find("div.label").children("span:nth-child(2)").text value
 
-				modules.lab.elements.b.setMass parseInt value
-				modules.red.elements.b.setMass parseInt value
-				modules.blue.elements.b.setMass parseInt value
-				modules.custom.elements.b.setMass parseInt value
-	
+
 
 
 

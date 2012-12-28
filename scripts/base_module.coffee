@@ -3,32 +3,10 @@
 # this module serves as the controller for this animation
 # need to resize the balls on mass change
 
-define ['paper', 'ball', 'frame', ], (paper, ball, frame) ->
+define ['paper', 'ball', 'frame'], (paper, ball, frame) ->
 
 	class BaseModule
-
-		# static variables -- also equal to using @ or this
-		triggerReset = () -> return false #parent attached function which will allow us to work on parent
-		triggerChange = () -> return false #these are the parent attached nodes
 				
-		elementSettings : 
-
-			a :
-				color : "red"
-				velocity : 3
-				mass: 3
-				radius: 30
-				left: true
-			b : 
-				color : "blue"
-				velocity : -5
-				mass: 5
-				radius: 40
-				left : false
-
-			frame: 
-				velocity: 5
-
 		constructor : (canvas, options) -> #send in options -- ie: height / width!
 
 			# initialize paperjs library
@@ -37,6 +15,7 @@ define ['paper', 'ball', 'frame', ], (paper, ball, frame) ->
 			@tool = new @paper.Tool()
 			@paper.setup @canvas
 			@view = new @paper.View(canvas)
+			@options = options
 
 			@view.draw = () ->
 
@@ -45,9 +24,9 @@ define ['paper', 'ball', 'frame', ], (paper, ball, frame) ->
 			# element data initializing 
 			@elements =
 
-				a : new ball @paper, @elementSettings.a
-				b : new ball @paper, @elementSettings.b
-				frame : new frame @paper, @elementSettings.frame
+				a : new ball @paper, @options.a
+				b : new ball @paper, @options.b
+				frame : new frame @paper, @options.frame
 
 			# paper view
 			@playing = false
@@ -55,6 +34,7 @@ define ['paper', 'ball', 'frame', ], (paper, ball, frame) ->
 
 		play : () ->
 
+			
 			left = @elements.a
 			right = @elements.b
 			frame = @elements.frame
