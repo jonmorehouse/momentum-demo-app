@@ -32,7 +32,7 @@ define ['paper', 'ball', 'frame'], (paper, ball, frame) ->
 			@playing = false
 			@paper.view.draw()
 
-		play : () ->
+		play : () =>
 
 			
 			left = @elements.a
@@ -46,10 +46,11 @@ define ['paper', 'ball', 'frame'], (paper, ball, frame) ->
 			rightRunning = true
 			leftRunning = true
 
+
 			run = () =>
 
 				# initialize the playing element
-				@playing = true
+				playing = true
 				# initialize velocitys for each
 				vr = right.getVelocity()
 				vl = left.getVelocity()
@@ -84,22 +85,22 @@ define ['paper', 'ball', 'frame'], (paper, ball, frame) ->
 				if collision and left.element.position.x <= left.original.x 
 
 					leftRunning = false
-					left.fullReset()
+					# left.fullReset()
 
 				if collision and right.element.position.x <= left.original.x
 
 					leftRunning = false
-					right.fullReset()
+					# right.fullReset()
 
 				if collision and right.element.position.x >= right.original.x 
 
 					rightRunning = false
-					right.fullReset()
+					# right.fullReset()
 
 				if collision and left.element.position.x >= right.original.x
 
 					rightRunning = false
-					right.fullReset()
+					# right.fullReset()
 
 				# draw out element
 				@paper.view.draw()

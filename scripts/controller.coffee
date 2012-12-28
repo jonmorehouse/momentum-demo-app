@@ -31,14 +31,14 @@ define ["base_module", "animation"], (baseModule, animation) ->
 
 			name: "lab"
 			a : 
-				velocity: 5
+				velocity: 8
 				mass: 3
 				color: "red"
 				left: true
 
 			b :
 
-				velocity: -1
+				velocity: -5
 				mass: 5
 				color: "blue"
 				left: false
@@ -99,12 +99,11 @@ define ["base_module", "animation"], (baseModule, animation) ->
 			frame:
 				velocity: 2
 
-	modules = 	#create a base module for each and then send it callback functions etc for changing ...
+	modules = #create a base module for each and then send it callback functions etc for changing ...
 		lab : new baseModule canvasElements.lab[0], elementData.lab
 		red : new baseModule canvasElements.red[0], elementData.red
 		blue : new baseModule canvasElements.blue[0], elementData.blue
 		custom : new baseModule canvasElements.custom[0], elementData.custom
-
 
 	do playListener = () ->
 
@@ -121,40 +120,23 @@ define ["base_module", "animation"], (baseModule, animation) ->
 		parentElements.custom.find(".play").click () ->
 			modules.custom.play()
 
-	test = () ->
 
-		# modules.lab.elements.b.setMass 10
-		# modules.red.elements.b.setMass parseInt value
-		# modules.blue.elements.b.setMass parseInt value
-		# modules.custom.elements.b.setMass parseInt value
-
-
-	callback = () ->
-
-		# modules.lab.elements.b.setMass 10
-
-	setTimeout callback 2000
-
-	blueMass = () ->
+	do blueMass = () ->
 
 		element = parent.find ".blue_mass"
 
 		element.children("input").change () ->
 
-			current = $(this)
 			value = $(this).attr "value"
 
-			modules.lab.elements.b.setMass parseInt value
-			modules.red.elements.b.setMass parseInt value
-			modules.blue.elements.b.setMass parseInt value
-			modules.custom.elements.b.setMass parseInt value
+			console.log value
+
+	do play = () ->
+
+		for key, value of modules
+			
 
 
-			# now loop through and change all other elements!
-			for slider in element
-
-				$(slider).children("input").attr "value", value
-				$(slider).find("div.label").children("span:nth-child(2)").text value
 
 
 

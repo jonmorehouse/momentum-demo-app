@@ -27,15 +27,11 @@ define ["paper"], (paper) ->
 			@config.mass = options.mass
 			@config.velocity = options.velocity
 
-			@setVelocity @config.velocity
-			@setMass @config.mass
 			@config.left = options.left
 			@config.color = options.color
+			@setVelocity @config.velocity
+			@setMass @config.mass
 
-
-			@elementInit() #actually draw the element
-
-			@setMass 5
 			# end constructor function
 
 		elementInit : () =>
@@ -92,6 +88,8 @@ define ["paper"], (paper) ->
 		# called from outside modules to change mass!
 		setMass : (mass) =>
 
+
+			console.log 'set mass'
 			@config.mass = mass
 			@mass = mass
 			@radius = @mass * @config.radiusFactor

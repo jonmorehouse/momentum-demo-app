@@ -31,12 +31,10 @@
         };
         this.config.mass = options.mass;
         this.config.velocity = options.velocity;
-        this.setVelocity(this.config.velocity);
-        this.setMass(this.config.mass);
         this.config.left = options.left;
         this.config.color = options.color;
-        this.elementInit();
-        this.setMass(5);
+        this.setVelocity(this.config.velocity);
+        this.setMass(this.config.mass);
       }
 
       Ball.prototype.elementInit = function() {
@@ -75,6 +73,7 @@
       };
 
       Ball.prototype.setMass = function(mass) {
+        console.log('set mass');
         this.config.mass = mass;
         this.mass = mass;
         this.radius = this.mass * this.config.radiusFactor;

@@ -2,7 +2,7 @@
 (function() {
 
   define(["base_module", "animation"], function(baseModule, animation) {
-    var blueMass, callback, canvasElements, elementData, modules, parent, parentElements, playListener, test;
+    var blueMass, canvasElements, elementData, modules, parent, parentElements, playListener;
     parent = $('#container');
     parentElements = {
       "lab": $('#container > div:nth-child(1) > .content'),
@@ -20,13 +20,13 @@
       lab: {
         name: "lab",
         a: {
-          velocity: 5,
+          velocity: 8,
           mass: 3,
           color: "red",
           left: true
         },
         b: {
-          velocity: -1,
+          velocity: -5,
           mass: 5,
           color: "blue",
           left: false
@@ -110,29 +110,15 @@
         return modules.custom.play();
       });
     })();
-    test = function() {};
-    callback = function() {};
-    setTimeout(callback(2000));
-    return blueMass = function() {
+    return (blueMass = function() {
       var element;
       element = parent.find(".blue_mass");
       return element.children("input").change(function() {
-        var current, slider, value, _i, _len, _results;
-        current = $(this);
+        var value;
         value = $(this).attr("value");
-        modules.lab.elements.b.setMass(parseInt(value));
-        modules.red.elements.b.setMass(parseInt(value));
-        modules.blue.elements.b.setMass(parseInt(value));
-        modules.custom.elements.b.setMass(parseInt(value));
-        _results = [];
-        for (_i = 0, _len = element.length; _i < _len; _i++) {
-          slider = element[_i];
-          $(slider).children("input").attr("value", value);
-          _results.push($(slider).find("div.label").children("span:nth-child(2)").text(value));
-        }
-        return _results;
+        return console.log(value);
       });
-    };
+    })();
   });
 
 }).call(this);
