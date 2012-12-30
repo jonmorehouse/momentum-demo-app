@@ -125,7 +125,7 @@ body {
 
 #container > div > .content > .controller > .play {
   position: absolute;
-  bottom: 8%;
+  bottom: 3em;
   height: 8%;
   width: 10%;
   left: 45%;
@@ -158,7 +158,7 @@ body {
   bottom: 0;
   right: 0; }
 #container > div > .content > .controller > .blue_velocity {
-  bottom: 2em;
+  bottom: 3em;
   right: 0; }
   #container > div > .content > .controller > .blue_velocity input {
     position: relative; }
@@ -166,5 +166,5 @@ body {
   bottom: 0;
   left: 0; }
 #container > div > .content > .controller > .red_velocity {
-  bottom: 2em;
+  bottom: 3em;
   left: 0; }
