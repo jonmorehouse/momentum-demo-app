@@ -7,8 +7,8 @@ requirejs.config({
 
 	paths : {	
 
-		'jquery' : "../components/jquery/jquery.min", //specific libraries -- can be specified later
-		'paper' : "../components/paper/paper"
+		'jquery' : "../resource/jquery", //specific libraries -- can be specified later
+		'paper' : "../resources/paper"
 	},
 
 	shim: {
@@ -20,7 +20,7 @@ requirejs.config({
 });
 
 // initialize the document with a doc ready!
-requirejs(["jquery", "controller"], function ($, controller) {
+requirejs(["jquery", "paper", "controller"], function ($, paper, controller) {
 
 	// run the controller after jquery load?
 
