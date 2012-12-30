@@ -168,3 +168,7 @@ body {
 #container > div > .content > .controller > .red_velocity {
   bottom: 2em;
   left: 0; }
+
+/** COMPATIBILITY CODE USING MODERNIZR ** */
+.no-range {
+  background-color: orange; }
