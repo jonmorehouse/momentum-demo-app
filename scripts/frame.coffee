@@ -12,6 +12,7 @@ define ["paper"], (paper) ->
 				@config[key] = value
 
 			@tag = @container.find "span:nth-child(2)"
+			@input = @container.find "input"
 
  
 		getVelocity : () =>
@@ -20,8 +21,9 @@ define ["paper"], (paper) ->
 
 		setVelocity : (velocity) =>
 
-			@config.velocity = velocity
-			@tag.text velocity
+			@config.velocity = parseInt velocity
+			@tag.html @config.velocity
+			@input.attr "value", @config.velocity
 
 
 

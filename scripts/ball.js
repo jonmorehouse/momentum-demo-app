@@ -28,6 +28,7 @@
         this.init = __bind(this.init, this);
 
         this.tag = container.find("span:nth-child(2)");
+        this.input = container.find("input");
         this.config = {
           ballSizeChange: false,
           radiusFactor: 6,
@@ -89,9 +90,12 @@
       };
 
       Ball.prototype.setVelocity = function(velocity) {
-        this.config.velocity = velocity;
-        this.velocity = velocity;
-        return this.tag.text(velocity);
+        var label;
+        this.config.velocity = parseInt(velocity);
+        this.velocity = this.config.velocity;
+        label = velocity < 0 ? -1 * velocity : velocity;
+        this.tag.text(label);
+        return this.input.attr("value", label);
       };
 
       Ball.prototype.setMass = function(mass) {

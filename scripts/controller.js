@@ -2,7 +2,7 @@
 (function() {
 
   define(["base_module", "animation"], function(baseModule, animation) {
-    var blueVelocityChanges, canvasElements, elementData, massListener, modules, parent, parentElements, playListener, redVelocityChanges, tagUpdate,
+    var blueVelocityChanges, canvasElements, elementData, frameVelocityChanges, listeners, massListener, modules, parent, parentElements, playListener, redVelocityChanges,
       _this = this;
     parent = $('#container');
     parentElements = {
@@ -153,12 +153,31 @@
       return modules.custom.elements.a.setVelocity(value);
     };
     blueVelocityChanges = function(value) {
+      value = -1 * parseInt(value);
       modules.lab.elements.b.setVelocity(value);
       modules.red.elements.b.setVelocity(value);
       modules.blue.elements.frame.setVelocity(value);
       return modules.custom.elements.b.setVelocity(value);
     };
-    return tagUpdate = function() {};
+    frameVelocityChanges = function(value) {
+      modules.lab.elements.frame.setVelocity(value);
+      modules.red.elements.frame.setVelocity(value);
+      modules.blue.elements.frame.setVelocity(-1 * value);
+      return modules.custom.elements.frame.setVelocity(value);
+    };
+    return (listeners = function() {
+      var containers;
+      containers = parent.children(":nth-child(1), :nth-child(4)");
+      containers.find(".frame_velocity > input").change(function() {
+        return frameVelocityChanges($(this).attr("value"));
+      });
+      containers.find(".red_velocity > input").change(function() {
+        return redVelocityChanges($(this).attr("value"));
+      });
+      return containers.find(".blue_velocity > input").change(function() {
+        return blueVelocityChanges($(this).attr("value"));
+      });
+    })();
   });
 
 }).call(this);

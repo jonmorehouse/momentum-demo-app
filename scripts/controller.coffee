@@ -165,6 +165,8 @@ define ["base_module", "animation"], (baseModule, animation) ->
 
 	blueVelocityChanges = (value) =>
 
+		value = -1 * parseInt value 
+
 		# assume that the number has been regulated to a negative already!
 		modules.lab.elements.b.setVelocity value
 		modules.red.elements.b.setVelocity value
@@ -172,11 +174,26 @@ define ["base_module", "animation"], (baseModule, animation) ->
 		modules.custom.elements.b.setVelocity value
 
 
+	frameVelocityChanges = (value) =>
 
-	tagUpdate = =>
+		modules.lab.elements.frame.setVelocity value
+		modules.red.elements.frame.setVelocity value
+		modules.blue.elements.frame.setVelocity -1*value
+		modules.custom.elements.frame.setVelocity value
 
-		# go through each element and update the tags
-		# 
+	do listeners = =>
 
+		containers = parent.children(":nth-child(1), :nth-child(4)")
 
+		containers.find(".frame_velocity > input").change ->
+
+			frameVelocityChanges $(this).attr "value"
+
+		containers.find(".red_velocity > input").change ->
+
+			redVelocityChanges $(this).attr "value"
+
+		containers.find(".blue_velocity > input").change ->
+
+			blueVelocityChanges $(this).attr "value"
 

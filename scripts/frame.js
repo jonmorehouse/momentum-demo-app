@@ -20,6 +20,7 @@
           this.config[key] = value;
         }
         this.tag = this.container.find("span:nth-child(2)");
+        this.input = this.container.find("input");
       }
 
       Frame.prototype.getVelocity = function() {
@@ -27,8 +28,9 @@
       };
 
       Frame.prototype.setVelocity = function(velocity) {
-        this.config.velocity = velocity;
-        return this.tag.text(velocity);
+        this.config.velocity = parseInt(velocity);
+        this.tag.html(this.config.velocity);
+        return this.input.attr("value", this.config.velocity);
       };
 
       return Frame;

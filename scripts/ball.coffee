@@ -13,6 +13,7 @@ define ["paper"], (paper) ->
 		constructor : (@paper, @container, options) ->
 
 			@tag = container.find "span:nth-child(2)"
+			@input = container.find "input"
 
 			@config =
 
@@ -106,9 +107,12 @@ define ["paper"], (paper) ->
 
 		setVelocity : (velocity) =>
 
-			@config.velocity = velocity
-			@velocity = velocity
-			@tag.text velocity
+			@config.velocity = parseInt velocity
+			@velocity = @config.velocity
+
+			label = if velocity < 0 then -1 * velocity else velocity
+			@tag.text label
+			@input.attr "value", label
 
 		# called from outside modules to change mass!
 		setMass : (mass) =>
@@ -121,7 +125,7 @@ define ["paper"], (paper) ->
 				@radius = @mass * @config.radiusFactor
 
 			# initialize the 
-			@attrReset(oldRadius)
+			@attrReset oldRadius
 
 		# return the current velocity for animation run in the elements!
 		getVelocity : () =>
