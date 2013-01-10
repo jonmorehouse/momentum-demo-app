@@ -10,9 +10,9 @@ define ["paper"], (paper) ->
 
 	class Ball
 
-		constructor : (paper, options) ->
+		constructor : (@paper, @container, options) ->
 
-			@paper = paper
+			@tag = container.find "span:nth-child(2)"
 
 			@config =
 
@@ -108,6 +108,7 @@ define ["paper"], (paper) ->
 
 			@config.velocity = velocity
 			@velocity = velocity
+			@tag.text velocity
 
 		# called from outside modules to change mass!
 		setMass : (mass) =>

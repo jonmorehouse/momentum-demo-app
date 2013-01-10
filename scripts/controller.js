@@ -2,7 +2,7 @@
 (function() {
 
   define(["base_module", "animation"], function(baseModule, animation) {
-    var canvasElements, elementData, massListener, modules, parent, parentElements, playListener, redListeners, visibleUpdate,
+    var blueVelocityChanges, canvasElements, elementData, massListener, modules, parent, parentElements, playListener, redVelocityChanges, tagUpdate,
       _this = this;
     parent = $('#container');
     parentElements = {
@@ -92,10 +92,10 @@
       }
     };
     modules = {
-      lab: new baseModule(canvasElements.lab[0], elementData.lab),
-      red: new baseModule(canvasElements.red[0], elementData.red),
-      blue: new baseModule(canvasElements.blue[0], elementData.blue),
-      custom: new baseModule(canvasElements.custom[0], elementData.custom)
+      lab: new baseModule(parentElements.lab, elementData.lab),
+      red: new baseModule(parentElements.red, elementData.red),
+      blue: new baseModule(parentElements.blue, elementData.blue),
+      custom: new baseModule(parentElements.custom, elementData.custom)
     };
     (playListener = function() {
       parentElements.lab.find(".play").click(function() {
@@ -146,8 +146,19 @@
       }
       return _results;
     })();
-    (redListeners = function() {})();
-    return visibleUpdate = function() {};
+    redVelocityChanges = function(value) {
+      modules.lab.elements.a.setVelocity(value);
+      modules.red.elements.frame.setVelocity(value);
+      modules.blue.elements.a.setVelocity(value);
+      return modules.custom.elements.a.setVelocity(value);
+    };
+    blueVelocityChanges = function(value) {
+      modules.lab.elements.b.setVelocity(value);
+      modules.red.elements.b.setVelocity(value);
+      modules.blue.elements.frame.setVelocity(value);
+      return modules.custom.elements.b.setVelocity(value);
+    };
+    return tagUpdate = function() {};
   });
 
 }).call(this);

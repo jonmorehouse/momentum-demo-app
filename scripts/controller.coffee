@@ -102,10 +102,10 @@ define ["base_module", "animation"], (baseModule, animation) ->
 				velocity: 1
 
 	modules = #create a base module for each and then send it callback functions etc for changing ...
-		lab : new baseModule canvasElements.lab[0], elementData.lab
-		red : new baseModule canvasElements.red[0], elementData.red
-		blue : new baseModule canvasElements.blue[0], elementData.blue
-		custom : new baseModule canvasElements.custom[0], elementData.custom
+		lab : new baseModule parentElements.lab, elementData.lab
+		red : new baseModule parentElements.red, elementData.red
+		blue : new baseModule parentElements.blue, elementData.blue
+		custom : new baseModule parentElements.custom, elementData.custom
 
 	do playListener = () ->
 
@@ -129,7 +129,6 @@ define ["base_module", "animation"], (baseModule, animation) ->
 		listen = (colorClass) =>
 
 			elements = parent.find(colorClass).find("input")
-
 
 			# listen for changes on the sliders
 			elements.change () ->
@@ -156,25 +155,28 @@ define ["base_module", "animation"], (baseModule, animation) ->
 		listen colorClass for colorClass in [".blue_mass", ".red_mass"]
 
 	# initialize all the velocity elements for each frame that can be edited
-	do redListeners = () =>
+	redVelocityChanges = (value) =>
+
+		# this is responsible for changing the red velocity related elements across the elements
+		modules.lab.elements.a.setVelocity value
+		modules.red.elements.frame.setVelocity value
+		modules.blue.elements.a.setVelocity value
+		modules.custom.elements.a.setVelocity value
+
+	blueVelocityChanges = (value) =>
+
+		# assume that the number has been regulated to a negative already!
+		modules.lab.elements.b.setVelocity value
+		modules.red.elements.b.setVelocity value
+		modules.blue.elements.frame.setVelocity value
+		modules.custom.elements.b.setVelocity value
 
 
-		
 
+	tagUpdate = =>
 
-
-
-
-
-
-
-
-	visibleUpdate = () ->
-
-		# this function will go through each element and update the visible segments of the data on screen
-
-
-
+		# go through each element and update the tags
+		# 
 
 
 

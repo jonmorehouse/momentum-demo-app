@@ -3,20 +3,16 @@ define ["paper"], (paper) ->
 
 	class Frame
 
-		constructor : (canvas, options) ->
+		constructor : (@paper, @container, options) ->
 
-			@config =
-
-				editable : false
-				verticalOffset: 20
-				horizontalOffset: 20
-
-			@canvas = canvas #initialize canvas for this object!
-			@paper = new paper.PaperScope() #initialize a new paperscope on this element
+			@config = []
 
 			for key, value of options
 
 				@config[key] = value
+
+			@tag = @container.find "span:nth-child(2)"
+
  
 		getVelocity : () =>
 
@@ -25,6 +21,7 @@ define ["paper"], (paper) ->
 		setVelocity : (velocity) =>
 
 			@config.velocity = velocity
+			@tag.text velocity
 
 
 

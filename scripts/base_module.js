@@ -6,21 +6,22 @@
     var BaseModule;
     return BaseModule = (function() {
 
-      function BaseModule(canvas, options) {
+      function BaseModule(container, options) {
+        this.container = container;
+        this.options = options;
         this.play = __bind(this.play, this);
-        this.canvas = canvas;
+
+        this.paper = new paper.PaperScope();
+        this.canvas = this.container.children("canvas")[0];
         this.paper = new paper.PaperScope();
         this.tool = new this.paper.Tool();
         this.paper.setup(this.canvas);
-        this.view = new this.paper.View(canvas);
-        this.options = options;
-        this.view.draw = function() {
-          return console.log("what goes in the draw?");
-        };
+        this.view = new this.paper.View(this.canvas);
+        this.view.draw = function() {};
         this.elements = {
-          a: new ball(this.paper, this.options.a),
-          b: new ball(this.paper, this.options.b),
-          frame: new frame(this.paper, this.options.frame)
+          a: new ball(this.paper, this.container.find(".red_velocity"), this.options.a),
+          b: new ball(this.paper, this.container.find(".blue_velocity"), this.options.b),
+          frame: new frame(this.paper, this.container.find(".frame_velocity"), this.options.frame)
         };
         this.playing = false;
         this.paper.view.draw();

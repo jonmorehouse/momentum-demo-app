@@ -7,31 +7,30 @@ define ['paper', 'ball', 'frame'], (paper, ball, frame) ->
 
 	class BaseModule
 				
-		constructor : (canvas, options) -> #send in options -- ie: height / width!
+		constructor : (@container, @options) -> #send in options -- ie: height / width!
 
 			# initialize paperjs library
-			@canvas = canvas
+			@paper = new paper.PaperScope()
+			@canvas = @container.children("canvas")[0]
 			@paper = new paper.PaperScope()
 			@tool = new @paper.Tool()
 			@paper.setup @canvas
-			@view = new @paper.View(canvas)
-			@options = options
+			@view = new @paper.View(@canvas)
 
 			@view.draw = () ->
 
-				console.log "what goes in the draw?"
+				# should not be re-implemented
 
 			# element data initializing 
 			@elements =
 
-				a : new ball @paper, @options.a
-				b : new ball @paper, @options.b
-				frame : new frame @paper, @options.frame
+				a : new ball @paper, @container.find(".red_velocity"), @options.a
+				b : new ball @paper, @container.find(".blue_velocity"), @options.b
+				frame : new frame @paper, @container.find(".frame_velocity"), @options.frame
 
 			# paper view
 			@playing = false
 			@paper.view.draw()
-
 
 		play : () =>
 
@@ -46,7 +45,6 @@ define ['paper', 'ball', 'frame'], (paper, ball, frame) ->
 			leftRunning = true
 
 			run = () =>
-
 				# cache velocities etc for quick local access
 				lv = left.getVelocity()
 				lm = left.getMass()

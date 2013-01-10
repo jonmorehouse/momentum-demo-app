@@ -6,7 +6,9 @@
     var Ball;
     return Ball = (function() {
 
-      function Ball(paper, options) {
+      function Ball(paper, container, options) {
+        this.paper = paper;
+        this.container = container;
         this.getMass = __bind(this.getMass, this);
 
         this.getVelocity = __bind(this.getVelocity, this);
@@ -24,7 +26,8 @@
         this.attrReset = __bind(this.attrReset, this);
 
         this.init = __bind(this.init, this);
-        this.paper = paper;
+
+        this.tag = container.find("span:nth-child(2)");
         this.config = {
           ballSizeChange: false,
           radiusFactor: 6,
@@ -87,7 +90,8 @@
 
       Ball.prototype.setVelocity = function(velocity) {
         this.config.velocity = velocity;
-        return this.velocity = velocity;
+        this.velocity = velocity;
+        return this.tag.text(velocity);
       };
 
       Ball.prototype.setMass = function(mass) {

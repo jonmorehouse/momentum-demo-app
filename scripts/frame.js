@@ -6,23 +6,20 @@
     var Frame;
     return Frame = (function() {
 
-      function Frame(canvas, options) {
+      function Frame(paper, container, options) {
+        var key, value;
+        this.paper = paper;
+        this.container = container;
         this.setVelocity = __bind(this.setVelocity, this);
 
         this.getVelocity = __bind(this.getVelocity, this);
 
-        var key, value;
-        this.config = {
-          editable: false,
-          verticalOffset: 20,
-          horizontalOffset: 20
-        };
-        this.canvas = canvas;
-        this.paper = new paper.PaperScope();
+        this.config = [];
         for (key in options) {
           value = options[key];
           this.config[key] = value;
         }
+        this.tag = this.container.find("span:nth-child(2)");
       }
 
       Frame.prototype.getVelocity = function() {
@@ -30,7 +27,8 @@
       };
 
       Frame.prototype.setVelocity = function(velocity) {
-        return this.config.velocity = velocity;
+        this.config.velocity = velocity;
+        return this.tag.text(velocity);
       };
 
       return Frame;
