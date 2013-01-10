@@ -2,7 +2,8 @@
 (function() {
 
   define(["base_module", "animation"], function(baseModule, animation) {
-    var canvasElements, elementData, massListener, modules, parent, parentElements, playListener, velocityListener;
+    var canvasElements, elementData, massListener, modules, parent, parentElements, playListener, redListeners, visibleUpdate,
+      _this = this;
     parent = $('#container');
     parentElements = {
       "lab": $('#container > div:nth-child(1) > .content'),
@@ -145,50 +146,8 @@
       }
       return _results;
     })();
-    return (velocityListener = function() {
-      var listen, velocityClass, _i, _len, _ref, _results,
-        _this = this;
-      listen = function(velocityClass) {
-        var elements, moduleChanges;
-        elements = parent.find(velocityClass).find("input");
-        moduleChanges = velocityClass === ".red_velocity" ? ["lab", "blue", "custom"] : velocityClass === ".blue_velocity" ? ["lab", "red", "custom"] : ["red", "blue", "custom"];
-        return elements.change(function() {
-          var setVelocity, setVisible, value;
-          value = $(this).attr("value");
-          (setVelocity = function() {
-            var _i, _len, _module, _results;
-            _results = [];
-            for (_i = 0, _len = moduleChanges.length; _i < _len; _i++) {
-              _module = moduleChanges[_i];
-              _results.push((function(_module) {
-                var direction, element, module;
-                module = modules[_module];
-                direction = velocityClass === ".blue_velocity" ? -1 : 1;
-                element = velocityClass === ".red_velocity" ? module.elements.a : velocityClass === ".blue_velocity" ? module.elements.b : module.elements.frame;
-                value = parseInt(value);
-                return element.setVelocity(value * direction);
-              })(_module));
-            }
-            return _results;
-          })();
-          return (setVisible = function() {
-            return elements.each(function() {
-              var span;
-              $(this).attr("value", value);
-              span = $(this).parent().children(".label").children("span:nth-child(2)");
-              return span.text(value);
-            });
-          })();
-        });
-      };
-      _ref = [".blue_velocity", ".red_velocity", ".frame_velocity"];
-      _results = [];
-      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-        velocityClass = _ref[_i];
-        _results.push(listen(velocityClass));
-      }
-      return _results;
-    })();
+    (redListeners = function() {})();
+    return visibleUpdate = function() {};
   });
 
 }).call(this);

@@ -26,6 +26,7 @@
         this.init = __bind(this.init, this);
         this.paper = paper;
         this.config = {
+          ballSizeChange: false,
           radiusFactor: 6,
           verticalOffset: 150,
           horizontalOffset: 10,
@@ -94,7 +95,9 @@
         this.config.mass = mass;
         this.mass = mass;
         oldRadius = this.radius;
-        this.radius = this.mass * this.config.radiusFactor;
+        if (this.config.ballSizeChange) {
+          this.radius = this.mass * this.config.radiusFactor;
+        }
         return this.attrReset(oldRadius);
       };
 

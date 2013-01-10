@@ -130,6 +130,7 @@ define ["base_module", "animation"], (baseModule, animation) ->
 
 			elements = parent.find(colorClass).find("input")
 
+
 			# listen for changes on the sliders
 			elements.change () ->
 
@@ -137,6 +138,7 @@ define ["base_module", "animation"], (baseModule, animation) ->
 				# for each module, need to call the change mass element!
 					
 				# set the ball mass / size
+
 				setMass = for key, module of modules
 
 					# get the proper element
@@ -154,55 +156,24 @@ define ["base_module", "animation"], (baseModule, animation) ->
 		listen colorClass for colorClass in [".blue_mass", ".red_mass"]
 
 	# initialize all the velocity elements for each frame that can be edited
-	do velocityListener = () ->
+	do redListeners = () =>
 
-		listen = (velocityClass) =>
 
-			# all elements!
-			elements = parent.find(velocityClass).find("input")
-
-			moduleChanges = if velocityClass == ".red_velocity" then ["lab", "blue", "custom"] else if velocityClass == ".blue_velocity" then ["lab", "red", "custom"] else ["red", "blue","custom"] 
-
-			elements.change () ->
-
-				# get the new velocity
-				value = $(this).attr "value"
-
-				# set the velocity for the frames that are allowed to change! -- as determined above!
-				
-				do setVelocity = () ->
-
-					for _module in moduleChanges #go through each module and then update the backend properly!
-
-						do (_module) ->
-
-							# grab the correct module object
-							module = modules[_module]
-
-							# compare the velocityClass so that we know which type of element we are working with!
-							direction = if velocityClass == ".blue_velocity" then -1 else 1
-
-							# grab the correct element based on the class of elements being changed
-							element = if velocityClass == ".red_velocity" then module.elements.a else if velocityClass == ".blue_velocity" then module.elements.b else module.elements.frame
-
-							# end test
-							value = parseInt value
-
-							element.setVelocity value * direction
-
-				do setVisible = () ->
-
-					# update the visible changes!
-					elements.each () ->
-
-						$(this).attr "value", value
-						span = $(this).parent().children(".label").children("span:nth-child(2)")
-						span.text value
-					
+		
 
 
 
-		listen velocityClass for velocityClass in [".blue_velocity", ".red_velocity", ".frame_velocity"]
+
+
+
+
+
+
+	visibleUpdate = () ->
+
+		# this function will go through each element and update the visible segments of the data on screen
+
+
 
 
 

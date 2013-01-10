@@ -47,10 +47,10 @@ module.exports = {
 
 			frameVelocity:
 				class: "frame_velocity"
-				editable: false
+				editable: true
 				type: "slider"
 				min: 0
-				value: 1
+				value: 0
 				max: 10
 				name: "Frame Velocity"
 				label: "m/s"
@@ -73,7 +73,7 @@ module.exports = {
 
 			blueVelocity: 
 				class: "blue_velocity"
-				editable: true
+				editable: false
 				type: "slider"
 				min: 0
 				value: 3
@@ -83,7 +83,7 @@ module.exports = {
 
 			redMass:
 				class: "red_mass"
-				editable: true
+				editable: false
 				type: "slider"
 				min: 1
 				value: 3
@@ -93,7 +93,7 @@ module.exports = {
 
 			blueMass:
 				class: "blue_mass"
-				editable: true
+				editable: false
 				type: "slider"
 				min: 1
 				value: 5
@@ -103,10 +103,10 @@ module.exports = {
 
 			frameVelocity:
 				class: "frame_velocity"
-				editable: true
+				editable: false
 				type: "slider"
 				min: 0
-				value: 1
+				value: 5
 				max: 10
 				name: "Frame Velocity"
 				label: "m/s"
@@ -119,7 +119,7 @@ module.exports = {
 
 			redVelocity:
 				class: "red_velocity"
-				editable: true
+				editable: false
 				type: "slider"
 				min: 0
 				value: 5
@@ -139,7 +139,7 @@ module.exports = {
 
 			redMass:
 				class: "red_mass"
-				editable: true
+				editable: false
 				type: "slider"
 				min: 1
 				value: 3
@@ -149,7 +149,7 @@ module.exports = {
 
 			blueMass:
 				class: "blue_mass"
-				editable: true
+				editable: false
 				type: "slider"
 				min: 1
 				value: 5
@@ -161,7 +161,7 @@ module.exports = {
 				class: "frame_velocity"
 				editable: false
 				type: "slider"
-				min: 0
+				min: 5
 				value: 1
 				max: 10
 				name: "Frame Velocity"

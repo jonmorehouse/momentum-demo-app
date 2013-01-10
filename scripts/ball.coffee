@@ -16,6 +16,7 @@ define ["paper"], (paper) ->
 
 			@config =
 
+				ballSizeChange: false
 				radiusFactor: 6
 				verticalOffset: 150
 				horizontalOffset: 10
@@ -114,7 +115,9 @@ define ["paper"], (paper) ->
 			@config.mass = mass
 			@mass = mass
 			oldRadius = @radius
-			@radius = @mass * @config.radiusFactor
+
+			if @config.ballSizeChange
+				@radius = @mass * @config.radiusFactor
 
 			# initialize the 
 			@attrReset(oldRadius)
