@@ -57,6 +57,8 @@ define ['paper', 'ball', 'frame'], (paper, ball, frame) ->
 				# validate both red and blue balls
 				do leftStatus = () =>
 					
+					# left ball is past the left screen 
+
 					reset = () =>
 
 						leftRunning = false
@@ -136,7 +138,8 @@ define ['paper', 'ball', 'frame'], (paper, ball, frame) ->
 					rm = do right.getMass
 
 					lfv = ((lv * (lm - rm)) + (2 * rm * rv)) / (lm + rm)
-					rfv = ((rv * (rm - lm)) + (2*lm*lv)) / (lm + rm)
+
+					rfv = ((rv * (rm - lm)) + (2* lm * lv)) / (lm + rm)
 
 					left.setTempVelocity lfv
 					right.setTempVelocity rfv

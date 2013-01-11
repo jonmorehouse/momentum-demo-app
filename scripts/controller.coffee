@@ -12,7 +12,6 @@ define ["base_module", "animation"], (baseModule, animation) ->
 
 	parentElements = #base elemnets!
 
-
 		"lab" : $('#container > div:nth-child(1) > .content') 
 		"red" : $('#container > div:nth-child(2) > .content') 
 		"blue" : $('#container > div:nth-child(3) > .content')
@@ -39,7 +38,6 @@ define ["base_module", "animation"], (baseModule, animation) ->
 				left: true
 
 			b :
-
 				velocity: -3
 				mass: 5
 				color: "blue"
@@ -172,7 +170,6 @@ define ["base_module", "animation"], (baseModule, animation) ->
 		modules.red.elements.b.setVelocity value
 		modules.blue.elements.frame.setVelocity value
 		modules.custom.elements.b.setVelocity value
-
 
 	frameVelocityChanges = (value) =>
 

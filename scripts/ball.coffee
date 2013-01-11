@@ -16,7 +16,7 @@ define ["paper"], (paper) ->
 			@input = container.find "input"
 
 			@config =
-
+				
 				ballSizeChange: false
 				radiusFactor: 6
 				verticalOffset: 150
