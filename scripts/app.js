@@ -24,5 +24,4 @@ requirejs(["jquery", "controller"], function ($, controller) {
 
 	// run the controller after jquery load?
 
-
 });
