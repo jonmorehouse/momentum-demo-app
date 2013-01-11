@@ -54,6 +54,10 @@ define ['paper', 'ball', 'frame'], (paper, ball, frame) ->
 
 				fv = frame.getVelocity()
 
+				# constraints on the elements triggering an end of completion for the animation
+				maxLeft = @paper.view.size.width * 0.05
+				maxRight = @paper.view.size.width * 0.95
+
 				# validate both red and blue balls
 				do leftStatus = () =>
 					
@@ -62,7 +66,6 @@ define ['paper', 'ball', 'frame'], (paper, ball, frame) ->
 					reset = () =>
 
 						leftRunning = false
-						left.positionReset()
 						left.velocityReset()
 
 					move = () =>
@@ -83,10 +86,7 @@ define ['paper', 'ball', 'frame'], (paper, ball, frame) ->
 						if lv == 0 or lm == 0 or (lv + fv) == 0 
 							do reset
 								
-						else if parseInt(left.element.position.x) < parseInt(left.original.x)
-							do reset
-
-						else if parseInt(left.element.position.x) > @paper.view.size.width
+						else if parseInt(left.element.position.x) > maxRight or parseInt(left.element.position.x) < maxLeft
 							do reset
 
 						else
@@ -99,7 +99,6 @@ define ['paper', 'ball', 'frame'], (paper, ball, frame) ->
 					reset = () =>
 
 						rightRunning = false
-						right.positionReset()
 						right.velocityReset()
 
 					move = () =>
@@ -120,10 +119,7 @@ define ['paper', 'ball', 'frame'], (paper, ball, frame) ->
 						if rv == 0 or rm == 0 or rv + fv == 0
 							do reset
 
-						else if parseInt(right.element.position.x) > parseInt(right.original.x)	
-							do reset
-
-						else if right.element.position.x < 0
+						else if right.element.position.x < maxLeft or right.element.position.x > maxRight
 							do reset
 
 						else
@@ -171,7 +167,8 @@ define ['paper', 'ball', 'frame'], (paper, ball, frame) ->
 					return setTimeout run, 10
 
 				else 	
-
+					right.positionReset()
+					left.positionReset()
 					@paper.view.draw()
 					@playing = false
 			# END RUN METHOD

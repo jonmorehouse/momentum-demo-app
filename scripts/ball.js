@@ -33,7 +33,7 @@
           ballSizeChange: false,
           radiusFactor: 6,
           verticalOffset: 150,
-          horizontalOffset: 10,
+          horizontalOffset: this.paper.view.size.width * 0.25,
           left: true,
           maxHeight: this.paper.view.size.height,
           maxWidth: this.paper.view.size.width
@@ -89,11 +89,12 @@
         return this.velocity = velocity;
       };
 
-      Ball.prototype.setVelocity = function(velocity) {
+      Ball.prototype.setVelocity = function(velocity, frameVelocity) {
         var label;
         this.config.velocity = parseInt(velocity);
         this.velocity = this.config.velocity;
         label = velocity < 0 ? -1 * velocity : velocity;
+        label -= frameVelocity;
         this.tag.text(label);
         return this.input.attr("value", label);
       };

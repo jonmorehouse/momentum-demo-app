@@ -44,7 +44,7 @@ define ["base_module", "animation"], (baseModule, animation) ->
 				left: false
 
 			frame: 
-				velocity: 1
+				velocity: 0
 
 		red: #frame of reference of the red ball
 			name : "red"
@@ -156,35 +156,32 @@ define ["base_module", "animation"], (baseModule, animation) ->
 	redVelocityChanges = (value) =>
 
 		# this is responsible for changing the red velocity related elements across the elements
-		modules.lab.elements.a.setVelocity value
+		modules.lab.elements.a.setVelocity value, modules.lab.elements.frame.getVelocity()
 		modules.red.elements.frame.setVelocity value
-		modules.blue.elements.a.setVelocity value
-		modules.custom.elements.a.setVelocity value
+		modules.blue.elements.a.setVelocity value, modules.blue.elements.frame.getVelocity()
+		modules.custom.elements.a.setVelocity value, modules.custom.elements.frame.getVelocity()
 
 	blueVelocityChanges = (value) =>
 
 		value = -1 * parseInt value 
 
 		# assume that the number has been regulated to a negative already!
-		modules.lab.elements.b.setVelocity value
-		modules.red.elements.b.setVelocity value
+		modules.lab.elements.b.setVelocity value, modules.lab.elements.frame.getVelocity()
+		modules.red.elements.b.setVelocity value, modules.red.elements.frame.getVelocity()
 		modules.blue.elements.frame.setVelocity value
-		modules.custom.elements.b.setVelocity value
-
-	frameVelocityChanges = (value) =>
-
-		modules.lab.elements.frame.setVelocity value
-		modules.red.elements.frame.setVelocity value
-		modules.blue.elements.frame.setVelocity -1*value
-		modules.custom.elements.frame.setVelocity value
+		modules.custom.elements.b.setVelocity value, modules.custom.elements.frame.getVelocity()
 
 	do listeners = =>
 
 		containers = parent.children(":nth-child(1), :nth-child(4)")
 
-		containers.find(".frame_velocity > input").change ->
 
-			frameVelocityChanges $(this).attr "value"
+		parentElements.custom.find("input").click ->
+
+			# subtract ten from value for offset hack because the input can not be negative
+			value = parseInt $(this).attr("value") - 10
+
+			modules.custom.elements.frame.setVelocity value
 
 		containers.find(".red_velocity > input").change ->
 

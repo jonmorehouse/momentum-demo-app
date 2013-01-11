@@ -23,9 +23,10 @@ define ["paper"], (paper) ->
 
 			@config.velocity = parseInt velocity
 			@tag.html @config.velocity
-			@input.attr "value", @config.velocity
 
+			label = if @config.velocity < 0 then @config.velocity * -1 else @config.velocity
 
+			@input.attr "value", label + 10
 
 
 

@@ -37,17 +37,18 @@
         rightRunning = true;
         leftRunning = true;
         run = function() {
-          var collisionResponse, collisionStatus, fv, leftStatus, lm, lv, rightStatus, rm, rv;
+          var collisionResponse, collisionStatus, fv, leftStatus, lm, lv, maxLeft, maxRight, rightStatus, rm, rv;
           lv = left.getVelocity();
           lm = left.getMass();
           rv = right.getVelocity();
           rm = right.getMass();
           fv = frame.getVelocity();
+          maxLeft = _this.paper.view.size.width * 0.05;
+          maxRight = _this.paper.view.size.width * 0.95;
           (leftStatus = function() {
             var move, reset;
             reset = function() {
               leftRunning = false;
-              left.positionReset();
               return left.velocityReset();
             };
             move = function() {
@@ -64,9 +65,7 @@
             if (leftRunning) {
               if (lv === 0 || lm === 0 || (lv + fv) === 0) {
                 reset();
-              } else if (parseInt(left.element.position.x) < parseInt(left.original.x)) {
-                reset();
-              } else if (parseInt(left.element.position.x) > _this.paper.view.size.width) {
+              } else if (parseInt(left.element.position.x) > maxRight || parseInt(left.element.position.x) < maxLeft) {
                 reset();
               } else {
                 move();
@@ -78,7 +77,6 @@
             var move, reset;
             reset = function() {
               rightRunning = false;
-              right.positionReset();
               return right.velocityReset();
             };
             move = function() {
@@ -95,9 +93,7 @@
             if (rightRunning) {
               if (rv === 0 || rm === 0 || rv + fv === 0) {
                 reset();
-              } else if (parseInt(right.element.position.x) > parseInt(right.original.x)) {
-                reset();
-              } else if (right.element.position.x < 0) {
+              } else if (right.element.position.x < maxLeft || right.element.position.x > maxRight) {
                 reset();
               } else {
                 move();
@@ -130,6 +126,8 @@
           if (leftRunning || rightRunning) {
             return setTimeout(run, 10);
           } else {
+            right.positionReset();
+            left.positionReset();
             _this.paper.view.draw();
             return _this.playing = false;
           }

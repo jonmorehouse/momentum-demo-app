@@ -122,7 +122,7 @@ module.exports = {
 				editable: false
 				type: "slider"
 				min: 0
-				value: 5
+				value: 2
 				max: 10
 				name: "Red Velocity"
 				label : "m/s"
@@ -218,8 +218,9 @@ module.exports = {
 				editable: true
 				type: "slider"
 				min: 0
-				value: 2
-				max: 10
+				value: 10
+				valueLabel: 0
+				max: 20
 				name: "Frame Velocity"
 				label: "m/s"
 

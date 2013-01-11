@@ -21,10 +21,20 @@
 						div(class= control.class)
 							.label
 								span= control.name
-								if control.editable
+
+								if control.editable && control.valueLabel !== undefined 
+									span= control.valueLabel
+
+								else if control.editable 
 									span= control.value
+
+								else if control.valueLabel
+									span(class='static')= control.valueLabel
+
 								else
-									span(class='static')=control.value
+									span(class='static')= control.value
+
+
 								span= control.label
 							//- need to have the controller inside of the actual class so we know whats up!
 							//- controller goes here

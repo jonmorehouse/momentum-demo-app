@@ -28,9 +28,11 @@
       };
 
       Frame.prototype.setVelocity = function(velocity) {
+        var label;
         this.config.velocity = parseInt(velocity);
         this.tag.html(this.config.velocity);
-        return this.input.attr("value", this.config.velocity);
+        label = this.config.velocity < 0 ? this.config.velocity * -1 : this.config.velocity;
+        return this.input.attr("value", label + 10);
       };
 
       return Frame;

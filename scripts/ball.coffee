@@ -20,7 +20,7 @@ define ["paper"], (paper) ->
 				ballSizeChange: false
 				radiusFactor: 6
 				verticalOffset: 150
-				horizontalOffset: 10
+				horizontalOffset: @paper.view.size.width * 0.25
 				left : true
 				maxHeight : @paper.view.size.height
 				maxWidth : @paper.view.size.width
@@ -105,12 +105,14 @@ define ["paper"], (paper) ->
 
 			@velocity = velocity
 
-		setVelocity : (velocity) =>
+		setVelocity : (velocity, frameVelocity) =>
 
 			@config.velocity = parseInt velocity
 			@velocity = @config.velocity
 
+			# set up the velocities so that they are displayed properly
 			label = if velocity < 0 then -1 * velocity else velocity
+			label -= frameVelocity
 			@tag.text label
 			@input.attr "value", label
 

@@ -2,7 +2,7 @@
 (function() {
 
   define(["base_module", "animation"], function(baseModule, animation) {
-    var blueVelocityChanges, canvasElements, elementData, frameVelocityChanges, listeners, massListener, modules, parent, parentElements, playListener, redVelocityChanges,
+    var blueVelocityChanges, canvasElements, elementData, listeners, massListener, modules, parent, parentElements, playListener, redVelocityChanges,
       _this = this;
     parent = $('#container');
     parentElements = {
@@ -33,7 +33,7 @@
           left: false
         },
         frame: {
-          velocity: 1
+          velocity: 0
         }
       },
       red: {
@@ -147,29 +147,25 @@
       return _results;
     })();
     redVelocityChanges = function(value) {
-      modules.lab.elements.a.setVelocity(value);
+      modules.lab.elements.a.setVelocity(value, modules.lab.elements.frame.getVelocity());
       modules.red.elements.frame.setVelocity(value);
-      modules.blue.elements.a.setVelocity(value);
-      return modules.custom.elements.a.setVelocity(value);
+      modules.blue.elements.a.setVelocity(value, modules.blue.elements.frame.getVelocity());
+      return modules.custom.elements.a.setVelocity(value, modules.custom.elements.frame.getVelocity());
     };
     blueVelocityChanges = function(value) {
       value = -1 * parseInt(value);
-      modules.lab.elements.b.setVelocity(value);
-      modules.red.elements.b.setVelocity(value);
+      modules.lab.elements.b.setVelocity(value, modules.lab.elements.frame.getVelocity());
+      modules.red.elements.b.setVelocity(value, modules.red.elements.frame.getVelocity());
       modules.blue.elements.frame.setVelocity(value);
-      return modules.custom.elements.b.setVelocity(value);
-    };
-    frameVelocityChanges = function(value) {
-      modules.lab.elements.frame.setVelocity(value);
-      modules.red.elements.frame.setVelocity(value);
-      modules.blue.elements.frame.setVelocity(-1 * value);
-      return modules.custom.elements.frame.setVelocity(value);
+      return modules.custom.elements.b.setVelocity(value, modules.custom.elements.frame.getVelocity());
     };
     return (listeners = function() {
       var containers;
       containers = parent.children(":nth-child(1), :nth-child(4)");
-      containers.find(".frame_velocity > input").change(function() {
-        return frameVelocityChanges($(this).attr("value"));
+      parentElements.custom.find("input").click(function() {
+        var value;
+        value = parseInt($(this).attr("value") - 10);
+        return modules.custom.elements.frame.setVelocity(value);
       });
       containers.find(".red_velocity > input").change(function() {
         return redVelocityChanges($(this).attr("value"));
